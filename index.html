@@ -193,9 +193,17 @@ header {
   transform: scale(1.02);
 }
 
-/* SECTION TITLE */
+/* KATEGORI FILTER & SECTION HEADER */
+.section-header {
+  padding: 50px 8% 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .title {
-  padding: 50px 8% 24px;
   font-size: 26px;
   font-weight: 700;
   color: var(--dark);
@@ -204,15 +212,85 @@ header {
   gap: 10px;
 }
 
-/* PRODUCTS GRID */
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+.category-filter {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: var(--text);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* CAROUSEL / SLIDER KONTANER */
+.products-wrapper {
+  position: relative;
   padding: 0 8% 60px;
 }
 
+.products-slider {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 4px 20px 4px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.products-slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* TOMBOL NAVIGASI GESER (PALANG / PANAH) */
+.nav-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  color: var(--dark);
+  font-size: 16px;
+  transition: var(--transition);
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.nav-btn.prev { left: 5%; }
+.nav-btn.next { right: 5%; }
+
+/* PRODUCT CARD */
 .card {
+  min-width: 260px;
+  max-width: 280px;
+  flex: 0 0 auto;
   background: var(--card-bg);
   border-radius: var(--radius);
   overflow: hidden;
@@ -271,16 +349,20 @@ header {
 .badge.bestseller { background: #f59e0b; }
 .badge.new { background: #10b981; }
 .badge.hot { background: #ec4899; }
+.badge.limited { background: linear-gradient(135deg, #8b5cf6, #d946ef); }
 
 .info h3 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--dark);
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--primary);
   margin: 8px 0;
@@ -325,7 +407,7 @@ header {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* FEATURES SECTION (PENAMBAHAN BARU agar tidak sepi) */
+/* FEATURES SECTION */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -366,7 +448,7 @@ header {
   color: var(--text-light);
 }
 
-/* FOOTER (LENGKAP & MODERN) */
+/* FOOTER */
 footer {
   background: var(--dark);
   color: white;
@@ -502,6 +584,8 @@ footer {
   .search {
     width: 50%;
   }
+  .nav-btn.prev { left: 2%; }
+  .nav-btn.next { right: 2%; }
 }
 
 @media (max-width: 768px) {
@@ -519,12 +603,12 @@ footer {
   .hero h1 {
     font-size: 32px;
   }
-  .products, .features, footer {
+  .products-wrapper, .features, footer {
     padding-left: 5%;
     padding-right: 5%;
   }
-  .title {
-    padding: 40px 5% 20px;
+  .section-header {
+    padding: 40px 5% 16px;
   }
 }
 </style>
@@ -561,93 +645,197 @@ footer {
   </div>
 </section>
 
-<h2 class="title"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Produk Populer</h2>
-
-<div class="products">
-
-  <div class="card">
-    <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
-    </div>
-    <div class="info">
-      <div class="badge">-30%</div>
-      <h3>Laptop Gaming</h3>
-      <div class="price">Rp12.999.000</div>
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <span>(256)</span>
-      </div>
-      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-    </div>
+<!-- HEADER SECTION DENGAN FILTER KATEGORI -->
+<div class="section-header">
+  <h2 class="title"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Produk Populer</h2>
+  <div class="category-filter">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">Semua</button>
+    <button class="filter-btn" onclick="filterCategory('limited', this)">Limited Edition 👑</button>
+    <button class="filter-btn" onclick="filterCategory('elektronik', this)">Elektronik</button>
+    <button class="filter-btn" onclick="filterCategory('aksesori', this)">Aksesori</button>
   </div>
-
-  <div class="card">
-    <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
-    </div>
-    <div class="info">
-      <div class="badge bestseller">Best Seller</div>
-      <h3>iPhone</h3>
-      <div class="price">Rp16.999.000</div>
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <span>(520)</span>
-      </div>
-      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headset">
-    </div>
-    <div class="info">
-      <div class="badge new">Baru</div>
-      <h3>Headset</h3>
-      <div class="price">Rp799.000</div>
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-        <span>(180)</span>
-      </div>
-      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
-    </div>
-    <div class="info">
-      <div class="badge hot">Hot</div>
-      <h3>Smartwatch</h3>
-      <div class="price">Rp1.499.000</div>
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <span>(310)</span>
-      </div>
-      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-    </div>
-  </div>
-
 </div>
 
-<!-- BARU: SECTION KEUNGGULAN (Supaya tidak sepi) -->
+<!-- CONTAINER SLIDER DENGAN TOMBOL NAVIGASI GESER -->
+<div class="products-wrapper">
+  <button class="nav-btn prev" onclick="scrollProducts(-300)"><i class="fa-solid fa-chevron-left"></i></button>
+
+  <div class="products-slider" id="productSlider">
+
+    <!-- Barang Limited Edition 1 -->
+    <div class="card" data-category="limited">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80" alt="Apple Watch Ultra Gold">
+      </div>
+      <div class="info">
+        <div class="badge limited">Limited Edition</div>
+        <h3>Watch Ultra Gold Edition</h3>
+        <div class="price">Rp24.999.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(88)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang 1 -->
+    <div class="card" data-category="elektronik">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
+      </div>
+      <div class="info">
+        <div class="badge">-30%</div>
+        <h3>Laptop Gaming Pro</h3>
+        <div class="price">Rp12.999.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(256)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang 2 -->
+    <div class="card" data-category="elektronik">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
+      </div>
+      <div class="info">
+        <div class="badge bestseller">Best Seller</div>
+        <h3>iPhone 15 Pro</h3>
+        <div class="price">Rp16.999.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(520)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang Limited Edition 2 -->
+    <div class="card" data-category="limited">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphone Cyberpunk">
+      </div>
+      <div class="info">
+        <div class="badge limited">Limited Edition</div>
+        <h3>Headphone Cyber Edition</h3>
+        <div class="price">Rp3.499.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(42)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang 3 -->
+    <div class="card" data-category="aksesori">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Earbuds Wireless">
+      </div>
+      <div class="info">
+        <div class="badge new">Baru</div>
+        <h3>TWS Wireless Earbuds</h3>
+        <div class="price">Rp799.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <span>(180)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang 4 -->
+    <div class="card" data-category="aksesori">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
+      </div>
+      <div class="info">
+        <div class="badge hot">Hot</div>
+        <h3>Smartwatch Series X</h3>
+        <div class="price">Rp1.499.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(310)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang Baru Tambahan 5 -->
+    <div class="card" data-category="elektronik">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=80" alt="Monitor Curved">
+      </div>
+      <div class="info">
+        <div class="badge new">Baru</div>
+        <h3>Monitor Curved 144Hz</h3>
+        <div class="price">Rp3.899.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <span>(95)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <!-- Barang Baru Tambahan 6 -->
+    <div class="card" data-category="aksesori">
+      <div class="card-img-container">
+        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80" alt="Keyboard Mechanical">
+      </div>
+      <div class="info">
+        <div class="badge bestseller">Best Seller</div>
+        <h3>Keyboard Mechanical RGB</h3>
+        <div class="price">Rp850.000</div>
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+          <span>(412)</span>
+        </div>
+        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="nav-btn next" onclick="scrollProducts(300)"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+
+<!-- SECTION KEUNGGULAN -->
 <section class="features">
   <div class="feature-box">
     <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
@@ -682,14 +870,14 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER LENGKAP -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-container">
     <div class="footer-col about">
       <div class="logo" style="color: white;">
         <i class="fa-solid fa-gem" style="color: var(--primary);"></i> Hilstore
       </div>
-      <p>Destinasi belanja online terpercaya untuk kebutuhan gadget, elektronik, dan fashion Anda dengan promo terbaik setiap hari.</p>
+      <p>Destinasi belanja online terpercaya untuk kebutuhan gadget, elektronik, dan produk Limited Edition pilihan Anda.</p>
       <div class="social-links">
         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -701,10 +889,10 @@ footer {
     <div class="footer-col">
       <h3>Kategori</h3>
       <ul>
+        <li><a href="#">Limited Edition</a></li>
         <li><a href="#">Elektronik & Gadget</a></li>
-        <li><a href="#">Fashion & Aksesori</a></li>
-        <li><a href="#">Gaya Hidup</a></li>
-        <li><a href="#">Komputer & Laptop</a></li>
+        <li><a href="#">Komputer & Periferal</a></li>
+        <li><a href="#">Aksesori Audio</a></li>
       </ul>
     </div>
 
@@ -732,6 +920,36 @@ footer {
     <p>&copy; 2026 Hilstore. Belanja Aman • Cepat • Terpercaya.</p>
   </div>
 </footer>
+
+<!-- JAVASCRIPT UNTUK GESER PRODUK & FILTER KATEGORI -->
+<script>
+  // Fungsi untuk menggeser produk ke kiri atau kanan
+  function scrollProducts(val) {
+    const slider = document.getElementById('productSlider');
+    slider.scrollBy({
+      left: val,
+      behavior: 'smooth'
+    });
+  }
+
+  // Fungsi untuk filter produk berdasarkan kategori
+  function filterCategory(category, element) {
+    // Ubah status tombol aktif
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+
+    // Tampilkan / sembunyikan kartu produk
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
