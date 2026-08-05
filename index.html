@@ -1,380 +1,516 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina - Modern E-Commerce</title>
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* --- RESET & VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BinStore - Belanja Mudah & Terpercaya</title>
 
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
+<!-- Google Fonts & FontAwesome Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-        }
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --dark: #0f172a;
+  --text: #334155;
+  --text-light: #64748b;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 30px -10px rgba(37, 99, 235, 0.15);
+  --radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-        /* --- NAVBAR --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 8%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-        }
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 8%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-        .logo span {
-            color: var(--accent-color);
-        }
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.5px;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
+.search {
+  display: flex;
+  width: 42%;
+  position: relative;
+}
 
-        .nav-links a {
-            font-weight: 500;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
+.search input {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 50px 0 0 50px;
+  outline: none;
+  font-size: 14px;
+  background: #f1f5f9;
+  transition: var(--transition);
+}
 
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
+.search input:focus {
+  background: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
 
-        .nav-icons {
-            display: flex;
-            gap: 1.2rem;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
+.search button {
+  padding: 12px 24px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: var(--transition);
+}
 
-        .cart-icon {
-            position: relative;
-        }
+.search button:hover {
+  background: var(--primary-hover);
+}
 
-        .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ef4444;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 50%;
-        }
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
 
-        /* --- HERO SECTION --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 4rem 8%;
-            min-height: 70vh;
-            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
-            border-radius: 0 0 30px 30px;
-        }
+.menu a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 15px;
+  transition: var(--transition);
+}
 
-        .hero-text {
-            max-width: 50%;
-        }
+.menu a:hover {
+  color: var(--primary);
+}
 
-        .hero-text h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
+/* HERO SECTION */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 8%;
+  margin: 24px 8% 0;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  color: white;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
 
-        .hero-text p {
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
+.hero-content {
+  max-width: 50%;
+  z-index: 2;
+}
 
-        .btn-primary {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
+.hero h1 {
+  font-size: 46px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3);
-        }
+.hero p {
+  font-size: 18px;
+  margin-bottom: 28px;
+  opacity: 0.9;
+  font-weight: 300;
+}
 
-        .hero-image img {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
+.hero button {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  background: white;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: var(--transition);
+}
 
-        /* --- PRODUCTS SECTION --- */
-        .products-section {
-            padding: 5rem 8%;
-        }
+.hero button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  background: #f8fafc;
+}
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+.hero-img-wrapper {
+  position: relative;
+  z-index: 2;
+}
 
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
+.hero img {
+  width: 420px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  transition: var(--transition);
+}
 
-        .section-title p {
-            color: var(--text-muted);
-        }
+.hero img:hover {
+  transform: scale(1.02);
+}
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
+/* SECTION TITLE */
+.title {
+  padding: 50px 8% 24px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: var(--transition);
-            position: relative;
-        }
+/* PRODUCTS GRID */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 0 8% 80px;
+}
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        }
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #f1f5f9;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
 
-        .product-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-color: #e2e8f0;
+}
 
-        .product-category {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+.card-img-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f8fafc;
+}
 
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0.3rem 0;
-        }
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
 
-        .product-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
+.card:hover img {
+  transform: scale(1.05);
+}
 
-        .product-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--accent-color);
-        }
+.info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-        .btn-add-cart {
-            background-color: #f1f5f9;
-            color: var(--primary-color);
-            border: none;
-            padding: 0.5rem 0.8rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+.badge {
+  align-self: flex-start;
+  background: #ef4444;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
 
-        .btn-add-cart:hover {
-            background-color: var(--accent-color);
-            color: white;
-        }
+.badge.bestseller { background: #f59e0b; }
+.badge.new { background: #10b981; }
+.badge.hot { background: #ec4899; }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 8%;
-            margin-top: 4rem;
-        }
+.info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
 
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem 5%;
-            }
-            .nav-links {
-                display: none;
-            }
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 3rem 5%;
-            }
-            .hero-text {
-                max-width: 100%;
-                margin-bottom: 2rem;
-            }
-            .hero-text h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
+.price {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 8px 0;
+}
+
+.rating {
+  color: #fbbf24;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating span {
+  color: var(--text-light);
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+.buy {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.buy:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  color: white;
+  padding: 50px 8%;
+  text-align: center;
+}
+
+footer h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+}
+
+footer p {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 6%;
+    gap: 30px;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .hero img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+  .search {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 5%;
+  }
+  .search {
+    width: 100%;
+  }
+  .menu {
+    gap: 16px;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+  .products {
+    padding: 0 5% 60px;
+  }
+  .title {
+    padding: 40px 5% 20px;
+  }
+}
+</style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="logo">Lumina<span>.</span></div>
-        <ul class="nav-links">
-            <li><a href="#">Beranda</a></li>
-            <li><a href="#">Kategori</a></li>
-            <li><a href="#">Produk</a></li>
-            <li><a href="#">Promo</a></li>
-        </ul>
-        <div class="nav-icons">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <div class="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-badge" id="cart-count">0</span>
-            </div>
-            <i class="fa-regular fa-user"></i>
-        </div>
-    </nav>
+<header>
+  <div class="logo">
+    <i class="fa-solid fa-gem"></i> BinStore
+  </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Gaya Minimalis untuk Hidup Modern</h1>
-            <p>Temukan koleksi eksklusif pakaian dan aksesori berkualitas tinggi dengan harga bersahabat.</p>
-            <a href="#products" class="btn-primary">Jelajahi Sekarang</a>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80" alt="Fashion Banner">
-        </div>
-    </section>
+  <div class="search">
+    <input type="text" placeholder="Cari produk impianmu...">
+    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
 
-    <!-- PRODUCTS SECTION -->
-    <section class="products-section" id="products">
-        <div class="section-title">
-            <h2>Produk Populer</h2>
-            <p>Pilihan terbaik favorit pelanggan minggu ini</p>
-        </div>
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#">Kategori</a>
+    <a href="#">Promo</a>
+    <a href="#">Keranjang</a>
+  </div>
+</header>
 
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img class="product-image" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Kaos Polos Minimalis">
-                <div class="product-category">Pakaian</div>
-                <div class="product-title">Kaos Minimalis Soft-Cotton</div>
-                <div class="product-bottom">
-                    <div class="product-price">Rp 149.000</div>
-                    <button class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </div>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Belanja Lebih Mudah & Hemat</h1>
+    <p>Nikmati promo spesial diskon hingga 70% untuk produk-produk pilihan terbaik hari ini.</p>
+    <button>Belanja Sekarang</button>
+  </div>
 
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img class="product-image" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80" alt="Sepatu Sneakers">
-                <div class="product-category">Sepatu</div>
-                <div class="product-title">Sneakers Air Modern</div>
-                <div class="product-bottom">
-                    <div class="product-price">Rp 899.000</div>
-                    <button class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </div>
+  <div class="hero-img-wrapper">
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80" alt="Belanja Promo">
+  </div>
+</section>
 
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img class="product-image" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Jam Tangan">
-                <div class="product-category">Aksesori</div>
-                <div class="product-title">Jam Tangan Smart Classic</div>
-                <div class="product-bottom">
-                    <div class="product-price">Rp 1.250.000</div>
-                    <button class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </div>
+<h2 class="title"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Produk Populer</h2>
 
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img class="product-image" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="Tas Kulit">
-                <div class="product-category">Aksesori</div>
-                <div class="product-title">Tas Bahu Elegant Leather</div>
-                <div class="product-bottom">
-                    <div class="product-price">Rp 450.000</div>
-                    <button class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="products">
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Lumina Store. All rights reserved.</p>
-    </footer>
+  <div class="card">
+    <div class="card-img-container">
+      <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
+    </div>
+    <div class="info">
+      <div class="badge">-30%</div>
+      <h3>Laptop Gaming</h3>
+      <div class="price">Rp12.999.000</div>
+      <div class="rating">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <span>(256)</span>
+      </div>
+      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+    </div>
+  </div>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        let cartCount = 0;
-        
-        function addToCart() {
-            cartCount++;
-            document.getElementById('cart-count').innerText = cartCount;
-            alert("Produk berhasil ditambahkan ke keranjang!");
-        }
-    </script>
+  <div class="card">
+    <div class="card-img-container">
+      <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
+    </div>
+    <div class="info">
+      <div class="badge bestseller">Best Seller</div>
+      <h3>iPhone</h3>
+      <div class="price">Rp16.999.000</div>
+      <div class="rating">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <span>(520)</span>
+      </div>
+      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img-container">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headset">
+    </div>
+    <div class="info">
+      <div class="badge new">Baru</div>
+      <h3>Headset</h3>
+      <div class="price">Rp799.000</div>
+      <div class="rating">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <span>(180)</span>
+      </div>
+      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img-container">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
+    </div>
+    <div class="info">
+      <div class="badge hot">Hot</div>
+      <h3>Smartwatch</h3>
+      <div class="price">Rp1.499.000</div>
+      <div class="rating">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <span>(310)</span>
+      </div>
+      <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <h2>BinStore</h2>
+  <p>Belanja Aman • Cepat • Terpercaya</p>
+</footer>
+
 </body>
 </html>
