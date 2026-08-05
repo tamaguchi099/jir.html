@@ -14,241 +14,162 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#f3f6fb;
+background:#f4f7fb;
 }
 
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 8%;
-background:#ffffff;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-position:sticky;
-top:0;
+padding:15px 8%;
+background:#2563eb;
+color:white;
 }
 
 .logo{
 font-size:28px;
 font-weight:bold;
-color:#2563eb;
-}
-
-.search{
-display:flex;
-width:40%;
-}
-
-.search input{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:30px 0 0 30px;
-outline:none;
-}
-
-.search button{
-padding:12px 18px;
-border:none;
-background:#2563eb;
-color:white;
-border-radius:0 30px 30px 0;
-cursor:pointer;
 }
 
 .menu a{
-margin-left:20px;
+color:white;
 text-decoration:none;
-color:#333;
-font-weight:bold;
+margin-left:20px;
 }
 
 .hero{
+height:350px;
+background:url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200") center/cover;
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
-padding:70px 8%;
-background:linear-gradient(135deg,#2563eb,#4f46e5);
 color:white;
+text-align:center;
 }
 
 .hero h1{
-font-size:50px;
-margin-bottom:15px;
-}
-
-.hero p{
-margin-bottom:20px;
-}
-
-.hero button{
-padding:14px 30px;
-border:none;
-border-radius:30px;
-background:white;
-color:#2563eb;
-font-weight:bold;
-cursor:pointer;
-}
-
-.hero img{
-width:420px;
-border-radius:20px;
-box-shadow:0 20px 40px rgba(0,0,0,.3);
+font-size:45px;
+background:rgba(0,0,0,.4);
+padding:15px 25px;
+border-radius:10px;
 }
 
 .title{
-padding:40px 8% 20px;
-font-size:30px;
+text-align:center;
+margin:40px 0 20px;
 }
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:25px;
-padding:0 8% 60px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:20px 8%;
 }
 
 .card{
 background:white;
-border-radius:18px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
 transition:.3s;
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-8px);
 }
 
 .card img{
 width:100%;
-height:220px;
+height:200px;
 object-fit:cover;
 }
 
 .info{
-padding:18px;
-}
-
-.badge{
-display:inline-block;
-background:red;
-color:white;
-padding:4px 10px;
-border-radius:20px;
-font-size:12px;
-margin-bottom:10px;
+padding:15px;
+text-align:center;
 }
 
 .price{
-font-size:24px;
+font-size:22px;
 font-weight:bold;
 color:#2563eb;
 margin:10px 0;
 }
 
-.rating{
-color:orange;
-margin-bottom:15px;
-}
-
-.buy{
+button{
 width:100%;
-padding:12px;
+padding:10px;
 background:#2563eb;
 color:white;
 border:none;
-border-radius:10px;
+border-radius:8px;
 cursor:pointer;
 }
 
 footer{
+margin-top:40px;
+padding:20px;
 background:#111827;
 color:white;
-padding:40px;
 text-align:center;
 }
 </style>
-
 </head>
+
 <body>
 
 <header>
-
 <div class="logo">💎 GemStore</div>
-
-<div class="search">
-<input type="text" placeholder="Cari produk...">
-<button>🔍</button>
-</div>
 
 <div class="menu">
 <a href="#">Home</a>
-<a href="#">Kategori</a>
+<a href="#">Produk</a>
 <a href="#">Promo</a>
-<a href="#">Keranjang</a>
+<a href="#">Kontak</a>
 </div>
-
 </header>
 
 <section class="hero">
-
-<div>
 <h1>Belanja Lebih Mudah</h1>
-<p>Promo hingga 70% untuk produk pilihan.</p>
-<button>Belanja Sekarang</button>
-</div>
-
-<img src="https://picsum.photos/500/350">
-
 </section>
 
-<h2 class="title">🔥 Produk Populer</h2>
+<h2 class="title">Produk Populer</h2>
 
 <div class="products">
 
 <div class="card">
-<img src="https://picsum.photos/300/300?1">
+<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600">
 <div class="info">
-<div class="badge">-30%</div>
-<h3>Laptop Gaming</h3>
-<div class="price">Rp12.999.000</div>
-<div class="rating">⭐⭐⭐⭐⭐ (256)</div>
-<button class="buy">Tambah ke Keranjang</button>
+<h3>Laptop</h3>
+<p class="price">Rp12.999.000</p>
+<button>Beli</button>
 </div>
 </div>
 
 <div class="card">
-<img src="https://picsum.photos/300/300?2">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600">
 <div class="info">
-<div class="badge">Best Seller</div>
 <h3>iPhone</h3>
-<div class="price">Rp16.999.000</div>
-<div class="rating">⭐⭐⭐⭐⭐ (520)</div>
-<button class="buy">Tambah ke Keranjang</button>
+<p class="price">Rp16.999.000</p>
+<button>Beli</button>
 </div>
 </div>
 
 <div class="card">
-<img src="https://picsum.photos/300/300?3">
+<img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600">
 <div class="info">
-<div class="badge">Baru</div>
 <h3>Headset</h3>
-<div class="price">Rp799.000</div>
-<div class="rating">⭐⭐⭐⭐ (180)</div>
-<button class="buy">Tambah ke Keranjang</button>
+<p class="price">Rp799.000</p>
+<button>Beli</button>
 </div>
 </div>
 
 <div class="card">
-<img src="https://picsum.photos/300/300?4">
+<img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600">
 <div class="info">
-<div class="badge">Hot</div>
 <h3>Smartwatch</h3>
-<div class="price">Rp1.499.000</div>
-<div class="rating">⭐⭐⭐⭐⭐ (310)</div>
-<button class="buy">Tambah ke Keranjang</button>
+<p class="price">Rp1.499.000</p>
+<button>Beli</button>
 </div>
 </div>
 
