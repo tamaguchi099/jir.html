@@ -246,9 +246,9 @@ header {
   display: flex;
   gap: 24px;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 4px 20px 4px;
+  padding: 20px 4px 30px 4px;
   scrollbar-width: none; /* Firefox */
+  scroll-snap-type: x mandatory;
 }
 
 .products-slider::-webkit-scrollbar {
@@ -286,7 +286,7 @@ header {
 .nav-btn.prev { left: 5%; }
 .nav-btn.next { right: 5%; }
 
-/* PRODUCT CARD */
+/* PRODUCT CARD & ANIMASI BURAM */
 .card {
   min-width: 260px;
   max-width: 280px;
@@ -296,13 +296,30 @@ header {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid #f1f5f9;
-  transition: var(--transition);
   display: flex;
   flex-direction: column;
+  scroll-snap-align: start;
+
+  /* Transisi Halus Efek Blur & Opacity saat keluar/masuk layar */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.3s ease;
+
+  /* Status Awal Saat Diluar Layar Pandang (Buram) */
+  opacity: 0.35;
+  filter: blur(5px) scale(0.95);
+  will-change: transform, filter, opacity;
 }
 
-.card:hover {
-  transform: translateY(-8px);
+/* Status Kartu Aktif (Berada di Dalam Layar Pandang) */
+.card.is-visible {
+  opacity: 1;
+  filter: blur(0px) scale(1);
+}
+
+.card.is-visible:hover {
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-md);
   border-color: #e2e8f0;
 }
@@ -322,7 +339,7 @@ header {
   transition: var(--transition);
 }
 
-.card:hover img {
+.card.is-visible:hover img {
   transform: scale(1.05);
 }
 
@@ -921,33 +938,79 @@ footer {
   </div>
 </footer>
 
-<!-- JAVASCRIPT UNTUK GESER PRODUK & FILTER KATEGORI -->
+<!-- JAVASCRIPT UNTUK ANIMASI GESER HALUS & EFEK BURAM -->
 <script>
-  // Fungsi untuk menggeser produk ke kiri atau kanan
-  function scrollProducts(val) {
-    const slider = document.getElementById('productSlider');
-    slider.scrollBy({
-      left: val,
-      behavior: 'smooth'
-    });
+  const slider = document.getElementById('productSlider');
+  const cards = document.querySelectorAll('.card');
+
+  // 1. Animasi Scroll Kustom (Mulus dengan Easing)
+  let isScrolling = false;
+  function scrollProducts(distance) {
+    if (isScrolling) return;
+    
+    const start = slider.scrollLeft;
+    const startTime = performance.now();
+    const duration = 500; // Durasi pergerakan (milidetik)
+
+    // Formula Easing OutCubic (Mulai cepat, berhenti dengan lembut)
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function animateScroll(currentTime) {
+      isScrolling = true;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+
+      slider.scrollLeft = start + (distance * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      } else {
+        isScrolling = false;
+      }
+    }
+
+    requestAnimationFrame(animateScroll);
   }
 
-  // Fungsi untuk filter produk berdasarkan kategori
+  // 2. Observer untuk Mendeteksi Barang Keluar/Masuk Layar (Memberikan Efek Blur)
+  const observerOptions = {
+    root: slider,
+    threshold: 0.55 // Kartu harus terlihat minimal 55% untuk hilang efek buramnya
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  cards.forEach(card => observer.observe(card));
+
+  // 3. Filter Kategori
   function filterCategory(category, element) {
-    // Ubah status tombol aktif
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     element.classList.add('active');
 
-    // Tampilkan / sembunyikan kartu produk
-    const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
       if (category === 'all' || card.getAttribute('data-category') === category) {
         card.style.display = 'flex';
+        observer.observe(card);
       } else {
         card.style.display = 'none';
+        observer.unobserve(card);
       }
     });
+
+    // Reset posisi slider ke paling awal
+    slider.scrollTo({ left: 0, behavior: 'smooth' });
   }
 </script>
 
