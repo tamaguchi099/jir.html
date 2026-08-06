@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin Interaktif</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #334155;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* --- SIDEBAR --- */
+    aside {
+      width: 250px;
+      background-color: #0f172a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+
+    .brand {
+      padding: 1.5rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #38bdf8;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 1rem 0;
+      flex: 1;
+    }
+
+    .nav-item {
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background-color: #1e293b;
+      color: #38bdf8;
+      border-left: 4px solid #38bdf8;
+    }
+
+    /* --- MAIN AREA --- */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header Topbar */
+    header {
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      background-color: #38bdf8;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* Content Area */
+    .content {
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    /* Cards Layout */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .card h3 {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+
+    .card .value {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    /* Table Component */
+    .table-container {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: #475569;
+    }
+
+    .badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-success { background: #dcfce7; color: #15803d; }
+    .badge-warning { background: #fef9c3; color: #a16207; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      aside { width: 100%; }
+      header { padding: 1rem; }
+      .content { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGASI MENU -->
+  <aside>
+    <div class="brand">
+      ⚡ AdminPanel
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item active" onclick="switchPage('dashboard', this)">
+        📊 Dashboard
+      </li>
+      <li class="nav-item" onclick="switchPage('input-data', this)">
+        📥 Input Data
+      </li>
+      <li class="nav-item" onclick="switchPage('pemrosesan', this)">
+        ⚙️ Pemrosesan Data
+      </li>
+      <li class="nav-item" onclick="switchPage('laporan', this)">
+        📤 Output / Laporan
+      </li>
+      <li class="nav-item" onclick="switchPage('pengaturan', this)">
+        🛠️ Pengaturan
+      </li>
+    </ul>
+  </aside>
+
+  <!-- KONTEN UTAMA -->
+  <main>
+    <!-- TOPBAR / HEADER -->
+    <header>
+      <h2 id="headerTitle">Dashboard Utama</h2>
+      <div class="user-profile">
+        <div class="avatar">A</div>
+        <div>
+          <div style="font-size: 0.9rem; font-weight: bold;">Administrator</div>
+          <div style="font-size: 0.75rem; color: #64748b;">Online</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- KONTEN BISA BERGANTI KETIKA MENU DIKLIK -->
+    <div class="content">
+
+      <!-- MENU 1: DASHBOARD -->
+      <section id="dashboard" class="page-section active">
+        <div class="cards-grid">
+          <div class="card">
+            <h3>Total Pengguna</h3>
+            <div class="value">1,248</div>
+          </div>
+          <div class="card">
+            <h3>Input Hari Ini</h3>
+            <div class="value">84 Item</div>
+          </div>
+          <div class="card">
+            <h3>Status Sistem</h3>
+            <div class="value" style="color: #16a34a;">Normal</div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <h3>Aktivitas Terakhir</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nama Aktivitas</th>
+                <th>Kategori</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#1001</td>
+                <td>Pembaruan Server</td>
+                <td>Pemrosesan</td>
+                <td><span class="badge badge-success">Selesai</span></td>
+              </tr>
+              <tr>
+                <td>#1002</td>
+                <td>Input Data Pengguna</td>
+                <td>Input Data</td>
+                <td><span class="badge badge-warning">Proses</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MENU 2: INPUT DATA -->
+      <section id="input-data" class="page-section">
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Form Input Data Baru</h3>
+          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Masukkan data yang ingin diproses oleh sistem.</p>
+          <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
+            <input type="text" placeholder="Nama Data / Barang" style="padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="number" placeholder="Jumlah" style="padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <button style="padding: 0.6rem; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Simpan Data</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MENU 3: PEMROSESAN -->
+      <section id="pemrosesan" class="page-section">
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Pemrosesan Data</h3>
+          <p style="font-size: 0.9rem;">Area logika dan pengolahan data sistem sedang aktif.</p>
+        </div>
+      </section>
+
+      <!-- MENU 4: LAPORAN -->
+      <section id="laporan" class="page-section">
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Output & Laporan</h3>
+          <p style="font-size: 0.9rem;">Halaman ringkasan ekspor laporan dan statistik data.</p>
+        </div>
+      </section>
+
+      <!-- MENU 5: PENGATURAN -->
+      <section id="pengaturan" class="page-section">
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Pengaturan Sistem</h3>
+          <p style="font-size: 0.9rem;">Kelola hak akses pengguna, preferensi, dan tema aplikasi.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- LOGIKA BERPINDAH MENU (JAVASCRIPT) -->
+  <script>
+    function switchPage(pageId, element) {
+      // 1. Sembunyikan semua halaman
+      const pages = document.querySelectorAll('.page-section');
+      pages.forEach(page => page.classList.remove('active'));
+
+      // 2. Hilangkan status 'active' dari semua menu sidebar
+      const menuItems = document.querySelectorAll('.nav-item');
+      menuItems.forEach(item => item.classList.remove('active'));
+
+      // 3. Tampilkan halaman & menu yang diklik
+      document.getElementById(pageId).classList.add('active');
+      element.classList.add('active');
+
+      // 4. Ubah Judul Header secara dinamis
+      const titleMap = {
+        'dashboard': 'Dashboard Utama',
+        'input-data': 'Input Data',
+        'pemrosesan': 'Pemrosesan Data',
+        'laporan': 'Output & Laporan',
+        'pengaturan': 'Pengaturan Sistem'
+      };
+      document.getElementById('headerTitle').innerText = titleMap[pageId];
+    }
+  </script>
+</body>
+</html>
