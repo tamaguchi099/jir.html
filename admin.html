@@ -3,66 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Admin Interaktif</title>
+  <title>Hilstore - Dashboard Admin</title>
+
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --dark-sidebar: #0f172a;
+      --sidebar-hover: #1e293b;
+      --text-dark: #334155;
+      --text-muted: #64748b;
+      --bg-body: #f1f5f9;
+      --card-bg: #ffffff;
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background-color: #f1f5f9;
-      color: #334155;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
       display: flex;
       min-height: 100vh;
     }
 
     /* --- SIDEBAR --- */
     aside {
-      width: 250px;
-      background-color: #0f172a;
+      width: 260px;
+      background-color: var(--dark-sidebar);
       color: #fff;
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
-      transition: all 0.3s;
+      transition: var(--transition);
     }
 
     .brand {
       padding: 1.5rem;
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #38bdf8;
-      border-bottom: 1px solid #1e293b;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand i {
+      color: var(--primary);
     }
 
     .nav-menu {
       list-style: none;
-      padding: 1rem 0;
+      padding: 1.2rem 0;
       flex: 1;
     }
 
     .nav-item {
-      padding: 0.85rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       display: flex;
       align-items: center;
       gap: 12px;
       color: #94a3b8;
       cursor: pointer;
       font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s;
+      font-weight: 600;
+      transition: var(--transition);
+      border-left: 4px solid transparent;
     }
 
     .nav-item:hover, .nav-item.active {
-      background-color: #1e293b;
-      color: #38bdf8;
-      border-left: 4px solid #38bdf8;
+      background-color: var(--sidebar-hover);
+      color: #ffffff;
+      border-left-color: var(--primary);
+    }
+
+    .nav-item i {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-item.active i {
+      color: var(--primary);
     }
 
     /* --- MAIN AREA --- */
@@ -73,32 +109,41 @@
       overflow-x: hidden;
     }
 
-    /* Header Topbar */
+    /* Topbar Header */
     header {
       background-color: #ffffff;
-      padding: 1rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    header h2 {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--dark-sidebar);
+      letter-spacing: -0.5px;
     }
 
     .user-profile {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .avatar {
-      width: 36px;
-      height: 36px;
-      background-color: #38bdf8;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), #1d4ed8);
       color: #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
     }
 
     /* Content Area */
@@ -113,6 +158,33 @@
 
     .page-section.active {
       display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hilstore Banner Style Card */
+    .banner-card {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+    }
+
+    .banner-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-card p {
+      opacity: 0.9;
+      font-size: 0.95rem;
     }
 
     /* Cards Layout */
@@ -124,57 +196,114 @@
     }
 
     .card {
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(226, 232, 240, 0.8);
     }
 
     .card h3 {
       font-size: 0.875rem;
-      color: #64748b;
+      color: var(--text-muted);
       margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .card .value {
-      font-size: 1.75rem;
-      font-weight: bold;
-      color: #0f172a;
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--dark-sidebar);
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--dark-sidebar);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      outline: none;
+      font-size: 0.95rem;
+      background: #f8fafc;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      background: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
     }
 
     /* Table Component */
     .table-container {
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .table-container h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark-sidebar);
+      margin-bottom: 1rem;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
     }
 
     th, td {
       text-align: left;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
       font-size: 0.9rem;
     }
 
     th {
       background-color: #f8fafc;
-      color: #475569;
+      color: var(--text-muted);
+      font-weight: 700;
     }
 
     .badge {
-      padding: 0.25rem 0.6rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 20px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .badge-success { background: #dcfce7; color: #15803d; }
@@ -194,23 +323,23 @@
   <!-- SIDEBAR NAVIGASI MENU -->
   <aside>
     <div class="brand">
-      ⚡ AdminPanel
+      <i class="fa-solid fa-gem"></i> Hilstore Admin
     </div>
     <ul class="nav-menu">
       <li class="nav-item active" onclick="switchPage('dashboard', this)">
-        📊 Dashboard
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
       </li>
       <li class="nav-item" onclick="switchPage('input-data', this)">
-        📥 Input Data
+        <i class="fa-solid fa-box-archive"></i> Input Produk
       </li>
       <li class="nav-item" onclick="switchPage('pemrosesan', this)">
-        ⚙️ Pemrosesan Data
+        <i class="fa-solid fa-gears"></i> Pemrosesan Pesanan
       </li>
       <li class="nav-item" onclick="switchPage('laporan', this)">
-        📤 Output / Laporan
+        <i class="fa-solid fa-file-invoice-dollar"></i> Laporan Penjualan
       </li>
       <li class="nav-item" onclick="switchPage('pengaturan', this)">
-        🛠️ Pengaturan
+        <i class="fa-solid fa-sliders"></i> Pengaturan Toko
       </li>
     </ul>
   </aside>
@@ -223,8 +352,8 @@
       <div class="user-profile">
         <div class="avatar">A</div>
         <div>
-          <div style="font-size: 0.9rem; font-weight: bold;">Administrator</div>
-          <div style="font-size: 0.75rem; color: #64748b;">Online</div>
+          <div style="font-size: 0.9rem; font-weight: 700; color: var(--dark-sidebar);" id="adminNameDisplay">Admin Hilstore</div>
+          <div style="font-size: 0.75rem; color: #16a34a; font-weight: 600;">● Online</div>
         </div>
       </div>
     </header>
@@ -234,44 +363,51 @@
 
       <!-- MENU 1: DASHBOARD -->
       <section id="dashboard" class="page-section active">
+        
+        <!-- Banner Hilstore Style -->
+        <div class="banner-card">
+          <h3>Selamat Datang di Hilstore Admin Panel 🚀</h3>
+          <p>Kelola data produk, kontrol pesanan masuk, dan pantau perkembangan toko dengan mudah.</p>
+        </div>
+
         <div class="cards-grid">
           <div class="card">
-            <h3>Total Pengguna</h3>
+            <h3>Total Pelanggan</h3>
             <div class="value">1,248</div>
           </div>
           <div class="card">
-            <h3>Input Hari Ini</h3>
+            <h3>Produk Terjual Hari Ini</h3>
             <div class="value">84 Item</div>
           </div>
           <div class="card">
-            <h3>Status Sistem</h3>
-            <div class="value" style="color: #16a34a;">Normal</div>
+            <h3>Status Sistem Toko</h3>
+            <div class="value" style="color: #16a34a;">Aktif</div>
           </div>
         </div>
 
         <div class="table-container">
-          <h3>Aktivitas Terakhir</h3>
+          <h3>Pesanan Terakhir</h3>
           <table>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nama Aktivitas</th>
+                <th>ID Transaksi</th>
+                <th>Nama Produk</th>
                 <th>Kategori</th>
-                <th>Status</th>
+                <th>Status Pembayaran</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>#1001</td>
-                <td>Pembaruan Server</td>
-                <td>Pemrosesan</td>
-                <td><span class="badge badge-success">Selesai</span></td>
+                <td>#HL-1001</td>
+                <td>Watch Ultra Gold Edition</td>
+                <td>Aksesori</td>
+                <td><span class="badge badge-success">Lunas</span></td>
               </tr>
               <tr>
-                <td>#1002</td>
-                <td>Input Data Pengguna</td>
-                <td>Input Data</td>
-                <td><span class="badge badge-warning">Proses</span></td>
+                <td>#HL-1002</td>
+                <td>Laptop Gaming Pro</td>
+                <td>Elektronik</td>
+                <td><span class="badge badge-warning">Menunggu</span></td>
               </tr>
             </tbody>
           </table>
@@ -280,46 +416,65 @@
 
       <!-- MENU 2: INPUT DATA -->
       <section id="input-data" class="page-section">
-        <div class="card">
-          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Form Input Data Baru</h3>
-          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Masukkan data yang ingin diproses oleh sistem.</p>
-          <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
-            <input type="text" placeholder="Nama Data / Barang" style="padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <input type="number" placeholder="Jumlah" style="padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <button style="padding: 0.6rem; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Simpan Data</button>
+        <div class="card" style="max-width: 500px;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--dark-sidebar); text-transform: none;">Form Input Produk Baru</h3>
+          
+          <div class="form-group">
+            <label>Nama Produk</label>
+            <input type="text" placeholder="Contoh: iPhone 15 Pro" class="form-control">
           </div>
+          
+          <div class="form-group">
+            <label>Stok Barang</label>
+            <input type="number" placeholder="Masukkan jumlah stok" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Harga (Rp)</label>
+            <input type="number" placeholder="Contoh: 16999000" class="form-control">
+          </div>
+
+          <button class="btn-primary">
+            <i class="fa-solid fa-plus"></i> Simpan Produk
+          </button>
         </div>
       </section>
 
       <!-- MENU 3: PEMROSESAN -->
       <section id="pemrosesan" class="page-section">
         <div class="card">
-          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Pemrosesan Data</h3>
-          <p style="font-size: 0.9rem;">Area logika dan pengolahan data sistem sedang aktif.</p>
+          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Pemrosesan Pesanan</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Sistem sedang otomatis memproses antrean pengiriman barang Hilstore.</p>
         </div>
       </section>
 
       <!-- MENU 4: LAPORAN -->
       <section id="laporan" class="page-section">
         <div class="card">
-          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Output & Laporan</h3>
-          <p style="font-size: 0.9rem;">Halaman ringkasan ekspor laporan dan statistik data.</p>
+          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Laporan Penjualan & Output</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Unduh ringkasan data transaksi bulanan toko dalam format Excel atau PDF.</p>
         </div>
       </section>
 
       <!-- MENU 5: PENGATURAN -->
       <section id="pengaturan" class="page-section">
         <div class="card">
-          <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #0f172a;">Pengaturan Sistem</h3>
-          <p style="font-size: 0.9rem;">Kelola hak akses pengguna, preferensi, dan tema aplikasi.</p>
+          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Pengaturan Toko Hilstore</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Kelola hak akses admin, banner promosi, dan sistem pembayaran.</p>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- LOGIKA BERPINDAH MENU (JAVASCRIPT) -->
+  <!-- LOGIKA BERPINDAH MENU & LOCALSTORAGE (JAVASCRIPT) -->
   <script>
+    // Ambil nama admin dari LocalStorage jika ada
+    const savedName = localStorage.getItem('customerName');
+    if (savedName) {
+      document.getElementById('adminNameDisplay').innerText = savedName;
+    }
+
     function switchPage(pageId, element) {
       // 1. Sembunyikan semua halaman
       const pages = document.querySelectorAll('.page-section');
@@ -336,10 +491,10 @@
       // 4. Ubah Judul Header secara dinamis
       const titleMap = {
         'dashboard': 'Dashboard Utama',
-        'input-data': 'Input Data',
-        'pemrosesan': 'Pemrosesan Data',
-        'laporan': 'Output & Laporan',
-        'pengaturan': 'Pengaturan Sistem'
+        'input-data': 'Input Produk Hilstore',
+        'pemrosesan': 'Pemrosesan Pesanan',
+        'laporan': 'Laporan Penjualan',
+        'pengaturan': 'Pengaturan Toko'
       };
       document.getElementById('headerTitle').innerText = titleMap[pageId];
     }
