@@ -156,6 +156,7 @@ header {
   gap: 6px;
   border: 1px solid #fee2e2;
   transition: var(--transition);
+  text-decoration: none;
 }
 
 .logout-btn:hover {
@@ -839,8 +840,8 @@ footer {
       <i class="fa-solid fa-cart-shopping"></i>
     </a>
 
-    <!-- TOMBOL LOGOUT SAMBUNG KE LOGIN -->
-    <a onclick="logout()" class="logout-btn" title="Keluar">
+    <!-- TOMBOL LOGOUT TERHUBUNG KE LOGIN.HTML -->
+    <a href="login.html" onclick="logout()" class="logout-btn" title="Keluar">
       <i class="fa-solid fa-right-from-bracket"></i> Logout
     </a>
   </div>
@@ -1146,10 +1147,9 @@ footer {
 
   let selectedCategory = 'all';
 
-  // FUNGSI LOGOUT KEMBALI KE INDEX.HTML
+  // FUNGSI LOGOUT (MEMBERSIHKAN DATA LOCAL STORAGE)
   function logout() {
     localStorage.removeItem('customerName');
-    window.location.href = "index.html";
   }
 
   // 1. SISTEM PERPINDAHAN HALAMAN (SPA)
