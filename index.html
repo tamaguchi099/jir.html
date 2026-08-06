@@ -1048,6 +1048,47 @@ header {
   color: #64748b;
 }
 
+/* POP-UP CONFIRMATION SUCCESS MODAL */
+.success-modal-card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(0.8);
+  transition: var(--transition);
+}
+
+.modal-overlay.active .success-modal-card {
+  transform: scale(1);
+}
+
+.success-icon-wrapper {
+  width: 70px;
+  height: 70px;
+  background: #ecfdf5;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 16px;
+}
+
+.success-modal-card h3 {
+  font-size: 22px;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.success-modal-card p {
+  font-size: 14px;
+  color: #64748b;
+}
+
 /* FEATURES SECTION */
 .features {
   display: grid;
@@ -1285,8 +1326,8 @@ footer {
   </div>
 
   <div class="search">
-    <input type="text" placeholder="Cari produk impianmu...">
-    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input type="text" id="searchInput" placeholder="Cari produk impianmu..." onkeyup="handleSearchKeyPress(event)">
+    <button onclick="executeSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
   </div>
 
   <div class="menu">
@@ -1344,7 +1385,7 @@ footer {
 <!-- ================= 2. HALAMAN KATEGORI (CATEGORY PAGE) ================= -->
 <div id="category-page" class="page-section">
   <div class="category-page-header">
-    <h1>Katalog Kategori Produk</h1>
+    <h1 id="categoryPageTitle">Katalog Kategori Produk</h1>
     <p>Jelajahi seluruh koleksi produk terbaik kami berdasarkan kategori impian Anda.</p>
   </div>
 
@@ -1504,6 +1545,17 @@ footer {
         <i class="fa-solid fa-check-circle"></i> Konfirmasi Pesanan Sekarang
       </button>
     </form>
+  </div>
+</div>
+
+<!-- ================= POP-UP KONFIRMASI SUCCESS (OTOMATIS HILANG 2 DETIK) ================= -->
+<div class="modal-overlay" id="successModal">
+  <div class="success-modal-card">
+    <div class="success-icon-wrapper">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <h3>Pesanan Berhasil! 🎉</h3>
+    <p>Terima kasih telah berbelanja di Hilstore. Pesanan Anda sedang kami proses.</p>
   </div>
 </div>
 
@@ -1783,6 +1835,7 @@ footer {
   let currentSelectedProduct = null;
   let selectedCategory = 'all';
   let checkoutItems = [];
+  let searchQuery = "";
 
   function logout() {
     localStorage.removeItem('customerName');
@@ -1807,6 +1860,30 @@ footer {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ================= FUNGSI PENCARIAN PRODUK ================= */
+  function executeSearch() {
+    const input = document.getElementById('searchInput');
+    searchQuery = input.value.trim().toLowerCase();
+    
+    // Alihkan ke Halaman Kategori untuk Menampilkan Hasil
+    switchPage('category');
+    
+    const titleEl = document.getElementById('categoryPageTitle');
+    if (searchQuery) {
+      titleEl.textContent = `Hasil Pencarian: "${input.value}"`;
+    } else {
+      titleEl.textContent = 'Katalog Kategori Produk';
+    }
+    
+    renderCatalog();
+  }
+
+  function handleSearchKeyPress(e) {
+    if (e.key === 'Enter') {
+      executeSearch();
+    }
+  }
+
   /* ================= FUNGSI NOTIFIKASI TOAST CUSTOM ================= */
   function showToast(title, message) {
     const container = document.getElementById('toastContainer');
@@ -1825,10 +1902,8 @@ footer {
     
     container.appendChild(toast);
     
-    // Animasi Masuk
     setTimeout(() => toast.classList.add('show'), 10);
     
-    // Hilang Otomatis setelah 3 Detik
     setTimeout(() => {
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 350);
@@ -1884,8 +1959,6 @@ footer {
     }
 
     updateCartBadge();
-    
-    // TAMPILKAN TOAST ELEGAN (MENGGANTIKAN ALERT NATIVE)
     showToast("Berhasil Ditambahkan!", `"${product.name}" (${qty}x) masuk ke keranjang.`);
   }
 
@@ -2095,14 +2168,23 @@ footer {
     document.getElementById('checkoutModal').classList.remove('active');
   }
 
+  /* HANDLER CHECKOUT SUBMIT & POP-UP HILANG 2 DETIK */
   function handleCheckoutSubmit(e) {
     e.preventDefault();
-    showToast("Pesanan Berhasil! 🎉", "Terima kasih telah berbelanja di Hilstore.");
+    closeCheckoutModalDirect();
     
-    // Reset Cart jika checkout dari cart
+    // Tampilkan Modal Sukses
+    const successModal = document.getElementById('successModal');
+    successModal.classList.add('active');
+
+    // Kosongkan keranjang
     cart = [];
     updateCartBadge();
-    closeCheckoutModalDirect();
+
+    // Hilang Otomatis Setelah 2 Detik (2000 ms)
+    setTimeout(() => {
+      successModal.classList.remove('active');
+    }, 2000);
   }
 
   // EVENT ESCAPE TO CLOSE MODAL
@@ -2130,7 +2212,8 @@ footer {
     let filtered = productsData.filter(p => {
       const matchCat = (selectedCategory === 'all') || (p.category === selectedCategory);
       const matchPrice = p.price <= priceLimit;
-      return matchCat && matchPrice;
+      const matchQuery = p.name.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery);
+      return matchCat && matchPrice && matchQuery;
     });
 
     if (sortVal === 'low') {
@@ -2142,7 +2225,7 @@ footer {
     if (filtered.length === 0) {
       grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light);">
         <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 12px;"></i>
-        <p>Tidak ada produk yang sesuai dengan filter Anda.</p>
+        <p>Tidak ada produk yang sesuai dengan pencarian/filter Anda.</p>
       </div>`;
       return;
     }
