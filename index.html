@@ -68,7 +68,7 @@ header {
 
 .search {
   display: flex;
-  width: 42%;
+  width: 38%;
   position: relative;
 }
 
@@ -107,7 +107,7 @@ header {
 .menu {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 18px;
 }
 
 .menu a {
@@ -121,6 +121,48 @@ header {
 
 .menu a:hover, .menu a.nav-active {
   color: var(--primary);
+}
+
+/* CUSTOM KERANJANG & LOGOUT BTN */
+.cart-btn {
+  background: #eff6ff;
+  color: var(--primary) !important;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.cart-btn:hover {
+  background: var(--primary);
+  color: white !important;
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  background: #fef2f2;
+  color: #ef4444 !important;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #fee2e2;
+  transition: var(--transition);
+}
+
+.logout-btn:hover {
+  background: #ef4444;
+  color: white !important;
+  border-color: #ef4444;
+  transform: translateY(-2px);
 }
 
 /* PAGE DISPLAY SYSTEM */
@@ -272,7 +314,7 @@ header {
   display: none;
 }
 
-/* TOMBOL NAVIGASI GESER (PALANG / PANAH) */
+/* TOMBOL NAVIGASI GESER */
 .nav-btn {
   position: absolute;
   top: 45%;
@@ -303,7 +345,7 @@ header {
 .nav-btn.prev { left: 5%; }
 .nav-btn.next { right: 5%; }
 
-/* PRODUCT CARD & ANIMASI BURAM */
+/* PRODUCT CARD */
 .card {
   min-width: 260px;
   max-width: 280px;
@@ -543,7 +585,6 @@ header {
   gap: 24px;
 }
 
-/* Kartu Katalog (Tampilan Statis tanpa Efek Blur Carousel) */
 .catalog-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -761,7 +802,7 @@ footer {
     width: 100%;
   }
   .menu {
-    gap: 16px;
+    gap: 12px;
   }
   .hero h1 {
     font-size: 32px;
@@ -792,8 +833,16 @@ footer {
   <div class="menu">
     <a id="nav-home" class="nav-active" onclick="switchPage('home')">Home</a>
     <a id="nav-category" onclick="switchPage('category')">Kategori</a>
-    <a href="#">Promo</a>
-    <a href="#">Keranjang</a>
+    
+    <!-- KERANJANG BERBENTUK LOGO -->
+    <a class="cart-btn" title="Keranjang Belanja">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </a>
+
+    <!-- TOMBOL LOGOUT SAMBUNG KE LOGIN -->
+    <a onclick="logout()" class="logout-btn" title="Keluar">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
   </div>
 </header>
 
@@ -1096,6 +1145,12 @@ footer {
   ];
 
   let selectedCategory = 'all';
+
+  // FUNGSI LOGOUT KEMBALI KE INDEX.HTML
+  function logout() {
+    localStorage.removeItem('customerName');
+    window.location.href = "index.html";
+  }
 
   // 1. SISTEM PERPINDAHAN HALAMAN (SPA)
   function switchPage(page) {
