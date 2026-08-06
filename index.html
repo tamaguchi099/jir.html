@@ -435,11 +435,25 @@ header {
   text-overflow: ellipsis;
 }
 
+.price-container {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 6px 0;
+  flex-wrap: wrap;
+}
+
 .price {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   color: var(--primary);
-  margin: 8px 0;
+}
+
+.strike-price {
+  font-size: 13px;
+  color: #94a3b8;
+  text-decoration: line-through;
+  font-weight: 500;
 }
 
 .rating {
@@ -711,7 +725,6 @@ header {
   font-size: 26px;
   font-weight: 800;
   color: var(--primary);
-  margin-bottom: 12px;
 }
 
 .modal-desc {
@@ -1031,109 +1044,7 @@ footer {
     <button class="nav-btn prev" onclick="scrollProducts(-300)"><i class="fa-solid fa-chevron-left"></i></button>
 
     <div class="products-slider" id="productSlider">
-
-      <!-- Barang Limited Edition 1 -->
-      <div class="card" data-category="limited" onclick="openProductModal(1)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80" alt="Apple Watch Ultra Gold">
-        </div>
-        <div class="info">
-          <div class="badge limited">Limited Edition</div>
-          <h3>Watch Ultra Gold Edition</h3>
-          <div class="price">Rp24.999.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span>(88)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('Watch Ultra Gold Edition');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
-      <!-- Barang 1 -->
-      <div class="card" data-category="elektronik" onclick="openProductModal(2)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
-        </div>
-        <div class="info">
-          <div class="badge">-30%</div>
-          <h3>Laptop Gaming Pro</h3>
-          <div class="price">Rp12.999.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span>(256)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('Laptop Gaming Pro');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
-      <!-- Barang 2 -->
-      <div class="card" data-category="elektronik" onclick="openProductModal(3)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
-        </div>
-        <div class="info">
-          <div class="badge bestseller">Best Seller</div>
-          <h3>iPhone 15 Pro</h3>
-          <div class="price">Rp16.999.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span>(520)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('iPhone 15 Pro');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
-      <!-- Barang Limited Edition 2 -->
-      <div class="card" data-category="limited" onclick="openProductModal(4)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphone Cyberpunk">
-        </div>
-        <div class="info">
-          <div class="badge limited">Limited Edition</div>
-          <h3>Headphone Cyber Edition</h3>
-          <div class="price">Rp3.499.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span>(42)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('Headphone Cyber Edition');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
-      <!-- Barang 3 -->
-      <div class="card" data-category="aksesori" onclick="openProductModal(5)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Earbuds Wireless">
-        </div>
-        <div class="info">
-          <div class="badge new">Baru</div>
-          <h3>TWS Wireless Earbuds</h3>
-          <div class="price">Rp799.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-            <span>(180)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('TWS Wireless Earbuds');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
-      <!-- Barang 4 -->
-      <div class="card" data-category="aksesori" onclick="openProductModal(6)">
-        <div class="card-img-container">
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
-        </div>
-        <div class="info">
-          <div class="badge hot">Hot</div>
-          <h3>Smartwatch Series X</h3>
-          <div class="price">Rp1.499.000</div>
-          <div class="rating">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span>(310)</span>
-          </div>
-          <button class="buy" onclick="event.stopPropagation(); addToCart('Smartwatch Series X');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-        </div>
-      </div>
-
+      <!-- Diisi secara dinamis melalui Javascript -->
     </div>
 
     <button class="nav-btn next" onclick="scrollProducts(300)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -1213,7 +1124,10 @@ footer {
         <span id="modalRating">(0)</span>
       </div>
 
-      <div id="modalPrice" class="modal-price">Rp0</div>
+      <div class="price-container" style="margin-bottom: 12px;">
+        <span id="modalPrice" class="modal-price">Rp0</span>
+        <span id="modalOriginalPrice" class="strike-price" style="font-size: 16px;"></span>
+      </div>
 
       <p id="modalDesc" class="modal-desc">
         Deskripsi rinci mengenai produk terbaik ini. Dibuat menggunakan material performa tinggi, desain elegan, serta garansi jaminan kualitas original dari Hilstore.
@@ -1321,87 +1235,183 @@ footer {
 
 <!-- JAVASCRIPT UNTUK INTERAKSI & SISTEM DETAIL PRODUK -->
 <script>
-  // DATA MASTER PRODUK KATALOG LENGKAP DENGAN DESKRIPSI
+  // DATA MASTER PRODUK KATALOG LENGKAP DENGAN PROMO HARGA DISKON (16 PRODUK)
   const productsData = [
     { 
       id: 1, 
       name: "Watch Ultra Gold Edition", 
-      price: 24999000, 
+      price: 24999000,
+      originalPrice: 29999000,
       category: "limited", 
       badge: "limited", 
       img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80", 
       rating: "5.0 (88)",
-      desc: "Edisi terbatas jam tangan pintar mewah dengan lapisan emas murni 24k, layar Sapphire Crystal tahan gores, dan ketahanan air hingga kedalaman 100m. Ideal bagi profesional dengan gaya hidup elegan."
+      desc: "Edisi terbatas jam tangan pintar mewah dengan lapisan emas murni 24k, layar Sapphire Crystal tahan gores, dan ketahanan air hingga kedalaman 100m."
     },
     { 
       id: 2, 
       name: "Laptop Gaming Pro", 
-      price: 12999000, 
+      price: 12999000,
+      originalPrice: 18500000,
       category: "elektronik", 
       badge: "-30%", 
       img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80", 
       rating: "4.9 (256)",
-      desc: "Ditenagai oleh prosesor performa tinggi dan grafis RTX generasi terbaru. Dilengkapi layar IPS 144Hz untuk pengalaman gaming tanpa lag dan tata pendingin ganda yang optimal."
+      desc: "Ditenagai oleh prosesor performa tinggi dan grafis RTX generasi terbaru. Dilengkapi layar IPS 144Hz untuk pengalaman gaming tanpa lag."
     },
     { 
       id: 3, 
       name: "iPhone 15 Pro", 
-      price: 16999000, 
+      price: 16999000,
+      originalPrice: 18999000,
       category: "elektronik", 
       badge: "bestseller", 
       img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80", 
       rating: "4.9 (520)",
-      desc: "Dirancang dengan bodi Titanium kelas penerbangan yang kuat dan ringan. Fitur kamera utama 48MP canggih, chip A17 Pro super cepat, serta daya tahan baterai sepanjang hari."
+      desc: "Dirancang dengan bodi Titanium kelas penerbangan yang kuat dan ringan. Fitur kamera utama 48MP canggih dan chip A17 Pro super cepat."
     },
     { 
       id: 4, 
       name: "Headphone Cyber Edition", 
-      price: 3499000, 
+      price: 3499000,
+      originalPrice: 4999000,
       category: "limited", 
       badge: "limited", 
       img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80", 
       rating: "4.8 (42)",
-      desc: "Audio resolusi tinggi dengan teknologi Active Noise Cancelling (ANC). Desain bergaya Cyberpunk futuristik dengan tata cahaya LED RGB yang fleksibel disesuaikan."
+      desc: "Audio resolusi tinggi dengan teknologi Active Noise Cancelling (ANC). Desain bergaya Cyberpunk futuristik dengan tata cahaya LED RGB."
     },
     { 
       id: 5, 
       name: "TWS Wireless Earbuds", 
-      price: 799000, 
+      price: 799000,
+      originalPrice: 1299000,
       category: "aksesori", 
       badge: "new", 
       img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80", 
       rating: "4.6 (180)",
-      desc: "Nikmati musik tanpa kabel dengan koneksi Bluetooth 5.3 bebas lag, bass mendalam, mikrofon ganda jernih untuk panggilan, serta daya tahan total hingga 32 jam."
+      desc: "Nikmati musik tanpa kabel dengan koneksi Bluetooth 5.3 bebas lag, bass mendalam, serta daya tahan total hingga 32 jam."
     },
     { 
       id: 6, 
       name: "Smartwatch Series X", 
-      price: 1499000, 
+      price: 1499000,
+      originalPrice: 2199000,
       category: "aksesori", 
       badge: "hot", 
       img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80", 
       rating: "4.9 (310)",
-      desc: "Mitra kesehatan andalan Anda. Dilengkapi sensor pemantau detak jantung, kadar oksigen darah SpO2, pemantauan tidur cerdas, dan lebih dari 100 mode olahraga."
+      desc: "Dilengkapi sensor pemantau detak jantung, kadar oksigen darah SpO2, pemantauan tidur cerdas, dan lebih dari 100 mode olahraga."
     },
     { 
       id: 7, 
       name: "Monitor Curved 144Hz", 
-      price: 3899000, 
+      price: 3899000,
+      originalPrice: 4899000,
       category: "gaming", 
       badge: "new", 
       img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=80", 
       rating: "4.7 (95)",
-      desc: "Monitor melengkung 1500R memberikan visual yang imersif. Waktu respon 1ms serta kecepatan refresh rate 144Hz untuk keunggulan berkompetisi secara optimal."
+      desc: "Monitor melengkung 1500R memberikan visual imersif. Waktu respon 1ms serta kecepatan refresh rate 144Hz untuk keunggulan berkompetisi."
     },
     { 
       id: 8, 
       name: "Keyboard Mechanical RGB", 
-      price: 850000, 
+      price: 850000,
+      originalPrice: 1250000,
       category: "gaming", 
       badge: "bestseller", 
       img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80", 
       rating: "4.8 (412)",
-      desc: "Pengalaman mengetik taktil yang memuaskan dengan switch mechanical premium tahan hingga 50 juta ketukan. Kustomisasi lampu RGB per-tombol sesuai selera."
+      desc: "Pengalaman mengetik taktil memuaskan dengan switch mechanical premium. Kustomisasi lampu RGB per-tombol sesuai selera."
+    },
+    { 
+      id: 9, 
+      name: "Kamera Mirrorless 4K", 
+      price: 11499000,
+      originalPrice: 14200000,
+      category: "elektronik", 
+      badge: "-20%", 
+      img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.9 (110)",
+      desc: "Kamera perekam video 4K jernih dengan sistem autofocus cerdas dan stabilisasi gambar 5-axis. Sangat cocok untuk videografi profesional."
+    },
+    { 
+      id: 10, 
+      name: "Mouse Gaming Wireless OLED", 
+      price: 950000,
+      originalPrice: 1400000,
+      category: "gaming", 
+      badge: "hot", 
+      img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.8 (215)",
+      desc: "Mouse ultra ringan dengan sensor optik 26.000 DPI, koneksi nirkabel ultra-cepat 1ms, dan display mini OLED kustom."
+    },
+    { 
+      id: 11, 
+      name: "Console Game Gen-5 Custom", 
+      price: 8999000,
+      originalPrice: 10500000,
+      category: "limited", 
+      badge: "limited", 
+      img: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=500&q=80", 
+      rating: "5.0 (64)",
+      desc: "Konsol game edisi terbatas dengan finishing matte khusus dan penyimpanan SSD NVMe 2TB siap melahap game-game berat skala 4K."
+    },
+    { 
+      id: 12, 
+      name: "Speaker Bluetooth Waterproof", 
+      price: 650000,
+      originalPrice: 999000,
+      category: "aksesori", 
+      badge: "-35%", 
+      img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.7 (305)",
+      desc: "Suara bass menggelegar dengan sertifikasi tahan air IPX7. Bawa musik favoritmu ke mana saja, laut atau pegunungan tanpa cemas."
+    },
+    { 
+      id: 13, 
+      name: "Drone Cinema 4K Pro", 
+      price: 15499000,
+      originalPrice: 18000000,
+      category: "elektronik", 
+      badge: "new", 
+      img: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.9 (78)",
+      desc: "Drone pengambilan gambar udara profesional dengan jangkauan kontrol 12km, deteksi rintangan omnidireksional, dan kestabilan angin tinggi."
+    },
+    { 
+      id: 14, 
+      name: "VR Headset NextGen", 
+      price: 7299000,
+      originalPrice: 8999000,
+      category: "gaming", 
+      badge: "hot", 
+      img: "https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.8 (142)",
+      desc: "Layar micro-OLED 4K per mata dengan tracking gerakan real-time. Nikmati pengalaman dunia virtual secara imersif dan realistis."
+    },
+    { 
+      id: 15, 
+      name: "Powerbank MagSafe Fast Charge", 
+      price: 420000,
+      originalPrice: 650000,
+      category: "aksesori", 
+      badge: "bestseller", 
+      img: "https://images.unsplash.com/photo-1622445268465-843dcb04d136?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.6 (620)",
+      desc: "Pengisian daya magnetik nirkabel yang presisi, praktis tanpa kabel. Desain tipis dan kapasitas optimal 10.000mAh."
+    },
+    { 
+      id: 16, 
+      name: "Microphone Condenser Studio", 
+      price: 1250000,
+      originalPrice: 1750000,
+      category: "aksesori", 
+      badge: "-28%", 
+      img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80", 
+      rating: "4.8 (190)",
+      desc: "Mikrofon rekaman bersuara jernih standar studio untuk podcast, streaming, dan vokal. Dilengkapi filter pop internal & boom arm."
     }
   ];
 
@@ -1431,6 +1441,39 @@ footer {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ================= RENDERING HOME SLIDER PRODUK ================= */
+  function renderHomeSlider() {
+    const slider = document.getElementById('productSlider');
+    slider.innerHTML = productsData.map(p => {
+      let badgeClass = p.badge === 'limited' ? 'limited' : (p.badge === 'bestseller' ? 'bestseller' : (p.badge === 'new' ? 'new' : 'hot'));
+      let badgeText = p.badge === 'limited' ? 'Limited Edition' : (p.badge === 'bestseller' ? 'Best Seller' : p.badge);
+
+      let strikeHtml = p.originalPrice ? `<span class="strike-price">Rp${p.originalPrice.toLocaleString('id-ID')}</span>` : '';
+
+      return `
+        <div class="card" data-category="${p.category}" onclick="openProductModal(${p.id})">
+          <div class="card-img-container">
+            <img src="${p.img}" alt="${p.name}">
+          </div>
+          <div class="info">
+            <div class="badge ${badgeClass}">${badgeText}</div>
+            <h3>${p.name}</h3>
+            <div class="price-container">
+              <span class="price">Rp${p.price.toLocaleString('id-ID')}</span>
+              ${strikeHtml}
+            </div>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i> <span>${p.rating}</span>
+            </div>
+            <button class="buy" onclick="event.stopPropagation(); addToCart('${p.name}');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    initObserver();
+  }
+
   /* ================= FUNGSI MODAL DETAIL PRODUK ================= */
   function openProductModal(productId) {
     const product = productsData.find(p => p.id === productId);
@@ -1441,6 +1484,15 @@ footer {
     document.getElementById('modalImg').src = product.img;
     document.getElementById('modalTitle').textContent = product.name;
     document.getElementById('modalPrice').textContent = `Rp${product.price.toLocaleString('id-ID')}`;
+    
+    const origPriceEl = document.getElementById('modalOriginalPrice');
+    if (product.originalPrice) {
+      origPriceEl.textContent = `Rp${product.originalPrice.toLocaleString('id-ID')}`;
+      origPriceEl.style.display = 'inline';
+    } else {
+      origPriceEl.style.display = 'none';
+    }
+
     document.getElementById('modalRating').textContent = `(${product.rating})`;
     document.getElementById('modalDesc').textContent = product.desc;
     document.getElementById('modalQtyInput').value = 1;
@@ -1531,6 +1583,8 @@ footer {
       let badgeClass = p.badge === 'limited' ? 'limited' : (p.badge === 'bestseller' ? 'bestseller' : (p.badge === 'new' ? 'new' : 'hot'));
       let badgeText = p.badge === 'limited' ? 'Limited Edition' : (p.badge === 'bestseller' ? 'Best Seller' : p.badge);
 
+      let strikeHtml = p.originalPrice ? `<span class="strike-price">Rp${p.originalPrice.toLocaleString('id-ID')}</span>` : '';
+
       return `
         <div class="catalog-card" onclick="openProductModal(${p.id})">
           <div class="card-img-container">
@@ -1539,7 +1593,10 @@ footer {
           <div class="info">
             <div class="badge ${badgeClass}">${badgeText}</div>
             <h3>${p.name}</h3>
-            <div class="price">Rp${p.price.toLocaleString('id-ID')}</div>
+            <div class="price-container">
+              <span class="price">Rp${p.price.toLocaleString('id-ID')}</span>
+              ${strikeHtml}
+            </div>
             <div class="rating">
               <i class="fa-solid fa-star"></i> <span>${p.rating}</span>
             </div>
@@ -1550,41 +1607,51 @@ footer {
     }).join('');
   }
 
-  /* ================= SLIDER HOME ================= */
-  const slider = document.getElementById('productSlider');
-  const cards = document.querySelectorAll('.card');
-
+  /* ================= SLIDER HOME INTERACTION ================= */
+  let observer;
   function scrollProducts(distance) {
+    const slider = document.getElementById('productSlider');
     slider.scrollBy({ left: distance, behavior: 'smooth' });
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-      } else {
-        entry.target.classList.remove('is-visible');
-      }
-    });
-  }, { root: slider, threshold: 0.55 });
+  function initObserver() {
+    const slider = document.getElementById('productSlider');
+    const cards = document.querySelectorAll('.card');
 
-  cards.forEach(card => observer.observe(card));
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, { root: slider, threshold: 0.55 });
+
+    cards.forEach(card => observer.observe(card));
+  }
 
   function filterCategory(category, element) {
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     element.classList.add('active');
 
+    const cards = document.querySelectorAll('.card');
+    const slider = document.getElementById('productSlider');
+
     cards.forEach(card => {
       if (category === 'all' || card.getAttribute('data-category') === category) {
         card.style.display = 'flex';
-        observer.observe(card);
+        if (observer) observer.observe(card);
       } else {
         card.style.display = 'none';
-        observer.unobserve(card);
+        if (observer) observer.unobserve(card);
       }
     });
     slider.scrollTo({ left: 0, behavior: 'smooth' });
   }
+
+  // INISIALISASI
+  renderHomeSlider();
 </script>
 
 </body>
