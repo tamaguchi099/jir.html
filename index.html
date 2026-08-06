@@ -135,12 +135,30 @@ header {
   font-size: 16px;
   transition: var(--transition);
   position: relative;
+  cursor: pointer;
 }
 
 .cart-btn:hover {
   background: var(--primary);
   color: white !important;
   transform: translateY(-2px);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
 }
 
 .logout-btn {
@@ -472,27 +490,41 @@ header {
   font-weight: 400;
 }
 
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
 .buy {
-  width: 100%;
-  padding: 12px;
+  flex: 1;
+  padding: 10px;
   background: var(--primary);
   color: white;
   border: none;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: var(--transition);
-  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .buy:hover {
   background: var(--primary-hover);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-buy-now {
+  background: #10b981 !important;
+}
+
+.btn-buy-now:hover {
+  background: #059669 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 /* ================= HALAMAN KATEGORI STYLES ================= */
@@ -767,6 +799,187 @@ header {
   font-size: 16px;
 }
 
+.modal-action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* ================= STYLES KERANJANG BELANJA (DRAWER/MODAL) ================= */
+.cart-modal-card {
+  background: white;
+  width: 100%;
+  max-width: 550px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  position: relative;
+}
+
+.cart-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.cart-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+}
+
+.cart-empty i {
+  font-size: 48px;
+  margin-bottom: 12px;
+  color: #cbd5e1;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cart-item-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details h4 {
+  font-size: 15px;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cart-item-remove {
+  color: #ef4444;
+  cursor: pointer;
+  background: #fef2f2;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.cart-footer {
+  padding: 20px 24px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cart-total-price {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* ================= STYLES MODAL CHECKOUT ================= */
+.checkout-modal-card {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-group input, .form-group textarea, .form-group select {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+.checkout-summary {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 10px;
+  border: 1px solid #e2e8f0;
+}
+
 /* FEATURES SECTION */
 .features {
   display: grid;
@@ -1004,8 +1217,9 @@ footer {
     <a id="nav-home" class="nav-active" onclick="switchPage('home')">Home</a>
     <a id="nav-category" onclick="switchPage('category')">Kategori</a>
     
-    <a class="cart-btn" title="Keranjang Belanja">
+    <a class="cart-btn" onclick="openCartModal()" title="Keranjang Belanja">
       <i class="fa-solid fa-cart-shopping"></i>
+      <span class="cart-badge" id="cartBadgeCount">0</span>
     </a>
 
     <a href="login.html" onclick="logout()" class="logout-btn" title="Keluar">
@@ -1140,10 +1354,80 @@ footer {
         <button class="qty-btn" onclick="updateQty(1)">+</button>
       </div>
 
-      <button class="buy" style="padding: 14px; font-size: 15px;" onclick="addCurrentModalToCart()">
-        <i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang
+      <div class="modal-action-buttons">
+        <button class="buy" style="padding: 14px; font-size: 14px;" onclick="addCurrentModalToCart()">
+          <i class="fa-solid fa-cart-shopping"></i> + Keranjang
+        </button>
+        <button class="buy btn-buy-now" style="padding: 14px; font-size: 14px;" onclick="buyCurrentModalNow()">
+          <i class="fa-solid fa-bolt"></i> Beli Langsung
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL KERANJANG BELANJA ================= -->
+<div class="modal-overlay" id="cartModal" onclick="closeCartModal(event)">
+  <div class="cart-modal-card" onclick="event.stopPropagation()">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-cart-shopping" style="color: var(--primary);"></i> Keranjang Belanja</h3>
+      <button class="modal-close-btn" style="position: static;" onclick="closeCartModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="cart-body" id="cartItemsContainer">
+      <!-- Item Keranjang Diisi Dinamis oleh JS -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total Pembayaran:</span>
+        <span class="cart-total-price" id="cartTotalPrice">Rp0</span>
+      </div>
+      <button class="buy btn-buy-now" style="width: 100%; padding: 14px; font-size: 16px;" onclick="proceedToCheckoutFromCart()">
+        <i class="fa-solid fa-credit-card"></i> Lanjut Ke Pembayaran
       </button>
     </div>
+  </div>
+</div>
+
+<!-- ================= MODAL CHECKOUT / BELI LANGSUNG ================= -->
+<div class="modal-overlay" id="checkoutModal" onclick="closeCheckoutModal(event)">
+  <div class="checkout-modal-card" onclick="event.stopPropagation()">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2><i class="fa-solid fa-bag-shopping" style="color: var(--primary);"></i> Form Pembelian</h2>
+      <button class="modal-close-btn" style="position: static;" onclick="closeCheckoutModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="checkout-summary" id="checkoutSummary">
+      <!-- Detail Ringkasan Belanja -->
+    </div>
+
+    <form class="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+      <div class="form-group">
+        <label>Nama Lengkap Pembeli</label>
+        <input type="text" required placeholder="Masukkan nama lengkap">
+      </div>
+      <div class="form-group">
+        <label>Nomor WhatsApp / HP</label>
+        <input type="tel" required placeholder="08xxxxxxxxxx">
+      </div>
+      <div class="form-group">
+        <label>Alamat Pengiriman Lengkap</label>
+        <textarea rows="3" required placeholder="Jln, No. Rumah, Kecamatan, Kota/Kabupaten, Kode Pos"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Metode Pembayaran</label>
+        <select required>
+          <option value="qris">QRIS All Payment (BCA/Gopay/OVO/Dana)</option>
+          <option value="bank">Transfer Bank Mandiri / BCA</option>
+          <option value="cod">Bayar di Tempat (COD)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="buy btn-buy-now" style="padding: 14px; font-size: 16px; margin-top: 10px;">
+        <i class="fa-solid fa-check-circle"></i> Konfirmasi Pesanan Sekarang
+      </button>
+    </form>
   </div>
 </div>
 
@@ -1233,9 +1517,9 @@ footer {
   </div>
 </footer>
 
-<!-- JAVASCRIPT UNTUK INTERAKSI & SISTEM DETAIL PRODUK -->
+<!-- JAVASCRIPT UNTUK INTERAKSI, SYSTEM KERANJANG & FITUR BELI -->
 <script>
-  // DATA MASTER PRODUK KATALOG LENGKAP DENGAN PROMO HARGA DISKON (16 PRODUK)
+  // DATA MASTER PRODUK
   const productsData = [
     { 
       id: 1, 
@@ -1415,8 +1699,11 @@ footer {
     }
   ];
 
+  // STATE KERANJANG BELANJA
+  let cart = [];
   let currentSelectedProduct = null;
   let selectedCategory = 'all';
+  let checkoutItems = [];
 
   function logout() {
     localStorage.removeItem('customerName');
@@ -1465,7 +1752,10 @@ footer {
             <div class="rating">
               <i class="fa-solid fa-star"></i> <span>${p.rating}</span>
             </div>
-            <button class="buy" onclick="event.stopPropagation(); addToCart('${p.name}');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+            <div class="card-actions">
+              <button class="buy" onclick="event.stopPropagation(); addToCartById(${p.id}, 1);"><i class="fa-solid fa-cart-shopping"></i> + Keranjang</button>
+              <button class="buy btn-buy-now" onclick="event.stopPropagation(); buyNowById(${p.id});"><i class="fa-solid fa-bolt"></i> Beli</button>
+            </div>
           </div>
         </div>
       `;
@@ -1474,7 +1764,112 @@ footer {
     initObserver();
   }
 
-  /* ================= FUNGSI MODAL DETAIL PRODUK ================= */
+  /* ================= FUNGSI MANAJEMEN KERANJANG ================= */
+  function addToCartById(productId, qty = 1) {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingIndex = cart.findIndex(item => item.id === productId);
+    if (existingIndex > -1) {
+      cart[existingIndex].qty += qty;
+    } else {
+      cart.push({ ...product, qty: qty });
+    }
+
+    updateCartBadge();
+    alert(`"${product.name}" (${qty}x) berhasil dimasukkan ke keranjang belanja!`);
+  }
+
+  function buyNowById(productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    checkoutItems = [{ ...product, qty: 1 }];
+    openCheckoutModal();
+  }
+
+  function updateCartBadge() {
+    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById('cartBadgeCount').textContent = totalItems;
+  }
+
+  function updateCartQty(productId, change) {
+    const item = cart.find(p => p.id === productId);
+    if (item) {
+      item.qty += change;
+      if (item.qty <= 0) {
+        removeFromCart(productId);
+      } else {
+        renderCartUI();
+      }
+    }
+  }
+
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    renderCartUI();
+    updateCartBadge();
+  }
+
+  function renderCartUI() {
+    const container = document.getElementById('cartItemsContainer');
+    const totalPriceEl = document.getElementById('cartTotalPrice');
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="cart-empty">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <p>Keranjang belanja kamu masih kosong.</p>
+        </div>
+      `;
+      totalPriceEl.textContent = 'Rp0';
+      return;
+    }
+
+    let total = 0;
+    container.innerHTML = cart.map(item => {
+      const itemTotal = item.price * item.qty;
+      total += itemTotal;
+
+      return `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+          <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <div class="cart-item-price">Rp${item.price.toLocaleString('id-ID')}</div>
+            <div class="cart-item-controls">
+              <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">-</button>
+              <span style="font-weight: 700; font-size: 14px;">${item.qty}</span>
+              <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})" title="Hapus Barang">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    totalPriceEl.textContent = `Rp${total.toLocaleString('id-ID')}`;
+    updateCartBadge();
+  }
+
+  /* ================= FUNGSI MODAL DIALOGS ================= */
+  function openCartModal() {
+    renderCartUI();
+    document.getElementById('cartModal').classList.add('active');
+  }
+
+  function closeCartModal(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+      closeCartModalDirect();
+    }
+  }
+
+  function closeCartModalDirect() {
+    document.getElementById('cartModal').classList.remove('active');
+  }
+
   function openProductModal(productId) {
     const product = productsData.find(p => p.id === productId);
     if (!product) return;
@@ -1511,7 +1906,7 @@ footer {
 
   function closeProductModal(e) {
     if (e.target.classList.contains('modal-overlay')) {
-      document.getElementById('productModal').classList.remove('active');
+      closeProductModalDirect();
     }
   }
 
@@ -1527,22 +1922,86 @@ footer {
     input.value = currentVal;
   }
 
-  function addToCart(productName) {
-    alert(`"${productName}" berhasil ditambahkan ke keranjang belanja!`);
-  }
-
   function addCurrentModalToCart() {
     if (currentSelectedProduct) {
-      const qty = document.getElementById('modalQtyInput').value;
-      alert(`${qty}x "${currentSelectedProduct.name}" berhasil ditambahkan ke keranjang belanja!`);
+      const qty = parseInt(document.getElementById('modalQtyInput').value) || 1;
+      addToCartById(currentSelectedProduct.id, qty);
       closeProductModalDirect();
     }
+  }
+
+  function buyCurrentModalNow() {
+    if (currentSelectedProduct) {
+      const qty = parseInt(document.getElementById('modalQtyInput').value) || 1;
+      checkoutItems = [{ ...currentSelectedProduct, qty: qty }];
+      closeProductModalDirect();
+      openCheckoutModal();
+    }
+  }
+
+  /* ================= CHECKOUT SYSTEM ================= */
+  function proceedToCheckoutFromCart() {
+    if (cart.length === 0) {
+      alert("Keranjang belanja Anda masih kosong!");
+      return;
+    }
+    checkoutItems = [...cart];
+    closeCartModalDirect();
+    openCheckoutModal();
+  }
+
+  function openCheckoutModal() {
+    const summaryContainer = document.getElementById('checkoutSummary');
+    let total = 0;
+
+    let itemsHtml = checkoutItems.map(item => {
+      const subtotal = item.price * item.qty;
+      total += subtotal;
+      return `<div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px;">
+        <span>${item.name} <strong>x${item.qty}</strong></span>
+        <span>Rp${subtotal.toLocaleString('id-ID')}</span>
+      </div>`;
+    }).join('');
+
+    summaryContainer.innerHTML = `
+      <h4 style="margin-bottom: 10px; color: var(--dark);">Ringkasan Pesanan:</h4>
+      ${itemsHtml}
+      <hr style="margin: 10px 0; border: none; border-top: 1px dashed #cbd5e1;">
+      <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 16px; color: var(--primary);">
+        <span>Total Bayar:</span>
+        <span>Rp${total.toLocaleString('id-ID')}</span>
+      </div>
+    `;
+
+    document.getElementById('checkoutModal').classList.add('active');
+  }
+
+  function closeCheckoutModal(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+      closeCheckoutModalDirect();
+    }
+  }
+
+  function closeCheckoutModalDirect() {
+    document.getElementById('checkoutModal').classList.remove('active');
+  }
+
+  function handleCheckoutSubmit(e) {
+    e.preventDefault();
+    alert("🎉 Pembelian Berhasil! Terima kasih telah berbelanja di Hilstore. Pesanan Anda akan segera diproses.");
+    
+    // Reset Cart jika checkout dari cart
+    cart = [];
+    updateCartBadge();
+    closeCheckoutModalDirect();
   }
 
   // EVENT ESCAPE TO CLOSE MODAL
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeProductModalDirect();
+      closeCartModalDirect();
+      closeCheckoutModalDirect();
     }
   });
 
@@ -1600,7 +2059,10 @@ footer {
             <div class="rating">
               <i class="fa-solid fa-star"></i> <span>${p.rating}</span>
             </div>
-            <button class="buy" onclick="event.stopPropagation(); addToCart('${p.name}');"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+            <div class="card-actions">
+              <button class="buy" onclick="event.stopPropagation(); addToCartById(${p.id}, 1);"><i class="fa-solid fa-cart-shopping"></i> + Keranjang</button>
+              <button class="buy btn-buy-now" onclick="event.stopPropagation(); buyNowById(${p.id});"><i class="fa-solid fa-bolt"></i> Beli</button>
+            </div>
           </div>
         </div>
       `;
