@@ -980,6 +980,74 @@ header {
   border: 1px solid #e2e8f0;
 }
 
+/* ================= TOAST NOTIFICATION STYLES ================= */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  background: #ffffff;
+  color: var(--dark);
+  padding: 14px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 300px;
+  max-width: 380px;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast-icon {
+  width: 36px;
+  height: 36px;
+  background: #eff6ff;
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.toast-content {
+  flex-grow: 1;
+  line-height: 1.35;
+}
+
+.toast-content strong {
+  display: block;
+  font-size: 14px;
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.toast-content span {
+  font-size: 13px;
+  color: #64748b;
+}
+
 /* FEATURES SECTION */
 .features {
   display: grid;
@@ -1196,6 +1264,14 @@ footer {
   }
   .section-header {
     padding: 40px 5% 16px;
+  }
+  .toast-container {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+  .toast {
+    max-width: 100%;
   }
 }
 </style>
@@ -1430,6 +1506,9 @@ footer {
     </form>
   </div>
 </div>
+
+<!-- WADAH NOTIFIKASI TOAST -->
+<div id="toastContainer" class="toast-container"></div>
 
 <!-- SECTION KEUNGGULAN -->
 <section class="features">
@@ -1728,6 +1807,34 @@ footer {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ================= FUNGSI NOTIFIKASI TOAST CUSTOM ================= */
+  function showToast(title, message) {
+    const container = document.getElementById('toastContainer');
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <div class="toast-icon">
+        <i class="fa-solid fa-cart-circle-check"></i>
+      </div>
+      <div class="toast-content">
+        <strong>${title}</strong>
+        <span>${message}</span>
+      </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Animasi Masuk
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Hilang Otomatis setelah 3 Detik
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 350);
+    }, 3000);
+  }
+
   /* ================= RENDERING HOME SLIDER PRODUK ================= */
   function renderHomeSlider() {
     const slider = document.getElementById('productSlider');
@@ -1777,7 +1884,9 @@ footer {
     }
 
     updateCartBadge();
-    alert(`"${product.name}" (${qty}x) berhasil dimasukkan ke keranjang belanja!`);
+    
+    // TAMPILKAN TOAST ELEGAN (MENGGANTIKAN ALERT NATIVE)
+    showToast("Berhasil Ditambahkan!", `"${product.name}" (${qty}x) masuk ke keranjang.`);
   }
 
   function buyNowById(productId) {
@@ -1942,7 +2051,7 @@ footer {
   /* ================= CHECKOUT SYSTEM ================= */
   function proceedToCheckoutFromCart() {
     if (cart.length === 0) {
-      alert("Keranjang belanja Anda masih kosong!");
+      showToast("Keranjang Kosong", "Silakan pilih produk terlebih dahulu.");
       return;
     }
     checkoutItems = [...cart];
@@ -1988,7 +2097,7 @@ footer {
 
   function handleCheckoutSubmit(e) {
     e.preventDefault();
-    alert("🎉 Pembelian Berhasil! Terima kasih telah berbelanja di Hilstore. Pesanan Anda akan segera diproses.");
+    showToast("Pesanan Berhasil! 🎉", "Terima kasih telah berbelanja di Hilstore.");
     
     // Reset Cart jika checkout dari cart
     cart = [];
