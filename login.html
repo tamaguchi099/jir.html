@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hilstore - Masuk Akun</title>
+  
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --dark: #0f172a;
+      --text: #334155;
+      --text-light: #94a3b8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* HEADER MINIMALIS */
+    header {
+      padding: 20px 8%;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .header-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .header-link:hover {
+      color: var(--primary);
+    }
+
+    /* CONTAINER LOGIN */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      flex-grow: 1;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 20px 30px -10px rgba(37, 99, 235, 0.1);
+      border: 1px solid #f1f5f9;
+      text-align: center;
+    }
+
+    .login-header {
+      margin-bottom: 28px;
+    }
+
+    .login-header h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .login-header p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    /* FORM INPUTS */
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-box i {
+      position: absolute;
+      left: 16px;
+      color: var(--text-light);
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
+      background: #f1f5f9;
+      transition: var(--transition);
+      color: var(--text);
+    }
+
+    .input-box input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .input-box input:focus + i {
+      color: var(--primary);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .forgot-pw {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .forgot-pw:hover {
+      text-decoration: underline;
+    }
+
+    /* TOMBOL MASUK */
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-login:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .login-footer {
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .login-footer a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER SEDERHANA */
+    footer {
+      background: var(--dark);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="logo">
+      <i class="fa-solid fa-gem"></i> Hilstore
+    </a>
+    <a href="home.html" class="header-link">Masuk sebagai Tamu <i class="fa-solid fa-arrow-right"></i></a>
+  </header>
+
+  <!-- FORM LOGIN CARD -->
+  <div class="login-container">
+    <div class="login-card">
+      
+      <div class="login-header">
+        <h2>Selamat Datang! 👋</h2>
+        <p>Silakan masuk ke akun Hilstore kamu</p>
+      </div>
+
+      <!-- FORM AKAN MENGARAHKAN LANGSUNG KE home.html -->
+      <form id="loginForm">
+        
+        <div class="form-group">
+          <label for="username">Nama / Email Customer</label>
+          <div class="input-box">
+            <input type="text" id="username" placeholder="Masukkan nama kamu..." required autocomplete="off">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-box">
+            <input type="password" id="password" placeholder="••••••••" required>
+            <i class="fa-solid fa-lock"></i>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox"> Ingat saya
+          </label>
+          <a href="#" class="forgot-pw">Lupa Password?</a>
+        </div>
+
+        <button type="submit" class="btn-login">
+          <i class="fa-solid fa-right-to-bracket"></i> Masuk Sekarang
+        </button>
+
+      </form>
+
+      <div class="login-footer">
+        Belum punya akun? <a href="#">Daftar Akun Baru</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Hilstore. Belanja Aman • Cepat • Terpercaya.</p>
+  </footer>
+
+  <!-- SCRIPT NAVIGASI -->
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Mencegah reload bawaan form
+      
+      const username = document.getElementById('username').value;
+      
+      // Simpan nama pengguna supaya bisa digunakan jika perlu
+      localStorage.setItem('customerName', username);
+
+      // LANGSUNG MASUK KE HALAMAN UTAMA (home.html)
+      window.location.href = "home.html";
+    });
+  </script>
+
+</body>
+</html>
