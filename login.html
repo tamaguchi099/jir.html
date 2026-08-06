@@ -399,13 +399,14 @@
       localStorage.setItem('customerName', username);
       localStorage.setItem('userRole', role);
 
-      // Pemberitahuan Singkat & Navigasi
+      // Logika Percabangan Pengarahan Halaman
       if (role === 'Admin') {
-        alert(`Selamat datang Admin ${username}! Navigasi ke halaman utama.`);
+        // Jika opsi Admin dipilih -> Langsung masuk ke file admin.html
+        window.location.href = "admin.html";
+      } else {
+        // Jika opsi Pembeli dipilih -> Masuk ke file home.html
+        window.location.href = "home.html";
       }
-
-      // Pengarahan halaman utama
-      window.location.href = "home.html";
     });
   </script>
 
