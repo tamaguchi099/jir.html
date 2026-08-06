@@ -63,6 +63,7 @@ header {
   align-items: center;
   gap: 8px;
   letter-spacing: -0.5px;
+  cursor: pointer;
 }
 
 .search {
@@ -115,10 +116,26 @@ header {
   font-weight: 600;
   font-size: 15px;
   transition: var(--transition);
+  cursor: pointer;
 }
 
-.menu a:hover {
+.menu a:hover, .menu a.nav-active {
   color: var(--primary);
+}
+
+/* PAGE DISPLAY SYSTEM */
+.page-section {
+  display: none;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.page-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* HERO SECTION */
@@ -247,12 +264,12 @@ header {
   gap: 24px;
   overflow-x: auto;
   padding: 20px 4px 30px 4px;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
   scroll-snap-type: x mandatory;
 }
 
 .products-slider::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 /* TOMBOL NAVIGASI GESER (PALANG / PANAH) */
@@ -300,19 +317,16 @@ header {
   flex-direction: column;
   scroll-snap-align: start;
 
-  /* Transisi Halus Efek Blur & Opacity saat keluar/masuk layar */
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
               opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1),
               filter 0.5s cubic-bezier(0.25, 1, 0.5, 1),
               box-shadow 0.3s ease;
 
-  /* Status Awal Saat Diluar Layar Pandang (Buram) */
   opacity: 0.35;
   filter: blur(5px) scale(0.95);
   will-change: transform, filter, opacity;
 }
 
-/* Status Kartu Aktif (Berada di Dalam Layar Pandang) */
 .card.is-visible {
   opacity: 1;
   filter: blur(0px) scale(1);
@@ -422,6 +436,132 @@ header {
 .buy:hover {
   background: var(--primary-hover);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ================= HALAMAN KATEGORI STYLES ================= */
+.category-page-header {
+  padding: 40px 8% 20px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.category-page-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.category-page-header p {
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* VISUAL CATEGORY CARDS */
+.cat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 30px 8% 20px;
+}
+
+.cat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cat-card:hover, .cat-card.active {
+  border-color: var(--primary);
+  background: #eff6ff;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-card i {
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.cat-card h4 {
+  font-size: 15px;
+  color: var(--dark);
+}
+
+/* FILTER TOOLBAR & GRID KATALOG */
+.catalog-container {
+  display: flex;
+  gap: 30px;
+  padding: 20px 8% 60px;
+}
+
+.sidebar-filter {
+  width: 260px;
+  flex-shrink: 0;
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  height: fit-content;
+}
+
+.sidebar-filter h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--dark);
+}
+
+.filter-group {
+  margin-bottom: 24px;
+}
+
+.filter-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.filter-group input, .filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.catalog-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+/* Kartu Katalog (Tampilan Statis tanpa Efek Blur Carousel) */
+.catalog-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.catalog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.catalog-card .card-img-container {
+  height: 200px;
 }
 
 /* FEATURES SECTION */
@@ -601,6 +741,12 @@ footer {
   .search {
     width: 50%;
   }
+  .catalog-container {
+    flex-direction: column;
+  }
+  .sidebar-filter {
+    width: 100%;
+  }
   .nav-btn.prev { left: 2%; }
   .nav-btn.next { right: 2%; }
 }
@@ -620,7 +766,7 @@ footer {
   .hero h1 {
     font-size: 32px;
   }
-  .products-wrapper, .features, footer {
+  .products-wrapper, .features, footer, .category-page-header, .cat-cards-grid, .catalog-container {
     padding-left: 5%;
     padding-right: 5%;
   }
@@ -632,8 +778,9 @@ footer {
 </head>
 <body>
 
+<!-- HEADER UNTUK NAVIGASI -->
 <header>
-  <div class="logo">
+  <div class="logo" onclick="switchPage('home')">
     <i class="fa-solid fa-gem"></i> Hilstore
   </div>
 
@@ -643,213 +790,209 @@ footer {
   </div>
 
   <div class="menu">
-    <a href="#">Home</a>
-    <a href="#">Kategori</a>
+    <a id="nav-home" class="nav-active" onclick="switchPage('home')">Home</a>
+    <a id="nav-category" onclick="switchPage('category')">Kategori</a>
     <a href="#">Promo</a>
     <a href="#">Keranjang</a>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Belanja Lebih Mudah & Hemat</h1>
-    <p>Nikmati promo spesial diskon hingga 70% untuk produk-produk pilihan terbaik hari ini.</p>
-    <button>Belanja Sekarang</button>
+<!-- ================= 1. HALAMAN UTAMA (HOME PAGE) ================= -->
+<div id="home-page" class="page-section active">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Belanja Lebih Mudah & Hemat</h1>
+      <p>Nikmati promo spesial diskon hingga 70% untuk produk-produk pilihan terbaik hari ini.</p>
+      <button onclick="switchPage('category')">Eksplor Kategori</button>
+    </div>
+
+    <div class="hero-img-wrapper">
+      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80" alt="Belanja Promo">
+    </div>
+  </section>
+
+  <!-- HEADER SECTION DENGAN FILTER KATEGORI -->
+  <div class="section-header">
+    <h2 class="title"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Produk Populer</h2>
+    <div class="category-filter">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">Semua</button>
+      <button class="filter-btn" onclick="filterCategory('limited', this)">Limited Edition 👑</button>
+      <button class="filter-btn" onclick="filterCategory('elektronik', this)">Elektronik</button>
+      <button class="filter-btn" onclick="filterCategory('aksesori', this)">Aksesori</button>
+    </div>
   </div>
 
-  <div class="hero-img-wrapper">
-    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80" alt="Belanja Promo">
-  </div>
-</section>
+  <!-- CONTAINER SLIDER DENGAN TOMBOL NAVIGASI GESER -->
+  <div class="products-wrapper">
+    <button class="nav-btn prev" onclick="scrollProducts(-300)"><i class="fa-solid fa-chevron-left"></i></button>
 
-<!-- HEADER SECTION DENGAN FILTER KATEGORI -->
-<div class="section-header">
-  <h2 class="title"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Produk Populer</h2>
-  <div class="category-filter">
-    <button class="filter-btn active" onclick="filterCategory('all', this)">Semua</button>
-    <button class="filter-btn" onclick="filterCategory('limited', this)">Limited Edition 👑</button>
-    <button class="filter-btn" onclick="filterCategory('elektronik', this)">Elektronik</button>
-    <button class="filter-btn" onclick="filterCategory('aksesori', this)">Aksesori</button>
+    <div class="products-slider" id="productSlider">
+
+      <!-- Barang Limited Edition 1 -->
+      <div class="card" data-category="limited">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80" alt="Apple Watch Ultra Gold">
+        </div>
+        <div class="info">
+          <div class="badge limited">Limited Edition</div>
+          <h3>Watch Ultra Gold Edition</h3>
+          <div class="price">Rp24.999.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <span>(88)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+      <!-- Barang 1 -->
+      <div class="card" data-category="elektronik">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
+        </div>
+        <div class="info">
+          <div class="badge">-30%</div>
+          <h3>Laptop Gaming Pro</h3>
+          <div class="price">Rp12.999.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <span>(256)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+      <!-- Barang 2 -->
+      <div class="card" data-category="elektronik">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
+        </div>
+        <div class="info">
+          <div class="badge bestseller">Best Seller</div>
+          <h3>iPhone 15 Pro</h3>
+          <div class="price">Rp16.999.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <span>(520)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+      <!-- Barang Limited Edition 2 -->
+      <div class="card" data-category="limited">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphone Cyberpunk">
+        </div>
+        <div class="info">
+          <div class="badge limited">Limited Edition</div>
+          <h3>Headphone Cyber Edition</h3>
+          <div class="price">Rp3.499.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <span>(42)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+      <!-- Barang 3 -->
+      <div class="card" data-category="aksesori">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Earbuds Wireless">
+        </div>
+        <div class="info">
+          <div class="badge new">Baru</div>
+          <h3>TWS Wireless Earbuds</h3>
+          <div class="price">Rp799.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+            <span>(180)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+      <!-- Barang 4 -->
+      <div class="card" data-category="aksesori">
+        <div class="card-img-container">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
+        </div>
+        <div class="info">
+          <div class="badge hot">Hot</div>
+          <h3>Smartwatch Series X</h3>
+          <div class="price">Rp1.499.000</div>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <span>(310)</span>
+          </div>
+          <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="nav-btn next" onclick="scrollProducts(300)"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 </div>
 
-<!-- CONTAINER SLIDER DENGAN TOMBOL NAVIGASI GESER -->
-<div class="products-wrapper">
-  <button class="nav-btn prev" onclick="scrollProducts(-300)"><i class="fa-solid fa-chevron-left"></i></button>
-
-  <div class="products-slider" id="productSlider">
-
-    <!-- Barang Limited Edition 1 -->
-    <div class="card" data-category="limited">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80" alt="Apple Watch Ultra Gold">
-      </div>
-      <div class="info">
-        <div class="badge limited">Limited Edition</div>
-        <h3>Watch Ultra Gold Edition</h3>
-        <div class="price">Rp24.999.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(88)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang 1 -->
-    <div class="card" data-category="elektronik">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming">
-      </div>
-      <div class="info">
-        <div class="badge">-30%</div>
-        <h3>Laptop Gaming Pro</h3>
-        <div class="price">Rp12.999.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(256)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang 2 -->
-    <div class="card" data-category="elektronik">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80" alt="iPhone">
-      </div>
-      <div class="info">
-        <div class="badge bestseller">Best Seller</div>
-        <h3>iPhone 15 Pro</h3>
-        <div class="price">Rp16.999.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(520)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang Limited Edition 2 -->
-    <div class="card" data-category="limited">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphone Cyberpunk">
-      </div>
-      <div class="info">
-        <div class="badge limited">Limited Edition</div>
-        <h3>Headphone Cyber Edition</h3>
-        <div class="price">Rp3.499.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(42)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang 3 -->
-    <div class="card" data-category="aksesori">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80" alt="Earbuds Wireless">
-      </div>
-      <div class="info">
-        <div class="badge new">Baru</div>
-        <h3>TWS Wireless Earbuds</h3>
-        <div class="price">Rp799.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-          <span>(180)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang 4 -->
-    <div class="card" data-category="aksesori">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="Smartwatch">
-      </div>
-      <div class="info">
-        <div class="badge hot">Hot</div>
-        <h3>Smartwatch Series X</h3>
-        <div class="price">Rp1.499.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(310)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang Baru Tambahan 5 -->
-    <div class="card" data-category="elektronik">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=80" alt="Monitor Curved">
-      </div>
-      <div class="info">
-        <div class="badge new">Baru</div>
-        <h3>Monitor Curved 144Hz</h3>
-        <div class="price">Rp3.899.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <span>(95)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
-    <!-- Barang Baru Tambahan 6 -->
-    <div class="card" data-category="aksesori">
-      <div class="card-img-container">
-        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80" alt="Keyboard Mechanical">
-      </div>
-      <div class="info">
-        <div class="badge bestseller">Best Seller</div>
-        <h3>Keyboard Mechanical RGB</h3>
-        <div class="price">Rp850.000</div>
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star-half-stroke"></i>
-          <span>(412)</span>
-        </div>
-        <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
-      </div>
-    </div>
-
+<!-- ================= 2. HALAMAN KATEGORI (CATEGORY PAGE) ================= -->
+<div id="category-page" class="page-section">
+  <div class="category-page-header">
+    <h1>Katalog Kategori Produk</h1>
+    <p>Jelajahi seluruh koleksi produk terbaik kami berdasarkan kategori impian Anda.</p>
   </div>
 
-  <button class="nav-btn next" onclick="scrollProducts(300)"><i class="fa-solid fa-chevron-right"></i></button>
+  <!-- PILIHAN KATEGORI VISUAL -->
+  <div class="cat-cards-grid">
+    <div class="cat-card active" onclick="selectCatCard('all', this)">
+      <i class="fa-solid fa-border-all"></i>
+      <h4>Semua Produk</h4>
+    </div>
+    <div class="cat-card" onclick="selectCatCard('limited', this)">
+      <i class="fa-solid fa-crown" style="color: #8b5cf6;"></i>
+      <h4>Limited Edition</h4>
+    </div>
+    <div class="cat-card" onclick="selectCatCard('elektronik', this)">
+      <i class="fa-solid fa-laptop"></i>
+      <h4>Elektronik</h4>
+    </div>
+    <div class="cat-card" onclick="selectCatCard('aksesori', this)">
+      <i class="fa-solid fa-headphones"></i>
+      <h4>Aksesori</h4>
+    </div>
+    <div class="cat-card" onclick="selectCatCard('gaming', this)">
+      <i class="fa-solid fa-gamepad"></i>
+      <h4>Gaming Setup</h4>
+    </div>
+  </div>
+
+  <!-- CONTAINER UTAMA FILTER SIDEBAR + KATALOG GRID -->
+  <div class="catalog-container">
+    <!-- SIDEBAR FILTER -->
+    <div class="sidebar-filter">
+      <h3><i class="fa-solid fa-sliders"></i> Filter Katalog</h3>
+      
+      <div class="filter-group">
+        <label>Urutkan Berdasarkan</label>
+        <select id="sort-select" onchange="renderCatalog()">
+          <option value="default">Paling Sesuai</option>
+          <option value="low">Harga: Terendah</option>
+          <option value="high">Harga: Tertinggi</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Harga Maksimal (Rp)</label>
+        <input type="number" id="price-limit" placeholder="Contoh: 15000000" oninput="renderCatalog()">
+      </div>
+    </div>
+
+    <!-- KATALOG PRODUK GRID -->
+    <div class="catalog-grid" id="catalogGrid">
+      <!-- Produk akan dimasukkan secara dinamis oleh JavaScript -->
+    </div>
+  </div>
 </div>
 
 <!-- SECTION KEUNGGULAN -->
@@ -906,10 +1049,10 @@ footer {
     <div class="footer-col">
       <h3>Kategori</h3>
       <ul>
-        <li><a href="#">Limited Edition</a></li>
-        <li><a href="#">Elektronik & Gadget</a></li>
-        <li><a href="#">Komputer & Periferal</a></li>
-        <li><a href="#">Aksesori Audio</a></li>
+        <li><a onclick="switchPage('category')">Limited Edition</a></li>
+        <li><a onclick="switchPage('category')">Elektronik & Gadget</a></li>
+        <li><a onclick="switchPage('category')">Komputer & Periferal</a></li>
+        <li><a onclick="switchPage('category')">Aksesori Audio</a></li>
       </ul>
     </div>
 
@@ -938,49 +1081,110 @@ footer {
   </div>
 </footer>
 
-<!-- JAVASCRIPT UNTUK ANIMASI GESER HALUS & EFEK BURAM -->
+<!-- JAVASCRIPT UNTUK INTERAKSI & SISTEM HALAMAN KATEGORI -->
 <script>
+  // DATA MASTER PRODUK KATALOG
+  const productsData = [
+    { id: 1, name: "Watch Ultra Gold Edition", price: 24999000, category: "limited", badge: "limited", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=80", rating: "5.0 (88)" },
+    { id: 2, name: "Laptop Gaming Pro", price: 12999000, category: "elektronik", badge: "-30%", img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=500&q=80", rating: "4.9 (256)" },
+    { id: 3, name: "iPhone 15 Pro", price: 16999000, category: "elektronik", badge: "bestseller", img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=500&q=80", rating: "4.9 (520)" },
+    { id: 4, name: "Headphone Cyber Edition", price: 3499000, category: "limited", badge: "limited", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80", rating: "4.8 (42)" },
+    { id: 5, name: "TWS Wireless Earbuds", price: 799000, category: "aksesori", badge: "new", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=500&q=80", rating: "4.6 (180)" },
+    { id: 6, name: "Smartwatch Series X", price: 1499000, category: "aksesori", badge: "hot", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80", rating: "4.9 (310)" },
+    { id: 7, name: "Monitor Curved 144Hz", price: 3899000, category: "gaming", badge: "new", img: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=500&q=80", rating: "4.7 (95)" },
+    { id: 8, name: "Keyboard Mechanical RGB", price: 850000, category: "gaming", badge: "bestseller", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=500&q=80", rating: "4.8 (412)" }
+  ];
+
+  let selectedCategory = 'all';
+
+  // 1. SISTEM PERPINDAHAN HALAMAN (SPA)
+  function switchPage(page) {
+    document.getElementById('home-page').classList.remove('active');
+    document.getElementById('category-page').classList.remove('active');
+    
+    document.getElementById('nav-home').classList.remove('nav-active');
+    document.getElementById('nav-category').classList.remove('nav-active');
+
+    if (page === 'home') {
+      document.getElementById('home-page').classList.add('active');
+      document.getElementById('nav-home').classList.add('nav-active');
+    } else if (page === 'category') {
+      document.getElementById('category-page').classList.add('active');
+      document.getElementById('nav-category').classList.add('nav-active');
+      renderCatalog();
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 2. RENDERING DAN FILTER PRODUK PADA HALAMAN KATEGORI
+  function selectCatCard(cat, el) {
+    document.querySelectorAll('.cat-card').forEach(card => card.classList.remove('active'));
+    el.classList.add('active');
+    selectedCategory = cat;
+    renderCatalog();
+  }
+
+  function renderCatalog() {
+    const grid = document.getElementById('catalogGrid');
+    const sortVal = document.getElementById('sort-select').value;
+    const priceLimit = parseFloat(document.getElementById('price-limit').value) || Infinity;
+
+    // Filter berdasarkan Kategori & Harga
+    let filtered = productsData.filter(p => {
+      const matchCat = (selectedCategory === 'all') || (p.category === selectedCategory);
+      const matchPrice = p.price <= priceLimit;
+      return matchCat && matchPrice;
+    });
+
+    // Urutkan (Sorting)
+    if (sortVal === 'low') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sortVal === 'high') {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    // Render HTML ke Grid Katalog
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light);">
+        <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 12px;"></i>
+        <p>Tidak ada produk yang sesuai dengan filter Anda.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(p => {
+      let badgeClass = p.badge === 'limited' ? 'limited' : (p.badge === 'bestseller' ? 'bestseller' : (p.badge === 'new' ? 'new' : 'hot'));
+      let badgeText = p.badge === 'limited' ? 'Limited Edition' : (p.badge === 'bestseller' ? 'Best Seller' : p.badge);
+
+      return `
+        <div class="catalog-card">
+          <div class="card-img-container">
+            <img src="${p.img}" alt="${p.name}">
+          </div>
+          <div class="info">
+            <div class="badge ${badgeClass}">${badgeText}</div>
+            <h3>${p.name}</h3>
+            <div class="price">Rp${p.price.toLocaleString('id-ID')}</div>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i> <span>${p.rating}</span>
+            </div>
+            <button class="buy"><i class="fa-solid fa-cart-shopping"></i> Tambah ke Keranjang</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. SLIDER PADA HALAMAN HOME
   const slider = document.getElementById('productSlider');
   const cards = document.querySelectorAll('.card');
 
-  // 1. Animasi Scroll Kustom (Mulus dengan Easing)
-  let isScrolling = false;
   function scrollProducts(distance) {
-    if (isScrolling) return;
-    
-    const start = slider.scrollLeft;
-    const startTime = performance.now();
-    const duration = 500; // Durasi pergerakan (milidetik)
-
-    // Formula Easing OutCubic (Mulai cepat, berhenti dengan lembut)
-    function easeOutCubic(t) {
-      return 1 - Math.pow(1 - t, 3);
-    }
-
-    function animateScroll(currentTime) {
-      isScrolling = true;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutCubic(progress);
-
-      slider.scrollLeft = start + (distance * easedProgress);
-
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
-      } else {
-        isScrolling = false;
-      }
-    }
-
-    requestAnimationFrame(animateScroll);
+    slider.scrollBy({ left: distance, behavior: 'smooth' });
   }
 
-  // 2. Observer untuk Mendeteksi Barang Keluar/Masuk Layar (Memberikan Efek Blur)
-  const observerOptions = {
-    root: slider,
-    threshold: 0.55 // Kartu harus terlihat minimal 55% untuk hilang efek buramnya
-  };
-
+  // OBSERVER EFEK BLUR SAAT SCROLL DI HOME
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -989,14 +1193,12 @@ footer {
         entry.target.classList.remove('is-visible');
       }
     });
-  }, observerOptions);
+  }, { root: slider, threshold: 0.55 });
 
   cards.forEach(card => observer.observe(card));
 
-  // 3. Filter Kategori
   function filterCategory(category, element) {
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     element.classList.add('active');
 
     cards.forEach(card => {
@@ -1008,8 +1210,6 @@ footer {
         observer.unobserve(card);
       }
     });
-
-    // Reset posisi slider ke paling awal
     slider.scrollTo({ left: 0, behavior: 'smooth' });
   }
 </script>
