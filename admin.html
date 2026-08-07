@@ -3,25 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hilstore - Dashboard Admin</title>
+  <title>Hilstore - Dashboard Admin Pro</title>
 
   <!-- Google Fonts & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     :root {
       --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --dark-sidebar: #0f172a;
-      --sidebar-hover: #1e293b;
-      --text-dark: #334155;
+      --primary-gradient: linear-gradient(135deg, #2563eb, #1d4ed8);
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
+      --purple: #8b5cf6;
+      --text-dark: #1e293b;
       --text-muted: #64748b;
-      --bg-body: #f1f5f9;
+      --bg-body: #f8fafc;
       --card-bg: #ffffff;
-      --radius: 16px;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-md: 0 10px 25px -5px rgba(37, 99, 235, 0.08);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -29,102 +39,44 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
       background-color: var(--bg-body);
       color: var(--text-dark);
-      display: flex;
       min-height: 100vh;
-    }
-
-    /* --- SIDEBAR --- */
-    aside {
-      width: 260px;
-      background-color: var(--dark-sidebar);
-      color: #fff;
       display: flex;
       flex-direction: column;
-      flex-shrink: 0;
-      transition: var(--transition);
     }
 
-    .brand {
-      padding: 1.5rem;
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #ffffff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: -0.5px;
-    }
-
-    .brand i {
-      color: var(--primary);
-    }
-
-    .nav-menu {
-      list-style: none;
-      padding: 1.2rem 0;
-      flex: 1;
-    }
-
-    .nav-item {
-      padding: 0.9rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #94a3b8;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: var(--transition);
-      border-left: 4px solid transparent;
-    }
-
-    .nav-item:hover, .nav-item.active {
-      background-color: var(--sidebar-hover);
-      color: #ffffff;
-      border-left-color: var(--primary);
-    }
-
-    .nav-item i {
-      font-size: 1.1rem;
-      width: 20px;
-      text-align: center;
-    }
-
-    .nav-item.active i {
-      color: var(--primary);
-    }
-
-    /* --- MAIN AREA --- */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-    }
-
-    /* Topbar Header */
+    /* Header */
     header {
-      background-color: #ffffff;
-      padding: 1.2rem 2rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      padding: 1rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
       border-bottom: 1px solid #e2e8f0;
     }
 
-    header h2 {
+    .brand {
+      font-size: 1.3rem;
       font-weight: 800;
-      font-size: 1.4rem;
-      color: var(--dark-sidebar);
-      letter-spacing: -0.5px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-profile-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .user-profile {
@@ -136,89 +88,157 @@
     .avatar {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, var(--primary), #1d4ed8);
+      background: var(--primary-gradient);
       color: #fff;
-      border-radius: 50%;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
     }
 
-    /* Content Area */
-    .content {
-      padding: 2rem;
+    /* Tombol Logout Khusus */
+    .btn-logout {
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1.5px solid #fecaca;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-logout:hover {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    /* Menu Navigation Bar */
+    .nav-tabs {
+      background: #ffffff;
+      padding: 0.5rem 5%;
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      overflow-x: auto;
+    }
+
+    .nav-btn {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: #eff6ff;
+      color: var(--primary);
+    }
+
+    /* Layout Container */
+    .container {
+      padding: 2rem 5%;
       flex: 1;
     }
 
-    .page-section {
+    /* Tab Content Switcher */
+    .tab-content {
       display: none;
     }
 
-    .page-section.active {
+    .tab-content.active {
       display: block;
-      animation: fadeIn 0.4s ease-out;
+      animation: fadeIn 0.3s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hilstore Banner Style Card */
-    .banner-card {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: white;
-      padding: 2rem;
-      border-radius: var(--radius);
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+    /* Cards & Form Styling */
+    .section-card {
+      background: var(--card-bg);
+      padding: 1.8rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid #f1f5f9;
+      margin-bottom: 1.5rem;
     }
 
-    .banner-card h3 {
-      font-size: 1.5rem;
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .section-header h3 {
+      font-size: 1.15rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .banner-card p {
-      opacity: 0.9;
-      font-size: 0.95rem;
+    .section-header h3 i {
+      color: var(--primary);
     }
 
-    /* Cards Layout */
-    .cards-grid {
+    .filter-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
-    .card {
+    .card-stat {
       background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 1.2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid #f1f5f9;
     }
 
-    .card h3 {
-      font-size: 0.875rem;
+    .card-stat h3 {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
     }
 
-    .card .value {
-      font-size: 1.85rem;
+    .card-stat .value {
+      font-size: 1.5rem;
       font-weight: 800;
-      color: var(--dark-sidebar);
     }
 
-    /* Form Styles */
+    /* Form Controls & Search Bar */
     .form-group {
       margin-bottom: 1.2rem;
     }
@@ -228,14 +248,13 @@
       font-size: 0.85rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: var(--dark-sidebar);
     }
 
     .form-control {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       outline: none;
       font-size: 0.95rem;
       background: #f8fafc;
@@ -245,58 +264,244 @@
     .form-control:focus {
       background: #fff;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
 
-    .btn-primary {
-      padding: 0.75rem 1.5rem;
+    .search-box {
+      position: relative;
+      min-width: 220px;
+    }
+
+    .search-box input {
+      padding-left: 2.5rem;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .category-filter-select {
+      padding: 0.8rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Custom Date Filter Styling */
+    .date-picker-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      padding: 6px 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+    }
+
+    .date-picker-group input[type="date"] {
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Custom Dropdown Styling */
+    .custom-select-wrapper {
+      position: relative;
+      user-select: none;
+    }
+
+    .custom-select-trigger {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .custom-options {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: #fff;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s ease;
+      z-index: 50;
+    }
+
+    .custom-select-wrapper.open .custom-options {
+      opacity: 1; visibility: visible;
+      transform: translateY(0);
+    }
+
+    .custom-option {
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .custom-option:hover {
+      background: #eff6ff;
+      color: var(--primary);
+    }
+
+    .custom-option.selected {
       background: var(--primary);
+      color: #fff;
+    }
+
+    /* Product Thumbnail Image */
+    .product-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid #e2e8f0;
+    }
+
+    .product-info-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Store Badge Styling */
+    .store-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .store-badge i {
+      color: var(--primary);
+    }
+
+    /* Buttons & Tables */
+    .btn-primary {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--primary-gradient);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       font-weight: 700;
       cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
+    .action-btn-group {
+      display: flex;
+      gap: 6px;
     }
 
-    /* Table Component */
-    .table-container {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-    }
-
-    .table-container h3 {
-      font-size: 1.1rem;
+    .btn-edit {
+      background: #fef3c7;
+      color: #d97706;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
       font-weight: 700;
-      color: var(--dark-sidebar);
-      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-edit:hover {
+      background: #f59e0b;
+      color: #fff;
+    }
+
+    .btn-delete {
+      background: #fee2e2;
+      color: var(--danger);
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .btn-delete:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-reply {
+      background: #e0e7ff;
+      color: #4338ca;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+
+    .btn-reply:hover {
+      background: #4338ca;
+      color: #fff;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      text-align: left;
     }
 
     th, td {
-      text-align: left;
-      padding: 0.9rem 1rem;
+      padding: 1rem;
       border-bottom: 1px solid #f1f5f9;
       font-size: 0.9rem;
+      vertical-align: middle;
     }
 
     th {
       background-color: #f8fafc;
       color: var(--text-muted);
       font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
     }
 
     .badge {
@@ -304,200 +509,1972 @@
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .badge-online { background: #dcfce7; color: #15803d; }
+    .badge-category { background: #eff6ff; color: #2563eb; }
+
+    /* Badge Finance Types */
+    .badge-income { background: #dcfce7; color: #15803d; }
+    .badge-expense { background: #fee2e2; color: #b91c1c; }
+
+    /* Badge Status Laporan */
+    .badge-pending { background: #fef3c7; color: #b45309; }
+    .badge-process { background: #e0f2fe; color: #0369a1; }
+    .badge-resolved { background: #dcfce7; color: #15803d; }
+
+    /* Priority Badges */
+    .badge-high { background: #fee2e2; color: #b91c1c; }
+    .badge-medium { background: #ffedd5; color: #c2410c; }
+    .badge-low { background: #f1f5f9; color: #475569; }
+
+    /* Customer Info Box */
+    .customer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .customer-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .report-message {
+      max-width: 260px;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      line-height: 1.4;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border-left: 3px solid var(--primary);
     }
 
-    .badge-success { background: #dcfce7; color: #15803d; }
-    .badge-warning { background: #fef9c3; color: #a16207; }
+    /* Modal Edit Popup */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0; visibility: hidden;
+      transition: all 0.25s ease;
+    }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      body { flex-direction: column; }
-      aside { width: 100%; }
-      header { padding: 1rem; }
-      .content { padding: 1rem; }
+    .modal-overlay.active {
+      opacity: 1; visibility: visible;
+    }
+
+    .modal-card {
+      background: #fff;
+      width: 90%;
+      max-width: 500px;
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      transform: translateY(20px);
+      transition: all 0.25s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    /* Finance Box Definition */
+    .info-box-finance {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 1rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Top Ranking Store Badges & Bars */
+    .rank-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .rank-1 { background: #fef08a; color: #854d0e; }
+    .rank-2 { background: #e2e8f0; color: #475569; }
+    .rank-3 { background: #ffedd5; color: #9a3412; }
+    .rank-other { background: #f1f5f9; color: #64748b; }
+
+    .progress-bar-bg {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-gradient);
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
 
-  <!-- SIDEBAR NAVIGASI MENU -->
-  <aside>
+  <!-- HEADER -->
+  <header>
     <div class="brand">
       <i class="fa-solid fa-gem"></i> Hilstore Admin
     </div>
-    <ul class="nav-menu">
-      <li class="nav-item active" onclick="switchPage('dashboard', this)">
-        <i class="fa-solid fa-chart-pie"></i> Dashboard
-      </li>
-      <li class="nav-item" onclick="switchPage('input-data', this)">
-        <i class="fa-solid fa-box-archive"></i> Input Produk
-      </li>
-      <li class="nav-item" onclick="switchPage('pemrosesan', this)">
-        <i class="fa-solid fa-gears"></i> Pemrosesan Pesanan
-      </li>
-      <li class="nav-item" onclick="switchPage('laporan', this)">
-        <i class="fa-solid fa-file-invoice-dollar"></i> Laporan Penjualan
-      </li>
-      <li class="nav-item" onclick="switchPage('pengaturan', this)">
-        <i class="fa-solid fa-sliders"></i> Pengaturan Toko
-      </li>
-    </ul>
-  </aside>
-
-  <!-- KONTEN UTAMA -->
-  <main>
-    <!-- TOPBAR / HEADER -->
-    <header>
-      <h2 id="headerTitle">Dashboard Utama</h2>
+    <div class="user-profile-wrapper">
       <div class="user-profile">
         <div class="avatar">A</div>
         <div>
-          <div style="font-size: 0.9rem; font-weight: 700; color: var(--dark-sidebar);" id="adminNameDisplay">Admin Hilstore</div>
-          <div style="font-size: 0.75rem; color: #16a34a; font-weight: 600;">● Online</div>
+          <div style="font-size: 0.85rem; font-weight: 800;" id="adminNameDisplay">Admin Hilstore</div>
+          <div style="font-size: 0.7rem; color: #16a34a; font-weight: 700;">● Online</div>
         </div>
       </div>
-    </header>
+      <!-- Tombol Logout Khusus di Samping Profil -->
+      <button class="btn-logout" onclick="handleLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </header>
 
-    <!-- KONTEN BISA BERGANTI KETIKA MENU DIKLIK -->
-    <div class="content">
+  <!-- NAVBAR MENU -->
+  <nav class="nav-tabs">
+    <button class="nav-btn active" onclick="switchTab('home')">
+      <i class="fa-solid fa-house"></i> Home
+    </button>
+    <button class="nav-btn" onclick="switchTab('inputBarang')">
+      <i class="fa-solid fa-square-plus"></i> Input Barang
+    </button>
+    <button class="nav-btn" onclick="switchTab('viewBarang')">
+      <i class="fa-solid fa-boxes-stacked"></i> View Barang
+    </button>
+    <button class="nav-btn" onclick="switchTab('laporanKeuangan')">
+      <i class="fa-solid fa-chart-line"></i> Laporan Keuangan
+    </button>
+  </nav>
 
-      <!-- MENU 1: DASHBOARD -->
-      <section id="dashboard" class="page-section active">
-        
-        <!-- Banner Hilstore Style -->
-        <div class="banner-card">
-          <h3>Selamat Datang di Hilstore Admin Panel 🚀</h3>
-          <p>Kelola data produk, kontrol pesanan masuk, dan pantau perkembangan toko dengan mudah.</p>
+  <div class="container">
+    
+    <!-- MENU 1: HOME -->
+    <div id="home" class="tab-content active">
+      <!-- Quick Metric Overview Cards (Fitur Baru Menu Home) -->
+      <div class="stats-grid" style="margin-bottom: 1.5rem;">
+        <div class="card-stat" style="border-left: 4px solid var(--primary);">
+          <h3>Total Kunjungan Hari Ini</h3>
+          <div class="value" style="color: var(--primary);">1,428 Pengunjung</div>
         </div>
-
-        <div class="cards-grid">
-          <div class="card">
-            <h3>Total Pelanggan</h3>
-            <div class="value">1,248</div>
-          </div>
-          <div class="card">
-            <h3>Produk Terjual Hari Ini</h3>
-            <div class="value">84 Item</div>
-          </div>
-          <div class="card">
-            <h3>Status Sistem Toko</h3>
-            <div class="value" style="color: #16a34a;">Aktif</div>
-          </div>
+        <div class="card-stat" style="border-left: 4px solid var(--success);">
+          <h3>Transaksi Sukses</h3>
+          <div class="value" style="color: var(--success);">42 Pesanan</div>
         </div>
+        <div class="card-stat" style="border-left: 4px solid var(--purple);">
+          <h3>Konversi Penjualan</h3>
+          <div class="value" style="color: var(--purple);">3.4%</div>
+        </div>
+      </div>
 
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-chart-line"></i> Grafik Pengembangan Perusahaan</h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Tahun 2026</span>
+        </div>
+        <div style="position: relative; height: 320px; width: 100%;">
+          <canvas id="growthChart"></canvas>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-users"></i> Customer Online (Real-Time)</h3>
+          <span style="font-size: 0.85rem; color: var(--success); font-weight: 700;" id="totalOnlineCount">● 8 Pengunjung Aktif</span>
+        </div>
         <div class="table-container">
-          <h3>Pesanan Terakhir</h3>
           <table>
             <thead>
               <tr>
-                <th>ID Transaksi</th>
-                <th>Nama Produk</th>
-                <th>Kategori</th>
-                <th>Status Pembayaran</th>
+                <th>Nama Pembeli</th>
+                <th>Halaman Diakses</th>
+                <th>Waktu Masuk</th>
+                <th>Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="homeOnlineCustomerTable">
               <tr>
-                <td>#HL-1001</td>
-                <td>Watch Ultra Gold Edition</td>
-                <td>Aksesori</td>
-                <td><span class="badge badge-success">Lunas</span></td>
+                <td>Ahmad Ridwan</td>
+                <td>Keranjang Belanja</td>
+                <td>2 Menit lalu</td>
+                <td><span class="badge badge-online">● Online</span></td>
               </tr>
               <tr>
-                <td>#HL-1002</td>
-                <td>Laptop Gaming Pro</td>
-                <td>Elektronik</td>
-                <td><span class="badge badge-warning">Menunggu</span></td>
+                <td>Siti Nurhaliza</td>
+                <td>Halaman Produk (iPhone 15 Pro)</td>
+                <td>Baru saja</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Budi Santoso</td>
+                <td>Checkout Pembayaran</td>
+                <td>5 Menit lalu</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Dewi Lestari</td>
+                <td>Kategori Elektronik</td>
+                <td>1 Menit lalu</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Fajar Nugraha</td>
+                <td>Detail Produk (Laptop Gaming)</td>
+                <td>Baru saja</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Rina Melati</td>
+                <td>Ulasan Pelanggan</td>
+                <td>4 Menit lalu</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Eko Prasetyo</td>
+                <td>Lacak Pengiriman</td>
+                <td>3 Menit lalu</td>
+                <td><span class="badge badge-online">● Online</span></td>
+              </tr>
+              <tr>
+                <td>Maya Puspita</td>
+                <td>Halaman Utama (Home)</td>
+                <td>Baru saja</td>
+                <td><span class="badge badge-online">● Online</span></td>
               </tr>
             </tbody>
           </table>
         </div>
-      </section>
+      </div>
 
-      <!-- MENU 2: INPUT DATA -->
-      <section id="input-data" class="page-section">
-        <div class="card" style="max-width: 500px;">
-          <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--dark-sidebar); text-transform: none;">Form Input Produk Baru</h3>
-          
+      <!-- TOP 10 RANKING INVESTOR (HOME) -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>
+            <i class="fa-solid fa-trophy" style="color: var(--warning);"></i> 
+            Top 10 Ranking Investor Penyumbang Pendanaan Hilstore
+          </h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+            Akumulasi Keseluruhan
+          </span>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 70px; text-align: center;">Peringkat</th>
+                <th>Nama Investor / Partner</th>
+                <th>Total Kontribusi Pendanaan</th>
+                <th>Persentase</th>
+                <th style="width: 25%;">Visualisasi Kontribusi</th>
+              </tr>
+            </thead>
+            <tbody id="homeTopStoreRankingBody">
+              <!-- Auto-generated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU 2: INPUT BARANG & RIWAYAT INPUT -->
+    <div id="inputBarang" class="tab-content">
+      <div class="section-card" style="max-width: 700px; margin: 0 auto 2rem auto;">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-square-plus"></i> Input Barang Baru</h3>
+        </div>
+        <form id="addProductForm">
           <div class="form-group">
-            <label>Nama Produk</label>
-            <input type="text" placeholder="Contoh: iPhone 15 Pro" class="form-control">
+            <label>Nama Barang</label>
+            <input type="text" id="prodName" placeholder="Contoh: iPhone 15 Pro" class="form-control" required autocomplete="off">
           </div>
-          
+
+          <div class="form-group">
+            <label>Upload Foto Produk</label>
+            <input type="file" id="prodImgFile" accept="image/*" class="form-control" required style="cursor: pointer;">
+          </div>
+
+          <!-- Custom Dropdown -->
+          <div class="form-group">
+            <label>Kategori</label>
+            <input type="hidden" id="prodCategory" value="Elektronik">
+            <div class="custom-select-wrapper" id="customSelect">
+              <div class="custom-select-trigger">
+                <span id="selectedCategoryText"><i class="fa-solid fa-laptop" style="margin-right: 8px;"></i> Elektronik</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div class="custom-options">
+                <div class="custom-option selected" data-value="Elektronik">
+                  <i class="fa-solid fa-laptop"></i> Elektronik
+                </div>
+                <div class="custom-option" data-value="Aksesori">
+                  <i class="fa-solid fa-headphones"></i> Aksesori
+                </div>
+                <div class="custom-option" data-value="Limited Edition">
+                  <i class="fa-solid fa-crown"></i> Limited Edition
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Stok Barang</label>
-            <input type="number" placeholder="Masukkan jumlah stok" class="form-control">
+            <input type="number" id="prodStock" placeholder="Jumlah stok" class="form-control" required>
           </div>
 
           <div class="form-group">
             <label>Harga (Rp)</label>
-            <input type="number" placeholder="Contoh: 16999000" class="form-control">
+            <input type="number" id="prodPrice" placeholder="Contoh: 16999000" class="form-control" required>
           </div>
 
-          <button class="btn-primary">
-            <i class="fa-solid fa-plus"></i> Simpan Produk
+          <button type="submit" class="btn-primary">
+            <i class="fa-solid fa-plus"></i> Simpan Barang
           </button>
-        </div>
-      </section>
+        </form>
+      </div>
 
-      <!-- MENU 3: PEMROSESAN -->
-      <section id="pemrosesan" class="page-section">
-        <div class="card">
-          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Pemrosesan Pesanan</h3>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Sistem sedang otomatis memproses antrean pengiriman barang Hilstore.</p>
+      <!-- TABEL RIWAYAT BARANG YANG BARU DI-INPUT -->
+      <div class="section-card" style="max-width: 900px; margin: 0 auto 2rem auto;">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Barang yang Baru Di-input</h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Sesi Saat Ini</span>
         </div>
-      </section>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Waktu Input</th>
+                <th>Produk</th>
+                <th>Kategori</th>
+                <th>Stok</th>
+                <th>Harga</th>
+              </tr>
+            </thead>
+            <tbody id="inputHistoryTableBody">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">
+                  Belum ada barang yang ditambahkan pada sesi ini.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-      <!-- MENU 4: LAPORAN -->
-      <section id="laporan" class="page-section">
-        <div class="card">
-          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Laporan Penjualan & Output</h3>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Unduh ringkasan data transaksi bulanan toko dalam format Excel atau PDF.</p>
+      <!-- TABEL TOP 10 BARANG YANG SERING DI-INPUT -->
+      <div class="section-card" style="max-width: 900px; margin: 0 auto;">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-ranking-star" style="color: var(--warning);"></i> Top 10 Barang yang Sering Di-input</h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Akumulasi Sesi & Sistem</span>
         </div>
-      </section>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 70px; text-align: center;">Peringkat</th>
+                <th>Produk</th>
+                <th>Kategori</th>
+                <th>Frekuensi Input</th>
+              </tr>
+            </thead>
+            <tbody id="topInputProductsBody">
+              <tr>
+                <td><span class="rank-badge rank-1">1</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">iPhone 15 Pro Max 256GB</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b>14x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-2">2</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Watch Ultra Gold Edition</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Limited Edition</span></td>
+                <td><b>12x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-3">3</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Laptop Gaming Pro RTX</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b>10x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">4</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Headphone ANC Wireless</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b>9x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">5</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Mechanical Keyboard RGB</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b>8x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">6</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Kamera Mirrorless 4K</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b>7x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">7</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Monitor Curved 32" 144Hz</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b>6x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">8</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Mouse Gaming Wireless</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b>5x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">9</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Drone Mini Quadcopter 4K</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Limited Edition</span></td>
+                <td><b>4x</b> Input</td>
+              </tr>
+              <tr>
+                <td><span class="rank-badge rank-other">10</span></td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?w=150" alt="Foto" class="product-img">
+                    <span style="font-weight: 700;">Smart Speaker Bass Pro</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b>3x</b> Input</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      <!-- MENU 5: PENGATURAN -->
-      <section id="pengaturan" class="page-section">
-        <div class="card">
-          <h3 style="font-size: 1.1rem; color: var(--dark-sidebar); text-transform: none;">Pengaturan Toko Hilstore</h3>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">Kelola hak akses admin, banner promosi, dan sistem pembayaran.</p>
+    <!-- MENU 3: VIEW BARANG (+ FILTER KATEGORI & LAPORAN CUSTOMER) -->
+    <div id="viewBarang" class="tab-content">
+      
+      <!-- STATISTIK STOK TOTAL -->
+      <div class="stats-grid">
+        <div class="card-stat">
+          <h3>Total Jenis Barang</h3>
+          <div class="value" id="totalTypesCount" style="color: var(--primary);">10 Jenis</div>
         </div>
-      </section>
+        <div class="card-stat">
+          <h3>Total Stok Keseluruhan</h3>
+          <div class="value" id="totalStockCount" style="color: #16a34a;">0 Item</div>
+        </div>
+      </div>
+
+      <!-- TABEL BARANG -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-boxes-stacked"></i> View Barang</h3>
+          
+          <div class="filter-controls">
+            <!-- PILIHAN KATEGORI BARANG -->
+            <select id="categoryFilter" class="category-filter-select" onchange="filterProducts()">
+              <option value="all"> Semua Kategori</option>
+              <option value="Elektronik">💻 Elektronik</option>
+              <option value="Aksesori">🎧 Aksesori</option>
+              <option value="Limited Edition">👑 Limited Edition</option>
+            </select>
+
+            <!-- SEARCH BAR -->
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Cari nama barang..." class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Produk</th>
+                <th>Kategori</th>
+                <th>Stok</th>
+                <th>Harga</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody">
+              <!-- 1. Watch Ultra -->
+              <tr data-price="24999000" data-img="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Watch Ultra Gold Edition</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Limited Edition</span></td>
+                <td><b class="stock-num">12</b> Item</td>
+                <td>Rp 24.999.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 2. Laptop Gaming -->
+              <tr data-price="18500000" data-img="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Laptop Gaming Pro RTX</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b class="stock-num">8</b> Item</td>
+                <td>Rp 18.500.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 3. iPhone 15 Pro -->
+              <tr data-price="19999000" data-img="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">iPhone 15 Pro Max 256GB</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b class="stock-num">15</b> Item</td>
+                <td>Rp 19.999.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 4. Wireless Headphones -->
+              <tr data-price="3499000" data-img="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Headphone ANC Wireless</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b class="stock-num">25</b> Item</td>
+                <td>Rp 3.499.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 5. Camera Mirrorless -->
+              <tr data-price="14200000" data-img="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Kamera Mirrorless 4K</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b class="stock-num">6</b> Item</td>
+                <td>Rp 14.200.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 6. Mechanical Keyboard -->
+              <tr data-price="1250000" data-img="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Mechanical Keyboard RGB</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b class="stock-num">30</b> Item</td>
+                <td>Rp 1.250.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 7. Gaming Mouse Wireless -->
+              <tr data-price="850000" data-img="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Mouse Gaming Wireless</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b class="stock-num">45</b> Item</td>
+                <td>Rp 850.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 8. Smart Monitor 4K -->
+              <tr data-price="6750000" data-img="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Monitor Curved 32" 144Hz</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Elektronik</span></td>
+                <td><b class="stock-num">10</b> Item</td>
+                <td>Rp 6.750.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 9. Drone Mini 4K -->
+              <tr data-price="8900000" data-img="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Drone Mini Quadcopter 4K</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Limited Edition</span></td>
+                <td><b class="stock-num">4</b> Item</td>
+                <td>Rp 8.900.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- 10. Smart Speaker -->
+              <tr data-price="1100000" data-img="https://images.unsplash.com/photo-1543512214-318c7553f230?w=150">
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?w=150" alt="Foto" class="product-img">
+                    <span class="prod-title" style="font-weight: 700;">Smart Speaker Bass Pro</span>
+                  </div>
+                </td>
+                <td><span class="badge badge-category">Aksesori</span></td>
+                <td><b class="stock-num">20</b> Item</td>
+                <td>Rp 1.100.000</td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LAPORAN & FEEDBACK BARANG DARI CUSTOMER -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>
+            <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 
+            Laporan & Kendala Barang dari Customer
+          </h3>
+          <div class="filter-controls">
+            <!-- Filter Status Laporan -->
+            <select id="reportStatusFilter" class="category-filter-select" onchange="filterReports()">
+              <option value="all">Semua Status Laporan</option>
+              <option value="Pending">⏳ Menunggu Respon</option>
+              <option value="Diproses">🔄 Sedang Diproses</option>
+              <option value="Selesai">✅ Selesai</option>
+            </select>
+
+            <!-- Search Laporan -->
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="reportSearchInput" onkeyup="filterReports()" placeholder="Cari laporan/customer/toko..." class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Statistik Laporan -->
+        <div class="stats-grid" style="margin-bottom: 1.2rem;">
+          <div class="card-stat" style="border-left: 4px solid var(--warning);">
+            <h3>Laporan Baru</h3>
+            <div class="value" id="countPendingReport" style="color: var(--warning);">2 Kendala</div>
+          </div>
+          <div class="card-stat" style="border-left: 4px solid var(--primary);">
+            <h3>Sedang Diproses</h3>
+            <div class="value" id="countProcessReport" style="color: var(--primary);">1 Kendala</div>
+          </div>
+          <div class="card-stat" style="border-left: 4px solid var(--success);">
+            <h3>Tuntas Ditangani</h3>
+            <div class="value" id="countResolvedReport" style="color: var(--success);">2 Kendala</div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Toko Penjual</th>
+                <th>Barang Dilaporkan</th>
+                <th>Jenis Kendala</th>
+                <th>Pesan / Detail Laporan</th>
+                <th>Prioritas</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="reportTableBody">
+              
+              <!-- LAPORAN 1 -->
+              <tr data-status="Pending">
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-avatar" style="background: #fee2e2; color: #b91c1c;">R</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.9rem;">Rian Pratama</div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">Hari ini, 09:15</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="store-badge"><i class="fa-solid fa-store"></i> Hilstore Official</span>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" class="product-img" alt="Foto">
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem;">iPhone 15 Pro Max</div>
+                      <span class="badge badge-category" style="font-size: 0.65rem;">Elektronik</span>
+                    </div>
+                  </div>
+                </td>
+                <td><b style="color: var(--danger); font-size: 0.85rem;"><i class="fa-solid fa-box-open"></i> Barang Cacat / Rusak</b></td>
+                <td>
+                  <div class="report-message">
+                    "Layar hp ada garis hijau tebal pas pertama kali dinyalakan. Mohon retur unit baru."
+                  </div>
+                </td>
+                <td><span class="badge badge-high"><i class="fa-solid fa-circle"></i> Tingkat Tinggi</span></td>
+                <td><span class="badge badge-pending">⏳ Menunggu Respon</span></td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-reply" onclick="respondReport(this, 'Rian Pratama')"><i class="fa-solid fa-reply"></i> Respon</button>
+                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- LAPORAN 2 -->
+              <tr data-status="Diproses">
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-avatar" style="background: #e0f2fe; color: #0369a1;">S</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.9rem;">Siska Maya</div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">Kemarin, 16:40</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="store-badge"><i class="fa-solid fa-store"></i> AudioTech Store</span>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150" class="product-img" alt="Foto">
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem;">Headphone ANC Wireless</div>
+                      <span class="badge badge-category" style="font-size: 0.65rem;">Aksesori</span>
+                    </div>
+                  </div>
+                </td>
+                <td><b style="color: var(--warning); font-size: 0.85rem;"><i class="fa-solid fa-truck-fast"></i> Aksesori Kurang</b></td>
+                <td>
+                  <div class="report-message">
+                    "Kabel charger Type-C dalam dus tidak ada, tolong dikirimkan susulannya kak."
+                  </div>
+                </td>
+                <td><span class="badge badge-medium"><i class="fa-solid fa-circle"></i> Sedang</span></td>
+                <td><span class="badge badge-process">🔄 Sedang Diproses</span></td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-reply" onclick="respondReport(this, 'Siska Maya')"><i class="fa-solid fa-reply"></i> Update</button>
+                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- LAPORAN 3 -->
+              <tr data-status="Pending">
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-avatar" style="background: #fef3c7; color: #b45309;">D</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.9rem;">Doni Wijaya</div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">2 Hari lalu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="store-badge"><i class="fa-solid fa-store"></i> GamingZone ID</span>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=150" class="product-img" alt="Foto">
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem;">Mechanical Keyboard RGB</div>
+                      <span class="badge badge-category" style="font-size: 0.65rem;">Aksesori</span>
+                    </div>
+                  </div>
+                </td>
+                <td><b style="color: var(--danger); font-size: 0.85rem;"><i class="fa-solid fa-keyboard"></i> Tombol Macet</b></td>
+                <td>
+                  <div class="report-message">
+                    "Tombol Spacebar macet & LED bagian kiri tidak menyala."
+                  </div>
+                </td>
+                <td><span class="badge badge-high"><i class="fa-solid fa-circle"></i> Tingkat Tinggi</span></td>
+                <td><span class="badge badge-pending">⏳ Menunggu Respon</span></td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-reply" onclick="respondReport(this, 'Doni Wijaya')"><i class="fa-solid fa-reply"></i> Respon</button>
+                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- LAPORAN 4 -->
+              <tr data-status="Selesai">
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-avatar" style="background: #dcfce7; color: #15803d;">L</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.9rem;">Lia Amalia</div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">3 Hari lalu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="store-badge"><i class="fa-solid fa-store"></i> Hilstore Official</span>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150" class="product-img" alt="Foto">
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem;">Watch Ultra Gold</div>
+                      <span class="badge badge-category" style="font-size: 0.65rem;">Limited Edition</span>
+                    </div>
+                  </div>
+                </td>
+                <td><b style="color: var(--purple); font-size: 0.85rem;"><i class="fa-solid fa-circle-info"></i> Pertanyaan Garansi</b></td>
+                <td>
+                  <div class="report-message">
+                    "Bagaimana cara klaim garansi resmi jika kartu garansi hilang?"
+                  </div>
+                </td>
+                <td><span class="badge badge-low"><i class="fa-solid fa-circle"></i> Normal</span></td>
+                <td><span class="badge badge-resolved">✅ Selesai</span></td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-reply" onclick="respondReport(this, 'Lia Amalia')"><i class="fa-solid fa-reply"></i> Detail</button>
+                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- LAPORAN 5 -->
+              <tr data-status="Selesai">
+                <td>
+                  <div class="customer-info">
+                    <div class="customer-avatar" style="background: #dcfce7; color: #15803d;">B</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.9rem;">Bagas Kurnia</div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">4 Hari lalu</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="store-badge"><i class="fa-solid fa-store"></i> SkyCam Indonesia</span>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150" class="product-img" alt="Foto">
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.85rem;">Drone Mini Quadcopter 4K</div>
+                      <span class="badge badge-category" style="font-size: 0.65rem;">Limited Edition</span>
+                    </div>
+                  </div>
+                </td>
+                <td><b style="color: var(--danger); font-size: 0.85rem;"><i class="fa-solid fa-rotate-left"></i> Permintaan Retur</b></td>
+                <td>
+                  <div class="report-message">
+                    "Baling-baling retak saat pengiriman. Retur sukses ditukar unit baru."
+                  </div>
+                </td>
+                <td><span class="badge badge-high"><i class="fa-solid fa-circle"></i> Tingkat Tinggi</span></td>
+                <td><span class="badge badge-resolved">✅ Selesai</span></td>
+                <td>
+                  <div class="action-btn-group">
+                    <button class="btn-reply" onclick="respondReport(this, 'Bagas Kurnia')"><i class="fa-solid fa-reply"></i> Detail</button>
+                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     </div>
-  </main>
 
-  <!-- LOGIKA BERPINDAH MENU & LOCALSTORAGE (JAVASCRIPT) -->
+    <!-- MENU 4: LAPORAN KEUANGAN -->
+    <div id="laporanKeuangan" class="tab-content">
+      
+      <!-- FILTER TANGGAL LENGKAP & CEPAT -->
+      <div class="section-card" style="padding: 1.2rem 1.8rem;">
+        <div class="filter-controls" style="justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <i class="fa-solid fa-calendar-days" style="color: var(--primary); font-size: 1.1rem;"></i>
+            <span style="font-weight: 700; font-size: 0.9rem;">Filter Periode Tanggal:</span>
+            
+            <div class="date-picker-group">
+              <input type="date" id="startDate" value="2026-08-01">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">s/d</span>
+              <input type="date" id="endDate" value="2026-08-07">
+            </div>
+
+            <button class="btn-reply" onclick="applyDateFilter()"><i class="fa-solid fa-filter"></i> Terapkan</button>
+          </div>
+
+          <!-- Quick Presets -->
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('today')">Hari Ini</button>
+            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('week')">7 Hari Terakhir</button>
+            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('month')">Bulan Ini</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RINGKASAN PENDAPATAN -->
+      <div class="stats-grid">
+        <div class="card-stat" style="border-top: 4px solid var(--primary);">
+          <h3>Pendapatan Harian</h3>
+          <div class="value" style="color: var(--primary);" id="valDailyRevenue">Rp 0</div>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-clock"></i> Pendapatan Hari Terakhir</span>
+        </div>
+        <div class="card-stat" style="border-top: 4px solid var(--purple);">
+          <h3>Pendapatan Bulanan</h3>
+          <div class="value" style="color: var(--purple);" id="valMonthlyRevenue">Rp 0</div>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-calendar-check"></i> Total Bulan Ini</span>
+        </div>
+        <div class="card-stat" style="border-top: 4px solid var(--success);">
+          <h3>Pendapatan Tahunan</h3>
+          <div class="value" style="color: var(--success);" id="valYearlyRevenue">Rp 0</div>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-line"></i> Total Tahun Ini</span>
+        </div>
+      </div>
+
+      <!-- CARDS KEUANGAN & PENDAPATAN BERSIH -->
+      <div class="stats-grid">
+        <div class="card-stat">
+          <h3>Total Pemasukan (Gross)</h3>
+          <div class="value" style="color: #2563eb;" id="valTotalIncome">Rp 0</div>
+        </div>
+        <div class="card-stat">
+          <h3>Total Pengeluaran (Expense)</h3>
+          <div class="value" style="color: #ef4444;" id="valTotalExpense">Rp 0</div>
+        </div>
+        <div class="card-stat" style="border-left: 4px solid var(--success);">
+          <h3>Pendapatan Bersih (Net Profit)</h3>
+          <div class="value" style="color: #16a34a;" id="valNetProfit">Rp 0</div>
+        </div>
+      </div>
+
+      <!-- PENJELASAN SINGKAT -->
+      <div class="info-box-finance">
+        <div style="font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; color: var(--primary);">
+          <i class="fa-solid fa-circle-info"></i> Pengertian & Catatan Arus Kas:
+        </div>
+        <ul style="margin-left: 1.2rem;">
+          <li><b>Pendapatan (Pemasukan):</b> Seluruh uang masuk yang bersumber dari transaksi pembelian unit barang oleh customer di Hilstore.</li>
+          <li><b>Pengeluaran (Biaya):</b> Dana operasional yang mencakup Restock Stok Barang, Biaya Iklan/Promosi, Server Website, dan Operasional Pengiriman.</li>
+          <li><b>Pendapatan Bersih:</b> Hasil dari Total Pemasukan dikurangi Total Pengeluaran dalam periode waktu tertentu.</li>
+        </ul>
+      </div>
+
+      <!-- GRAFIK -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-chart-area"></i> Grafik Penjualan & Pemasukan</h3>
+        </div>
+        <div style="position: relative; height: 320px; width: 100%;">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+
+      <!-- TABEL RIWAYAT TRANSAKSI ARUS KAS -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3><i class="fa-solid fa-receipt"></i> Riwayat Arus Kas (Pemasukan & Pengeluaran)</h3>
+          <div class="filter-controls">
+            <select id="cashflowTypeFilter" class="category-filter-select" onchange="filterCashflow()">
+              <option value="all">Semua Transaksi</option>
+              <option value="pemasukan">🟢 Pemasukan Saja</option>
+              <option value="pengeluaran">🔴 Pengeluaran Saja</option>
+            </select>
+            <button class="btn-reply" style="background:#dcfce7; color:#15803d;" onclick="addCashflowModal()">
+              <i class="fa-solid fa-plus"></i> Catat Kas Baru
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Jenis Arus Kas</th>
+                <th>Kategori / Detail Sumber</th>
+                <th>Keterangan Transaksi</th>
+                <th>Nominal (Rp)</th>
+              </tr>
+            </thead>
+            <tbody id="cashflowTableBody">
+              <!-- Diperbarui dengan 10 Investor berbeda agar Top 10 Ranking Investor terisi penuh -->
+              <tr data-type="pemasukan" data-date="2026-08-07" data-amount="19999000" data-store="PT. Ventura Digital Nusantara">
+                <td><b>07 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Suntikan Modal Seri A (PT. Ventura Digital Nusantara)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 19.999.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-06" data-amount="24999000" data-store="Bapak H. Andi Sutanto">
+                <td><b>06 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Investasi Angel Investor (Bapak H. Andi Sutanto)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 24.999.000</td>
+              </tr>
+              <tr data-type="pengeluaran" data-date="2026-08-06" data-amount="8500000" data-store="-">
+                <td><b>06 Aug 2026</b></td>
+                <td><span class="badge badge-expense"><i class="fa-solid fa-arrow-up-right"></i> Pengeluaran</span></td>
+                <td>Restock Stok Barang</td>
+                <td>Pembelian Stok 10 Unit Mechanical Keyboard</td>
+                <td style="color: var(--danger); font-weight:800;">- Rp 8.500.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-05" data-amount="18500000" data-store="Garuda Tech Ventures">
+                <td><b>05 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Modal Pengembangan Ekosistem (Garuda Tech Ventures)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 18.500.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-05" data-amount="14200000" data-store="Ibu Siska Rahmawati">
+                <td><b>05 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Penyertaan Modal Swasta (Ibu Siska Rahmawati)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 14.200.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-04" data-amount="8900000" data-store="Nusantara Capital Group">
+                <td><b>04 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Pendanaan Seed Round (Nusantara Capital Group)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 8.900.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-04" data-amount="6750000" data-store="Bapak Dr. Hendra Wijaya">
+                <td><b>04 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Strategic Investor (Bapak Dr. Hendra Wijaya)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 6.750.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-03" data-amount="3499000" data-store="Cyber Indo Investment">
+                <td><b>03 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Injeksi Modal Teknologi (Cyber Indo Investment)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 3.499.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-03" data-amount="1250000" data-store="Ibu Maya Puspitasari">
+                <td><b>03 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Micro Investor (Ibu Maya Puspitasari)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 1.250.000</td>
+              </tr>
+              <tr data-type="pemasukan" data-date="2026-08-02" data-amount="850000" data-store="Bapak Fajar Nugroho">
+                <td><b>02 Aug 2026</b></td>
+                <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
+                <td>Pendanaan Investor</td>
+                <td>Crowdfunding Partner (Bapak Fajar Nugroho)</td>
+                <td style="color: var(--success); font-weight:800;">+ Rp 850.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TOP RANKING INVESTOR (TOP 10) -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>
+            <i class="fa-solid fa-trophy" style="color: var(--warning);"></i> 
+            Top 10 Ranking Investor Penyumbang Pendanaan Hilstore
+          </h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+            Berdasarkan Periode Filter Tanggal Aktif
+          </span>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 70px; text-align: center;">Peringkat</th>
+                <th>Nama Investor / Partner</th>
+                <th>Total Kontribusi Pendanaan</th>
+                <th>Persentase</th>
+                <th style="width: 25%;">Visualisasi Kontribusi</th>
+              </tr>
+            </thead>
+            <tbody id="topStoreRankingBody">
+              <!-- Auto-generated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL EDIT DATA BARANG -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-card">
+      <div class="section-header" style="margin-bottom: 1rem;">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Edit Data Barang</h3>
+        <i class="fa-solid fa-xmark" style="cursor: pointer; font-size: 1.2rem;" onclick="closeEditModal()"></i>
+      </div>
+      <form id="editProductForm">
+        <div class="form-group">
+          <label>Nama Barang</label>
+          <input type="text" id="editName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Ganti Foto Produk (Opsional)</label>
+          <input type="file" id="editImgFile" accept="image/*" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Kategori</label>
+          <select id="editCategory" class="form-control">
+            <option value="Elektronik">Elektronik</option>
+            <option value="Aksesori">Aksesori</option>
+            <option value="Limited Edition">Limited Edition</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Stok Barang</label>
+          <input type="number" id="editStock" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Harga (Rp)</label>
+          <input type="number" id="editPrice" class="form-control" required>
+        </div>
+        <button type="submit" class="btn-primary">
+          <i class="fa-solid fa-check"></i> Simpan Perubahan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIKA -->
   <script>
-    // Ambil nama admin dari LocalStorage jika ada
-    const savedName = localStorage.getItem('customerName');
-    if (savedName) {
-      document.getElementById('adminNameDisplay').innerText = savedName;
+    let activeRow = null;
+    let inputHistoryCount = 0; // Penghitung riwayat input
+
+    // 1. Switch Tab
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
     }
 
-    function switchPage(pageId, element) {
-      // 1. Sembunyikan semua halaman
-      const pages = document.querySelectorAll('.page-section');
-      pages.forEach(page => page.classList.remove('active'));
-
-      // 2. Hilangkan status 'active' dari semua menu sidebar
-      const menuItems = document.querySelectorAll('.nav-item');
-      menuItems.forEach(item => item.classList.remove('active'));
-
-      // 3. Tampilkan halaman & menu yang diklik
-      document.getElementById(pageId).classList.add('active');
-      element.classList.add('active');
-
-      // 4. Ubah Judul Header secara dinamis
-      const titleMap = {
-        'dashboard': 'Dashboard Utama',
-        'input-data': 'Input Produk Hilstore',
-        'pemrosesan': 'Pemrosesan Pesanan',
-        'laporan': 'Laporan Penjualan',
-        'pengaturan': 'Pengaturan Toko'
-      };
-      document.getElementById('headerTitle').innerText = titleMap[pageId];
+    // Fungsi Logout
+    function handleLogout() {
+      Swal.fire({
+        title: 'Konfirmasi Logout',
+        text: 'Apakah Anda yakin ingin keluar dari sesi admin?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Ya, Keluar',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Berhasil Keluar',
+            text: 'Anda telah keluar dari dashboard admin.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+          }).then(() => {
+            // Simulasi tindakan setelah logout (misal redirect atau reload)
+            location.reload();
+          });
+        }
+      });
     }
+
+    // 2. Custom Select Dropdown (Form Input)
+    const customSelect = document.getElementById('customSelect');
+    const trigger = customSelect.querySelector('.custom-select-trigger');
+    const options = customSelect.querySelectorAll('.custom-option');
+    const hiddenInput = document.getElementById('prodCategory');
+    const selectedText = document.getElementById('selectedCategoryText');
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      customSelect.classList.toggle('open');
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', function() {
+        options.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        hiddenInput.value = this.dataset.value;
+        selectedText.innerHTML = this.innerHTML;
+        customSelect.classList.remove('open');
+      });
+    });
+
+    document.addEventListener('click', () => customSelect.classList.remove('open'));
+
+    // 3. Filter Barang berdasarkan Kata Kunci Search & Kategori
+    function filterProducts() {
+      const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      const rows = document.querySelectorAll('#productTableBody tr');
+
+      rows.forEach(row => {
+        const titleText = row.querySelector('.prod-title').innerText.toLowerCase();
+        const categoryBadge = row.querySelector('.badge-category').innerText.trim();
+
+        const matchesSearch = titleText.includes(searchFilter);
+        const matchesCategory = (categoryFilter === 'all') || (categoryBadge === categoryFilter);
+
+        if (matchesSearch && matchesCategory) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // 4. Hitung Total Stok & Jenis Barang
+    function calculateTotalStock() {
+      const rows = document.querySelectorAll('#productTableBody tr');
+      let totalStock = 0;
+
+      rows.forEach(row => {
+        const stockText = row.querySelector('.stock-num');
+        if (stockText) {
+          totalStock += parseInt(stockText.innerText) || 0;
+        }
+      });
+
+      document.getElementById('totalTypesCount').innerText = rows.length + ' Jenis';
+      document.getElementById('totalStockCount').innerText = totalStock + ' Item';
+    }
+
+    // 5. Simpan Barang Baru (Dengan Upload File Gambar + Catat ke Riwayat Input)
+    document.getElementById('addProductForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('prodName').value;
+      const fileInput = document.getElementById('prodImgFile');
+      const category = document.getElementById('prodCategory').value;
+      const stock = document.getElementById('prodStock').value;
+      const rawPrice = document.getElementById('prodPrice').value;
+      const formattedPrice = parseFloat(rawPrice).toLocaleString('id-ID');
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgSrc = e.target.result;
+          insertNewProductRow(name, imgSrc, category, stock, rawPrice, formattedPrice);
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        insertNewProductRow(name, 'https://via.placeholder.com/150', category, stock, rawPrice, formattedPrice);
+      }
+    });
+
+    function insertNewProductRow(name, img, category, stock, rawPrice, formattedPrice) {
+      const tbody = document.getElementById('productTableBody');
+      const newRow = document.createElement('tr');
+
+      newRow.setAttribute('data-price', rawPrice);
+      newRow.setAttribute('data-img', img);
+
+      newRow.innerHTML = `
+        <td>
+          <div class="product-info-cell">
+            <img src="${img}" alt="Foto" class="product-img">
+            <span class="prod-title" style="font-weight: 700;">${name}</span>
+          </div>
+        </td>
+        <td><span class="badge badge-category">${category}</span></td>
+        <td><b class="stock-num">${stock}</b> Item</td>
+        <td>Rp ${formattedPrice}</td>
+        <td>
+          <div class="action-btn-group">
+            <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+            <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+          </div>
+        </td>
+      `;
+
+      tbody.insertBefore(newRow, tbody.firstChild);
+
+      // Tambahkan ke Tabel Riwayat Input Sesi Ini
+      addInputHistoryRow(name, img, category, stock, formattedPrice);
+
+      document.getElementById('addProductForm').reset();
+      calculateTotalStock();
+      filterProducts();
+
+      Swal.fire({ title: 'Berhasil!', text: `Barang "${name}" berhasil ditambahkan.`, icon: 'success' });
+    }
+
+    // Fungsi Tambah Riwayat Input Barang Baru
+    function addInputHistoryRow(name, img, category, stock, formattedPrice) {
+      const historyTbody = document.getElementById('inputHistoryTableBody');
+      
+      // Hapus pesan "Belum ada barang" jika ini item pertama
+      if (inputHistoryCount === 0) {
+        historyTbody.innerHTML = '';
+      }
+      inputHistoryCount++;
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span style="font-size:0.8rem; font-weight:700; color:var(--primary);"><i class="fa-solid fa-clock"></i> ${timeString}</span></td>
+        <td>
+          <div class="product-info-cell">
+            <img src="${img}" alt="Foto" class="product-img">
+            <span style="font-weight: 700;">${name}</span>
+          </div>
+        </td>
+        <td><span class="badge badge-category">${category}</span></td>
+        <td><b>${stock}</b> Item</td>
+        <td style="font-weight:800; color:var(--success);">Rp ${formattedPrice}</td>
+      `;
+
+      historyTbody.insertBefore(tr, historyTbody.firstChild);
+    }
+
+    // 6. Edit Data Barang (Modal)
+    function openEditModal(btn) {
+      activeRow = btn.closest('tr');
+      
+      const name = activeRow.querySelector('.prod-title').innerText;
+      const category = activeRow.querySelector('.badge-category').innerText;
+      const stock = activeRow.querySelector('.stock-num').innerText;
+      const rawPrice = activeRow.getAttribute('data-price');
+
+      document.getElementById('editName').value = name;
+      document.getElementById('editImgFile').value = '';
+      document.getElementById('editCategory').value = category;
+      document.getElementById('editStock').value = stock;
+      document.getElementById('editPrice').value = rawPrice;
+
+      document.getElementById('editModal').classList.add('active');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('active');
+    }
+
+    document.getElementById('editProductForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!activeRow) return;
+
+      const name = document.getElementById('editName').value;
+      const fileInput = document.getElementById('editImgFile');
+      const category = document.getElementById('editCategory').value;
+      const stock = document.getElementById('editStock').value;
+      const rawPrice = document.getElementById('editPrice').value;
+      const formattedPrice = parseFloat(rawPrice).toLocaleString('id-ID');
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const imgSrc = e.target.result;
+          updateProductRow(activeRow, name, imgSrc, category, stock, rawPrice, formattedPrice);
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        const existingImg = activeRow.getAttribute('data-img');
+        updateProductRow(activeRow, name, existingImg, category, stock, rawPrice, formattedPrice);
+      }
+    });
+
+    function updateProductRow(row, name, img, category, stock, rawPrice, formattedPrice) {
+      row.setAttribute('data-price', rawPrice);
+      row.setAttribute('data-img', img);
+
+      row.querySelector('.prod-title').innerText = name;
+      row.querySelector('.product-img').src = img;
+      row.querySelector('.badge-category').innerText = category;
+      row.querySelector('.stock-num').innerText = stock;
+      row.cells[3].innerText = 'Rp ' + formattedPrice;
+
+      closeEditModal();
+      calculateTotalStock();
+      filterProducts();
+
+      Swal.fire({ title: 'Diperbarui!', text: 'Data barang berhasil diubah.', icon: 'success' });
+    }
+
+    // 7. Hapus Produk
+    function deleteProduct(btn) {
+      Swal.fire({
+        title: 'Yakin ingin menghapus?',
+        text: "Data produk ini akan hilang!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          btn.closest('tr').remove();
+          calculateTotalStock();
+          Swal.fire('Terhapus!', 'Produk telah dihapus.', 'success');
+        }
+      });
+    }
+
+    // LOGIKA LAPORAN BARANG DARI CUSTOMER
+    function filterReports() {
+      const search = document.getElementById('reportSearchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('reportStatusFilter').value;
+      const rows = document.querySelectorAll('#reportTableBody tr');
+
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        const rowStatus = row.getAttribute('data-status');
+
+        const matchesSearch = text.includes(search);
+        const matchesStatus = (statusFilter === 'all') || (rowStatus === statusFilter);
+
+        if (matchesSearch && matchesStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function updateReportStats() {
+      const rows = document.querySelectorAll('#reportTableBody tr');
+      let pending = 0, process = 0, resolved = 0;
+
+      rows.forEach(row => {
+        const st = row.getAttribute('data-status');
+        if (st === 'Pending') pending++;
+        else if (st === 'Diproses') process++;
+        else if (st === 'Selesai') resolved++;
+      });
+
+      document.getElementById('countPendingReport').innerText = pending + ' Kendala';
+      document.getElementById('countProcessReport').innerText = process + ' Kendala';
+      document.getElementById('countResolvedReport').innerText = resolved + ' Kendala';
+    }
+
+    function respondReport(btn, customerName) {
+      const row = btn.closest('tr');
+      const currentStatus = row.getAttribute('data-status');
+
+      Swal.fire({
+        title: `Tanggapi Laporan ${customerName}`,
+        html: `
+          <div style="text-align: left; font-size:0.9rem;">
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Ubah Status Laporan:</label>
+            <select id="swalStatusSelect" class="form-control" style="margin-bottom:15px;">
+              <option value="Pending" ${currentStatus==='Pending'?'selected':''}>⏳ Menunggu Respon</option>
+              <option value="Diproses" ${currentStatus==='Diproses'?'selected':''}>🔄 Sedang Diproses</option>
+              <option value="Selesai" ${currentStatus==='Selesai'?'selected':''}>✅ Selesai</option>
+            </select>
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Pesan Balasan ke Customer:</label>
+            <textarea id="swalReplyText" class="form-control" rows="3" placeholder="Tuliskan balasan atau instruksi retur..."></textarea>
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Kirim Balasan & Update',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#2563eb',
+        preConfirm: () => {
+          const newStatus = document.getElementById('swalStatusSelect').value;
+          const reply = document.getElementById('swalReplyText').value;
+          return { newStatus, reply };
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const { newStatus } = result.value;
+          row.setAttribute('data-status', newStatus);
+
+          const statusTd = row.cells[6];
+          if (newStatus === 'Pending') {
+            statusTd.innerHTML = '<span class="badge badge-pending">⏳ Menunggu Respon</span>';
+          } else if (newStatus === 'Diproses') {
+            statusTd.innerHTML = '<span class="badge badge-process">🔄 Sedang Diproses</span>';
+          } else if (newStatus === 'Selesai') {
+            statusTd.innerHTML = '<span class="badge badge-resolved">✅ Selesai</span>';
+          }
+
+          updateReportStats();
+          filterReports();
+
+          Swal.fire('Terkirim!', `Balasan berhasil dikirimkan ke ${customerName}. Status diperbarui.`, 'success');
+        }
+      });
+    }
+
+    function deleteReport(btn) {
+      Swal.fire({
+        title: 'Hapus Laporan Ini?',
+        text: 'Data laporan kendala customer akan dihapus.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          btn.closest('tr').remove();
+          updateReportStats();
+          Swal.fire('Terhapus!', 'Laporan telah dihapus.', 'success');
+        }
+      });
+    }
+
+    // LOGIKA KEUANGAN
+    function filterCashflow() {
+      const type = document.getElementById('cashflowTypeFilter').value;
+      const rows = document.querySelectorAll('#cashflowTableBody tr');
+
+      rows.forEach(row => {
+        const rowType = row.getAttribute('data-type');
+        if (type === 'all' || rowType === type) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    function setQuickDate(preset) {
+      const startInput = document.getElementById('startDate');
+      const endInput = document.getElementById('endDate');
+      const today = new Date('2026-08-07');
+
+      if (preset === 'today') {
+        const todayStr = today.toISOString().split('T')[0];
+        startInput.value = todayStr;
+        endInput.value = todayStr;
+      } else if (preset === 'week') {
+        const past = new Date(today);
+        past.setDate(today.getDate() - 6);
+        startInput.value = past.toISOString().split('T')[0];
+        endInput.value = today.toISOString().split('T')[0];
+      } else if (preset === 'month') {
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        startInput.value = firstDay.toISOString().split('T')[0];
+        endInput.value = today.toISOString().split('T')[0];
+      }
+
+      applyDateFilter();
+    }
+
+    function calculateFinancialStats() {
+      const startDateVal = document.getElementById('startDate').value;
+      const endDateVal = document.getElementById('endDate').value;
+
+      const startDate = startDateVal ? new Date(startDateVal + "T00:00:00") : null;
+      const endDate = endDateVal ? new Date(endDateVal + "T23:59:59") : null;
+
+      const rows = document.querySelectorAll('#cashflowTableBody tr');
+
+      let totalIncomeFiltered = 0;
+      let totalExpenseFiltered = 0;
+
+      let dailyRevenueMap = {};
+      let monthlyRevenueMap = {};
+      let yearlyRevenueMap = {};
+      let storeRevenueMap = {};
+      let totalAllStoreMap = {};
+
+      rows.forEach(row => {
+        const rowDateStr = row.getAttribute('data-date');
+        const rowType = row.getAttribute('data-type');
+        const amount = parseFloat(row.getAttribute('data-amount')) || 0;
+        const storeName = row.getAttribute('data-store') || 'Lainnya';
+
+        if (!rowDateStr) return;
+
+        // Akumulasi total untuk Home (tanpa filter tanggal)
+        if (rowType === 'pemasukan' && storeName !== '-') {
+          totalAllStoreMap[storeName] = (totalAllStoreMap[storeName] || 0) + amount;
+        }
+
+        const rowDate = new Date(rowDateStr + "T00:00:00");
+        const isWithinRange = (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
+        
+        if (isWithinRange) {
+          if (rowType === 'pemasukan') {
+            totalIncomeFiltered += amount;
+            if (storeName !== '-') {
+              storeRevenueMap[storeName] = (storeRevenueMap[storeName] || 0) + amount;
+            }
+          } else if (rowType === 'pengeluaran') {
+            totalExpenseFiltered += amount;
+          }
+
+          if (rowType === 'pemasukan') {
+            dailyRevenueMap[rowDateStr] = (dailyRevenueMap[rowDateStr] || 0) + amount;
+            const monthKey = rowDateStr.substring(0, 7);
+            monthlyRevenueMap[monthKey] = (monthlyRevenueMap[monthKey] || 0) + amount;
+            const yearKey = rowDateStr.substring(0, 4);
+            yearlyRevenueMap[yearKey] = (yearlyRevenueMap[yearKey] || 0) + amount;
+          }
+        }
+      });
+
+      let latestDailyRev = 0;
+      if (endDateVal && dailyRevenueMap[endDateVal]) {
+        latestDailyRev = dailyRevenueMap[endDateVal];
+      } else {
+        const sortedDays = Object.keys(dailyRevenueMap).sort().reverse();
+        latestDailyRev = sortedDays.length > 0 ? dailyRevenueMap[sortedDays[0]] : 0;
+      }
+
+      let monthlyRev = 0;
+      const monthKeyTarget = endDateVal ? endDateVal.substring(0, 7) : '';
+      if (monthKeyTarget && monthlyRevenueMap[monthKeyTarget]) {
+        monthlyRev = monthlyRevenueMap[monthKeyTarget];
+      } else {
+        const sortedMonths = Object.keys(monthlyRevenueMap).sort().reverse();
+        monthlyRev = sortedMonths.length > 0 ? monthlyRevenueMap[sortedMonths[0]] : 0;
+      }
+
+      let yearlyRev = 0;
+      const yearKeyTarget = endDateVal ? endDateVal.substring(0, 4) : '';
+      if (yearKeyTarget && yearlyRevenueMap[yearKeyTarget]) {
+        yearlyRev = yearlyRevenueMap[yearKeyTarget];
+      } else {
+        const sortedYears = Object.keys(yearlyRevenueMap).sort().reverse();
+        yearlyRev = sortedYears.length > 0 ? yearlyRevenueMap[sortedYears[0]] : 0;
+      }
+
+      document.getElementById('valDailyRevenue').innerText = 'Rp ' + latestDailyRev.toLocaleString('id-ID');
+      document.getElementById('valMonthlyRevenue').innerText = 'Rp ' + monthlyRev.toLocaleString('id-ID');
+      document.getElementById('valYearlyRevenue').innerText = 'Rp ' + yearlyRev.toLocaleString('id-ID');
+
+      document.getElementById('valTotalIncome').innerText = 'Rp ' + totalIncomeFiltered.toLocaleString('id-ID');
+      document.getElementById('valTotalExpense').innerText = 'Rp ' + totalExpenseFiltered.toLocaleString('id-ID');
+
+      const netProfit = totalIncomeFiltered - totalExpenseFiltered;
+      document.getElementById('valNetProfit').innerText = 'Rp ' + netProfit.toLocaleString('id-ID');
+      document.getElementById('valNetProfit').style.color = netProfit >= 0 ? '#16a34a' : '#ef4444';
+
+      renderTopStores(storeRevenueMap, totalIncomeFiltered, 'topStoreRankingBody');
+      
+      let totalAllIncome = 0;
+      for (let s in totalAllStoreMap) { totalAllIncome += totalAllStoreMap[s]; }
+      renderTopStores(totalAllStoreMap, totalAllIncome, 'homeTopStoreRankingBody');
+    }
+
+    function renderTopStores(storeMap, totalIncome, targetBodyId) {
+      const rankingBody = document.getElementById(targetBodyId);
+      if (!rankingBody) return;
+      rankingBody.innerHTML = '';
+
+      let sortedStores = [];
+      for (let store in storeMap) {
+        sortedStores.push({ name: store, amount: storeMap[store] });
+      }
+
+      sortedStores.sort((a, b) => b.amount - a.amount);
+      const top10Stores = sortedStores.slice(0, 10);
+
+      if (top10Stores.length === 0) {
+        rankingBody.innerHTML = `
+          <tr>
+            <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">
+              Tidak ada data pendanaan investor.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      top10Stores.forEach((item, index) => {
+        const rank = index + 1;
+        const percentage = totalIncome > 0 ? ((item.amount / totalIncome) * 100).toFixed(1) : 0;
+        
+        let rankBadgeClass = 'rank-other';
+        let trophyIcon = '';
+
+        if (rank === 1) { rankBadgeClass = 'rank-1'; trophyIcon = '🥇 '; }
+        else if (rank === 2) { rankBadgeClass = 'rank-2'; trophyIcon = '🥈 '; }
+        else if (rank === 3) { rankBadgeClass = 'rank-3'; trophyIcon = '🥉 '; }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center;"><span class="rank-badge ${rankBadgeClass}">${rank}</span></td>
+          <td><span class="store-badge" style="font-size:0.85rem;"><i class="fa-solid fa-store"></i> ${item.name}</span></td>
+          <td style="font-weight: 800; color: var(--primary);">${trophyIcon}Rp ${item.amount.toLocaleString('id-ID')}</td>
+          <td><b>${percentage}%</b></td>
+          <td>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">${percentage}% dari Total Pemasukan</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: ${percentage}%;"></div>
+            </div>
+          </td>
+        `;
+        rankingBody.appendChild(tr);
+      });
+    }
+
+    function applyDateFilter() {
+      const start = document.getElementById('startDate').value;
+      const end = document.getElementById('endDate').value;
+      calculateFinancialStats();
+      Swal.fire({
+        title: 'Filter Diterapkan!',
+        text: `Data pendapatan & Top 10 ranking investor otomatis disesuaikan untuk periode ${start} s/d ${end}`,
+        icon: 'success',
+        timer: 1800,
+        showConfirmButton: false
+      });
+    }
+
+    function addCashflowModal() {
+      Swal.fire({
+        title: 'Catat Arus Kas Baru',
+        html: `
+          <div style="text-align: left; font-size:0.9rem;">
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Tanggal Transaksi:</label>
+            <input type="date" id="cfDate" class="form-control" value="2026-08-07" style="margin-bottom:12px;">
+
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Jenis Transaksi:</label>
+            <select id="cfType" class="form-control" style="margin-bottom:12px;" onchange="toggleStoreInput(this.value)">
+              <option value="pemasukan">🟢 Pemasukan (Income)</option>
+              <option value="pengeluaran">🔴 Pengeluaran (Expense)</option>
+            </select>
+
+            <div id="storeInputContainer" style="margin-bottom:12px;">
+              <label style="font-weight:700; margin-bottom: 5px; display:block;">Nama Investor / Partner:</label>
+              <input type="text" id="cfStore" class="form-control" placeholder="Contoh: PT. Ventura Digital Nusantara">
+            </div>
+
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Kategori Transaksi:</label>
+            <input type="text" id="cfCategory" class="form-control" placeholder="Contoh: Pendanaan / Restock / Operasional" style="margin-bottom:12px;">
+
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Keterangan / Detail:</label>
+            <input type="text" id="cfDesc" class="form-control" placeholder="Detail singkat transaksi..." style="margin-bottom:12px;">
+
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Nominal (Rp):</label>
+            <input type="number" id="cfAmount" class="form-control" placeholder="Contoh: 1500000">
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Simpan Transaksi',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#2563eb',
+        preConfirm: () => {
+          const date = document.getElementById('cfDate').value;
+          const type = document.getElementById('cfType').value;
+          const store = document.getElementById('cfStore').value || '-';
+          const category = document.getElementById('cfCategory').value;
+          const desc = document.getElementById('cfDesc').value;
+          const amount = document.getElementById('cfAmount').value;
+
+          if (!date || !category || !desc || !amount) {
+            Swal.showValidationMessage('Semua kolom wajib diisi!');
+            return false;
+          }
+          return { date, type, store, category, desc, amount };
+        }
+      }).then((res) => {
+        if (res.isConfirmed) {
+          const { date, type, store, category, desc, amount } = res.value;
+          const formattedAmount = parseFloat(amount).toLocaleString('id-ID');
+          const tbody = document.getElementById('cashflowTableBody');
+          const newRow = document.createElement('tr');
+
+          const dateObj = new Date(date + "T00:00:00");
+          const dateDisplay = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+
+          newRow.setAttribute('data-type', type);
+          newRow.setAttribute('data-date', date);
+          newRow.setAttribute('data-amount', amount);
+          newRow.setAttribute('data-store', type === 'pemasukan' ? store : '-');
+          const isIncome = type === 'pemasukan';
+
+          newRow.innerHTML = `
+            <td><b>${dateDisplay}</b></td>
+            <td><span class="badge ${isIncome ? 'badge-income' : 'badge-expense'}"><i class="fa-solid ${isIncome ? 'fa-arrow-down-left' : 'fa-arrow-up-right'}"></i> ${isIncome ? 'Pemasukan' : 'Pengeluaran'}</span></td>
+            <td>${category}</td>
+            <td>${desc}</td>
+            <td style="color: ${isIncome ? 'var(--success)' : 'var(--danger)'}; font-weight:800;">${isIncome ? '+' : '-'} Rp ${formattedAmount}</td>
+          `;
+
+          tbody.insertBefore(newRow, tbody.firstChild);
+          calculateFinancialStats();
+          Swal.fire('Berhasil!', 'Transaksi kas berhasil dicatat & ranking investor diperbarui.', 'success');
+        }
+      });
+    }
+
+    function toggleStoreInput(val) {
+      const container = document.getElementById('storeInputContainer');
+      if (val === 'pengeluaran') {
+        container.style.display = 'none';
+      } else {
+        container.style.display = 'block';
+      }
+    }
+
+    // Chart Inisialisasi
+    const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+    new Chart(ctxGrowth, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+        datasets: [{ label: 'Pertumbuhan (%)', data: [15, 25, 38, 45, 55, 70, 85], backgroundColor: '#2563eb', borderRadius: 8 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    const ctxSales = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctxSales, {
+      type: 'line',
+      data: {
+        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+        datasets: [{ label: 'Penjualan (Rp)', data: [1200000, 1900000, 1500000, 2200000, 1800000, 3100000, 2450000], borderColor: '#16a34a', backgroundColor: 'rgba(22, 163, 74, 0.1)', fill: true, tension: 0.4 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // Inisialisasi awal
+    calculateTotalStock();
+    updateReportStats();
+    calculateFinancialStats();
   </script>
 </body>
 </html>
