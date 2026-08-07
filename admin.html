@@ -112,6 +112,7 @@
       gap: 8px;
       transition: var(--transition);
       white-space: nowrap;
+      text-decoration: none;
     }
 
     .btn-logout:hover {
@@ -650,10 +651,10 @@
           <div style="font-size: 0.7rem; color: #16a34a; font-weight: 700;">● Online</div>
         </div>
       </div>
-      <!-- Tombol Logout Khusus di Samping Profil -->
-      <button class="btn-logout" onclick="handleLogout()">
+      <!-- Tombol Logout Menggunakan Tag <a> dengan href ke index.html -->
+      <a href="index.html" class="btn-logout">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
-      </button>
+      </a>
     </div>
   </header>
 
@@ -1796,33 +1797,6 @@
 
       document.getElementById(tabId).classList.add('active');
       event.currentTarget.classList.add('active');
-    }
-
-    // Fungsi Logout
-    function handleLogout() {
-      Swal.fire({
-        title: 'Konfirmasi Logout',
-        text: 'Apakah Anda yakin ingin keluar dari sesi admin?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#ef4444',
-        cancelButtonColor: '#64748b',
-        confirmButtonText: 'Ya, Keluar',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: 'Berhasil Keluar',
-            text: 'Anda telah keluar dari dashboard admin.',
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false
-          }).then(() => {
-            // Simulasi tindakan setelah logout (misal redirect atau reload)
-            location.reload();
-          });
-        }
-      });
     }
 
     // 2. Custom Select Dropdown (Form Input)
