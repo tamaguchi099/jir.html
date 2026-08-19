@@ -969,7 +969,7 @@
               </tr>
             </thead>
             <tbody id="productTableBody">
-              <!-- Default 10 Produk Awal -->
+              <!-- Baris ini akan diganti oleh data dari LocalStorage jika ada -->
               <tr data-price="24999000" data-img="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150">
                 <td>
                   <div class="product-info-cell">
@@ -987,7 +987,6 @@
                   </div>
                 </td>
               </tr>
-              <!-- (Produk default lainnya tetap ada) -->
             </tbody>
           </table>
         </div>
@@ -1173,6 +1172,51 @@
       });
 
       localStorage.setItem('hilstore_admin_products', JSON.stringify(productsArray));
+    }
+
+    // Fungsi Baru: Memuat data dari LocalStorage saat halaman pertama kali dibuka
+    function loadProductsFromLocalStorage() {
+      const storedProducts = localStorage.getItem('hilstore_admin_products');
+      const tbody = document.getElementById('productTableBody');
+
+      // Jika ada data tersimpan di LocalStorage
+      if (storedProducts && JSON.parse(storedProducts).length > 0) {
+        const productsArray = JSON.parse(storedProducts);
+        
+        // Kosongkan tabel default bawaan HTML
+        tbody.innerHTML = '';
+        
+        // Looping data dari LocalStorage dan buat baris tabel
+        productsArray.forEach(prod => {
+          const newRow = document.createElement('tr');
+          newRow.setAttribute('data-price', prod.price);
+          newRow.setAttribute('data-img', prod.img);
+
+          const formattedPrice = parseFloat(prod.price).toLocaleString('id-ID');
+
+          newRow.innerHTML = `
+            <td>
+              <div class="product-info-cell">
+                <img src="${prod.img}" alt="Foto" class="product-img">
+                <span class="prod-title" style="font-weight: 700;">${prod.name}</span>
+              </div>
+            </td>
+            <td><span class="badge badge-category">${prod.category}</span></td>
+            <td><b class="stock-num">${prod.stock}</b> Item</td>
+            <td>Rp ${formattedPrice}</td>
+            <td>
+              <div class="action-btn-group">
+                <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(newRow);
+        });
+      } else {
+        // Jika LocalStorage kosong, simpan data default bawaan HTML ke penyimpanan
+        syncProductsToLocalStorage();
+      }
     }
 
     // Submit Input Barang Baru
@@ -1380,9 +1424,10 @@
       });
     }
 
-    // Inisialisasi awal
+    // INISIALISASI AWAL (YANG DIPERBAIKI)
+    loadProductsFromLocalStorage(); // Memuat data asli dari Storage jika ada
     calculateTotalStock();
-    syncProductsToLocalStorage();
+    // syncProductsToLocalStorage() dihapus dari baris ini agar tidak melakukan overwrite ke data lama
   </script>
 </body>
 </html>
