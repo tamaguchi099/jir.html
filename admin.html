@@ -97,7 +97,6 @@
       font-weight: 700;
     }
 
-    /* Tombol Logout Khusus */
     .btn-logout {
       background: #fee2e2;
       color: var(--danger);
@@ -121,7 +120,7 @@
       border-color: var(--danger);
     }
 
-    /* Menu Navigation Bar */
+    /* Navigation Bar */
     .nav-tabs {
       background: #ffffff;
       padding: 0.5rem 5%;
@@ -152,13 +151,12 @@
       color: var(--primary);
     }
 
-    /* Layout Container */
+    /* Container */
     .container {
       padding: 2rem 5%;
       flex: 1;
     }
 
-    /* Tab Content Switcher */
     .tab-content {
       display: none;
     }
@@ -173,7 +171,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards & Form Styling */
     .section-card {
       background: var(--card-bg);
       padding: 1.8rem;
@@ -239,7 +236,6 @@
       font-weight: 800;
     }
 
-    /* Form Controls & Search Bar */
     .form-group {
       margin-bottom: 1.2rem;
     }
@@ -296,7 +292,6 @@
       cursor: pointer;
     }
 
-    /* Custom Date Filter Styling */
     .date-picker-group {
       display: flex;
       align-items: center;
@@ -317,7 +312,6 @@
       cursor: pointer;
     }
 
-    /* Custom Dropdown Styling */
     .custom-select-wrapper {
       position: relative;
       user-select: none;
@@ -376,7 +370,6 @@
       color: #fff;
     }
 
-    /* Product Thumbnail Image */
     .product-img {
       width: 48px;
       height: 48px;
@@ -391,7 +384,6 @@
       gap: 12px;
     }
 
-    /* Store Badge Styling */
     .store-badge {
       font-size: 0.8rem;
       font-weight: 700;
@@ -409,7 +401,6 @@
       color: var(--primary);
     }
 
-    /* Buttons & Tables */
     .btn-primary {
       width: 100%;
       padding: 0.85rem;
@@ -516,22 +507,13 @@
     }
     .badge-online { background: #dcfce7; color: #15803d; }
     .badge-category { background: #eff6ff; color: #2563eb; }
-
-    /* Badge Finance Types */
     .badge-income { background: #dcfce7; color: #15803d; }
     .badge-expense { background: #fee2e2; color: #b91c1c; }
-
-    /* Badge Status Laporan */
     .badge-pending { background: #fef3c7; color: #b45309; }
     .badge-process { background: #e0f2fe; color: #0369a1; }
     .badge-resolved { background: #dcfce7; color: #15803d; }
-
-    /* Priority Badges */
     .badge-high { background: #fee2e2; color: #b91c1c; }
-    .badge-medium { background: #ffedd5; color: #c2410c; }
-    .badge-low { background: #f1f5f9; color: #475569; }
 
-    /* Customer Info Box */
     .customer-info {
       display: flex;
       align-items: center;
@@ -560,7 +542,6 @@
       border-left: 3px solid var(--primary);
     }
 
-    /* Modal Edit Popup */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -593,19 +574,6 @@
       transform: translateY(0);
     }
 
-    /* Finance Box Definition */
-    .info-box-finance {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      padding: 1rem 1.2rem;
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    /* Top Ranking Store Badges & Bars */
     .rank-badge {
       width: 28px;
       height: 28px;
@@ -651,7 +619,6 @@
           <div style="font-size: 0.7rem; color: #16a34a; font-weight: 700;">● Online</div>
         </div>
       </div>
-      <!-- Tombol Logout Menggunakan Tag <a> dengan href ke index.html -->
       <a href="index.html" class="btn-logout">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </a>
@@ -678,7 +645,6 @@
     
     <!-- MENU 1: HOME -->
     <div id="home" class="tab-content active">
-      <!-- Quick Metric Overview Cards (Fitur Baru Menu Home) -->
       <div class="stats-grid" style="margin-bottom: 1.5rem;">
         <div class="card-stat" style="border-left: 4px solid var(--primary);">
           <h3>Total Kunjungan Hari Ini</h3>
@@ -701,75 +667,6 @@
         </div>
         <div style="position: relative; height: 320px; width: 100%;">
           <canvas id="growthChart"></canvas>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header">
-          <h3><i class="fa-solid fa-users"></i> Customer Online (Real-Time)</h3>
-          <span style="font-size: 0.85rem; color: var(--success); font-weight: 700;" id="totalOnlineCount">● 8 Pengunjung Aktif</span>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Nama Pembeli</th>
-                <th>Halaman Diakses</th>
-                <th>Waktu Masuk</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="homeOnlineCustomerTable">
-              <tr>
-                <td>Ahmad Ridwan</td>
-                <td>Keranjang Belanja</td>
-                <td>2 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Siti Nurhaliza</td>
-                <td>Halaman Produk (iPhone 15 Pro)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Budi Santoso</td>
-                <td>Checkout Pembayaran</td>
-                <td>5 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Dewi Lestari</td>
-                <td>Kategori Elektronik</td>
-                <td>1 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Fajar Nugraha</td>
-                <td>Detail Produk (Laptop Gaming)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Rina Melati</td>
-                <td>Ulasan Pelanggan</td>
-                <td>4 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Eko Prasetyo</td>
-                <td>Lacak Pengiriman</td>
-                <td>3 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Maya Puspita</td>
-                <td>Halaman Utama (Home)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
 
@@ -821,7 +718,6 @@
             <input type="file" id="prodImgFile" accept="image/*" class="form-control" required style="cursor: pointer;">
           </div>
 
-          <!-- Custom Dropdown -->
           <div class="form-group">
             <label>Kategori</label>
             <input type="hidden" id="prodCategory" value="Elektronik">
@@ -888,148 +784,14 @@
           </table>
         </div>
       </div>
-
-      <!-- TABEL TOP 10 BARANG YANG SERING DI-INPUT -->
-      <div class="section-card" style="max-width: 900px; margin: 0 auto;">
-        <div class="section-header">
-          <h3><i class="fa-solid fa-ranking-star" style="color: var(--warning);"></i> Top 10 Barang yang Sering Di-input</h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Akumulasi Sesi & Sistem</span>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 70px; text-align: center;">Peringkat</th>
-                <th>Produk</th>
-                <th>Kategori</th>
-                <th>Frekuensi Input</th>
-              </tr>
-            </thead>
-            <tbody id="topInputProductsBody">
-              <tr>
-                <td><span class="rank-badge rank-1">1</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">iPhone 15 Pro Max 256GB</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Elektronik</span></td>
-                <td><b>14x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-2">2</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Watch Ultra Gold Edition</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Limited Edition</span></td>
-                <td><b>12x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-3">3</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Laptop Gaming Pro RTX</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Elektronik</span></td>
-                <td><b>10x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">4</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Headphone ANC Wireless</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Aksesori</span></td>
-                <td><b>9x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">5</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Mechanical Keyboard RGB</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Aksesori</span></td>
-                <td><b>8x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">6</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Kamera Mirrorless 4K</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Elektronik</span></td>
-                <td><b>7x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">7</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Monitor Curved 32" 144Hz</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Elektronik</span></td>
-                <td><b>6x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">8</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Mouse Gaming Wireless</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Aksesori</span></td>
-                <td><b>5x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">9</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Drone Mini Quadcopter 4K</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Limited Edition</span></td>
-                <td><b>4x</b> Input</td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge rank-other">10</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1543512214-318c7553f230?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">Smart Speaker Bass Pro</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Aksesori</span></td>
-                <td><b>3x</b> Input</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
 
-    <!-- MENU 3: VIEW BARANG (+ FILTER KATEGORI & LAPORAN CUSTOMER) -->
+    <!-- MENU 3: VIEW BARANG -->
     <div id="viewBarang" class="tab-content">
-      
-      <!-- STATISTIK STOK TOTAL -->
       <div class="stats-grid">
         <div class="card-stat">
           <h3>Total Jenis Barang</h3>
-          <div class="value" id="totalTypesCount" style="color: var(--primary);">10 Jenis</div>
+          <div class="value" id="totalTypesCount" style="color: var(--primary);">0 Jenis</div>
         </div>
         <div class="card-stat">
           <h3>Total Stok Keseluruhan</h3>
@@ -1037,21 +799,18 @@
         </div>
       </div>
 
-      <!-- TABEL BARANG -->
       <div class="section-card">
         <div class="section-header">
           <h3><i class="fa-solid fa-boxes-stacked"></i> View Barang</h3>
           
           <div class="filter-controls">
-            <!-- PILIHAN KATEGORI BARANG -->
             <select id="categoryFilter" class="category-filter-select" onchange="filterProducts()">
-              <option value="all"> Semua Kategori</option>
+              <option value="all">Semua Kategori</option>
               <option value="Elektronik">💻 Elektronik</option>
               <option value="Aksesori">🎧 Aksesori</option>
               <option value="Limited Edition">👑 Limited Edition</option>
             </select>
 
-            <!-- SEARCH BAR -->
             <div class="search-box">
               <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Cari nama barang..." class="form-control">
@@ -1071,7 +830,6 @@
               </tr>
             </thead>
             <tbody id="productTableBody">
-              <!-- Default Products -->
               <tr data-price="24999000" data-img="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150">
                 <td>
                   <div class="product-info-cell">
@@ -1127,111 +885,10 @@
           </table>
         </div>
       </div>
-
-      <!-- LAPORAN & FEEDBACK BARANG DARI CUSTOMER -->
-      <div class="section-card">
-        <div class="section-header">
-          <h3>
-            <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> 
-            Laporan & Kendala Barang dari Customer
-          </h3>
-          <div class="filter-controls">
-            <!-- Filter Status Laporan -->
-            <select id="reportStatusFilter" class="category-filter-select" onchange="filterReports()">
-              <option value="all">Semua Status Laporan</option>
-              <option value="Pending">⏳ Menunggu Respon</option>
-              <option value="Diproses">🔄 Sedang Diproses</option>
-              <option value="Selesai">✅ Selesai</option>
-            </select>
-
-            <!-- Search Laporan -->
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" id="reportSearchInput" onkeyup="filterReports()" placeholder="Cari laporan/customer/toko..." class="form-control">
-            </div>
-          </div>
-        </div>
-
-        <!-- Ringkasan Statistik Laporan -->
-        <div class="stats-grid" style="margin-bottom: 1.2rem;">
-          <div class="card-stat" style="border-left: 4px solid var(--warning);">
-            <h3>Laporan Baru</h3>
-            <div class="value" id="countPendingReport" style="color: var(--warning);">2 Kendala</div>
-          </div>
-          <div class="card-stat" style="border-left: 4px solid var(--primary);">
-            <h3>Sedang Diproses</h3>
-            <div class="value" id="countProcessReport" style="color: var(--primary);">1 Kendala</div>
-          </div>
-          <div class="card-stat" style="border-left: 4px solid var(--success);">
-            <h3>Tuntas Ditangani</h3>
-            <div class="value" id="countResolvedReport" style="color: var(--success);">2 Kendala</div>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Customer</th>
-                <th>Toko Penjual</th>
-                <th>Barang Dilaporkan</th>
-                <th>Jenis Kendala</th>
-                <th>Pesan / Detail Laporan</th>
-                <th>Prioritas</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="reportTableBody">
-              <!-- LAPORAN 1 -->
-              <tr data-status="Pending">
-                <td>
-                  <div class="customer-info">
-                    <div class="customer-avatar" style="background: #fee2e2; color: #b91c1c;">R</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.9rem;">Rian Pratama</div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Hari ini, 09:15</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="store-badge"><i class="fa-solid fa-store"></i> Hilstore Official</span>
-                </td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" class="product-img" alt="Foto">
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.85rem;">iPhone 15 Pro Max</div>
-                      <span class="badge badge-category" style="font-size: 0.65rem;">Elektronik</span>
-                    </div>
-                  </div>
-                </td>
-                <td><b style="color: var(--danger); font-size: 0.85rem;"><i class="fa-solid fa-box-open"></i> Barang Cacat / Rusak</b></td>
-                <td>
-                  <div class="report-message">
-                    "Layar hp ada garis hijau tebal pas pertama kali dinyalakan. Mohon retur unit baru."
-                  </div>
-                </td>
-                <td><span class="badge badge-high"><i class="fa-solid fa-circle"></i> Tingkat Tinggi</span></td>
-                <td><span class="badge badge-pending">⏳ Menunggu Respon</span></td>
-                <td>
-                  <div class="action-btn-group">
-                    <button class="btn-reply" onclick="respondReport(this, 'Rian Pratama')"><i class="fa-solid fa-reply"></i> Respon</button>
-                    <button class="btn-delete" onclick="deleteReport(this)"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
 
     <!-- MENU 4: LAPORAN KEUANGAN -->
     <div id="laporanKeuangan" class="tab-content">
-      
-      <!-- FILTER TANGGAL LENGKAP & CEPAT -->
       <div class="section-card" style="padding: 1.2rem 1.8rem;">
         <div class="filter-controls" style="justify-content: space-between;">
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
@@ -1246,52 +903,24 @@
 
             <button class="btn-reply" onclick="applyDateFilter()"><i class="fa-solid fa-filter"></i> Terapkan</button>
           </div>
-
-          <!-- Quick Presets -->
-          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('today')">Hari Ini</button>
-            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('week')">7 Hari Terakhir</button>
-            <button class="btn-edit" style="background:#e2e8f0; color:var(--text-dark);" onclick="setQuickDate('month')">Bulan Ini</button>
-          </div>
         </div>
       </div>
 
-      <!-- RINGKASAN PENDAPATAN -->
       <div class="stats-grid">
         <div class="card-stat" style="border-top: 4px solid var(--primary);">
           <h3>Pendapatan Harian</h3>
           <div class="value" style="color: var(--primary);" id="valDailyRevenue">Rp 0</div>
-          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-clock"></i> Pendapatan Hari Terakhir</span>
         </div>
         <div class="card-stat" style="border-top: 4px solid var(--purple);">
           <h3>Pendapatan Bulanan</h3>
           <div class="value" style="color: var(--purple);" id="valMonthlyRevenue">Rp 0</div>
-          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-calendar-check"></i> Total Bulan Ini</span>
         </div>
         <div class="card-stat" style="border-top: 4px solid var(--success);">
           <h3>Pendapatan Tahunan</h3>
           <div class="value" style="color: var(--success);" id="valYearlyRevenue">Rp 0</div>
-          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-line"></i> Total Tahun Ini</span>
         </div>
       </div>
 
-      <!-- CARDS KEUANGAN & PENDAPATAN BERSIH -->
-      <div class="stats-grid">
-        <div class="card-stat">
-          <h3>Total Pemasukan (Gross)</h3>
-          <div class="value" style="color: #2563eb;" id="valTotalIncome">Rp 0</div>
-        </div>
-        <div class="card-stat">
-          <h3>Total Pengeluaran (Expense)</h3>
-          <div class="value" style="color: #ef4444;" id="valTotalExpense">Rp 0</div>
-        </div>
-        <div class="card-stat" style="border-left: 4px solid var(--success);">
-          <h3>Pendapatan Bersih (Net Profit)</h3>
-          <div class="value" style="color: #16a34a;" id="valNetProfit">Rp 0</div>
-        </div>
-      </div>
-
-      <!-- GRAFIK -->
       <div class="section-card">
         <div class="section-header">
           <h3><i class="fa-solid fa-chart-area"></i> Grafik Penjualan & Pemasukan</h3>
@@ -1301,16 +930,10 @@
         </div>
       </div>
 
-      <!-- TABEL RIWAYAT TRANSAKSI ARUS KAS -->
       <div class="section-card">
         <div class="section-header">
-          <h3><i class="fa-solid fa-receipt"></i> Riwayat Arus Kas (Pemasukan & Pengeluaran)</h3>
+          <h3><i class="fa-solid fa-receipt"></i> Riwayat Arus Kas</h3>
           <div class="filter-controls">
-            <select id="cashflowTypeFilter" class="category-filter-select" onchange="filterCashflow()">
-              <option value="all">Semua Transaksi</option>
-              <option value="pemasukan">🟢 Pemasukan Saja</option>
-              <option value="pengeluaran">🔴 Pengeluaran Saja</option>
-            </select>
             <button class="btn-reply" style="background:#dcfce7; color:#15803d;" onclick="addCashflowModal()">
               <i class="fa-solid fa-plus"></i> Catat Kas Baru
             </button>
@@ -1333,7 +956,7 @@
                 <td><b>07 Aug 2026</b></td>
                 <td><span class="badge badge-income"><i class="fa-solid fa-arrow-down-left"></i> Pemasukan</span></td>
                 <td>Pendanaan Investor</td>
-                <td>Suntikan Modal Seri A (PT. Ventura Digital Nusantara)</td>
+                <td>Suntikan Modal Seri A</td>
                 <td style="color: var(--success); font-weight:800;">+ Rp 19.999.000</td>
               </tr>
             </tbody>
@@ -1341,18 +964,10 @@
         </div>
       </div>
 
-      <!-- TOP RANKING INVESTOR (TOP 10) -->
       <div class="section-card">
         <div class="section-header">
-          <h3>
-            <i class="fa-solid fa-trophy" style="color: var(--warning);"></i> 
-            Top 10 Ranking Investor Penyumbang Pendanaan Hilstore
-          </h3>
-          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
-            Berdasarkan Periode Filter Tanggal Aktif
-          </span>
+          <h3><i class="fa-solid fa-trophy" style="color: var(--warning);"></i> Top 10 Ranking Investor Penyumbang Pendanaan</h3>
         </div>
-
         <div class="table-container">
           <table>
             <thead>
@@ -1370,12 +985,11 @@
           </table>
         </div>
       </div>
-
     </div>
 
   </div>
 
-  <!-- MODAL EDIT DATA BARANG (VIEW BARANG) -->
+  <!-- MODAL EDIT DATA BARANG -->
   <div class="modal-overlay" id="editModal">
     <div class="modal-card">
       <div class="section-header" style="margin-bottom: 1rem;">
@@ -1414,11 +1028,11 @@
     </div>
   </div>
 
-  <!-- MODAL EDIT RIWAYAT INPUT (UNTUK MEMPERBAIKI TYPO) -->
+  <!-- MODAL EDIT RIWAYAT INPUT -->
   <div class="modal-overlay" id="editHistoryModal">
     <div class="modal-card">
       <div class="section-header" style="margin-bottom: 1rem;">
-        <h3><i class="fa-solid fa-pen-to-square"></i> Edit Riwayat Input (Koreksi Typo)</h3>
+        <h3><i class="fa-solid fa-pen-to-square"></i> Koreksi Typo Riwayat Input</h3>
         <i class="fa-solid fa-xmark" style="cursor: pointer; font-size: 1.2rem;" onclick="closeHistoryEditModal()"></i>
       </div>
       <form id="editHistoryForm">
@@ -1443,7 +1057,7 @@
           <input type="number" id="editHistoryPrice" class="form-control" required>
         </div>
         <button type="submit" class="btn-primary">
-          <i class="fa-solid fa-check"></i> Perbarui Riwayat & Sinkronisasi
+          <i class="fa-solid fa-check"></i> Perbarui Riwayat
         </button>
       </form>
     </div>
@@ -1455,7 +1069,6 @@
     let activeHistoryRow = null;
     let inputHistoryCount = 0;
 
-    // Load data produk ke localStorage agar bisa diakses oleh index.html (customer)
     function saveProductsToLocalStorage() {
       const rows = document.querySelectorAll('#productTableBody tr');
       let products = [];
@@ -1470,7 +1083,6 @@
       localStorage.setItem('hilstore_products', JSON.stringify(products));
     }
 
-    // 1. Switch Tab
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -1479,7 +1091,6 @@
       event.currentTarget.classList.add('active');
     }
 
-    // 2. Custom Select Dropdown (Form Input)
     const customSelect = document.getElementById('customSelect');
     const trigger = customSelect.querySelector('.custom-select-trigger');
     const options = customSelect.querySelectorAll('.custom-option');
@@ -1503,7 +1114,6 @@
 
     document.addEventListener('click', () => customSelect.classList.remove('open'));
 
-    // 3. Filter Barang berdasarkan Kata Kunci Search & Kategori
     function filterProducts() {
       const searchFilter = document.getElementById('searchInput').value.toLowerCase();
       const categoryFilter = document.getElementById('categoryFilter').value;
@@ -1516,15 +1126,10 @@
         const matchesSearch = titleText.includes(searchFilter);
         const matchesCategory = (categoryFilter === 'all') || (categoryBadge === categoryFilter);
 
-        if (matchesSearch && matchesCategory) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
+        row.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
       });
     }
 
-    // 4. Hitung Total Stok & Jenis Barang
     function calculateTotalStock() {
       const rows = document.querySelectorAll('#productTableBody tr');
       let totalStock = 0;
@@ -1541,7 +1146,6 @@
       saveProductsToLocalStorage();
     }
 
-    // 5. Simpan Barang Baru (Dengan Upload File Gambar + Catat ke Riwayat Input)
     document.getElementById('addProductForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -1555,8 +1159,7 @@
       if (fileInput.files && fileInput.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          const imgSrc = e.target.result;
-          insertNewProductRow(name, imgSrc, category, stock, rawPrice, formattedPrice);
+          insertNewProductRow(name, e.target.result, category, stock, rawPrice, formattedPrice);
         }
         reader.readAsDataURL(fileInput.files[0]);
       } else {
@@ -1590,18 +1193,15 @@
       `;
 
       tbody.insertBefore(newRow, tbody.firstChild);
-
-      // Tambahkan ke Tabel Riwayat Input Sesi Ini beserta Tombol Edit Typo
       addInputHistoryRow(name, img, category, stock, rawPrice, formattedPrice);
 
       document.getElementById('addProductForm').reset();
       calculateTotalStock();
       filterProducts();
 
-      Swal.fire({ title: 'Berhasil!', text: `Barang "${name}" berhasil ditambahkan dan disinkronkan ke halaman customer!`, icon: 'success' });
+      Swal.fire({ title: 'Berhasil!', text: `Barang "${name}" berhasil ditambahkan dan disinkronkan!`, icon: 'success' });
     }
 
-    // Fungsi Tambah Riwayat Input Barang Baru dengan Tombol Edit
     function addInputHistoryRow(name, img, category, stock, rawPrice, formattedPrice) {
       const historyTbody = document.getElementById('inputHistoryTableBody');
       
@@ -1610,9 +1210,7 @@
       }
       inputHistoryCount++;
 
-      const now = new Date();
-      const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
-
+      const timeString = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
       const tr = document.createElement('tr');
       tr.setAttribute('data-price', rawPrice);
       tr.setAttribute('data-img', img);
@@ -1635,19 +1233,12 @@
       historyTbody.insertBefore(tr, historyTbody.firstChild);
     }
 
-    // Modal Edit Riwayat Input (Koreksi Typo)
     function openHistoryEditModal(btn) {
       activeHistoryRow = btn.closest('tr');
-      const name = activeHistoryRow.querySelector('.history-title').innerText;
-      const category = activeHistoryRow.querySelector('.history-category').innerText;
-      const stock = activeHistoryRow.querySelector('.history-stock').innerText;
-      const rawPrice = activeHistoryRow.getAttribute('data-price');
-
-      document.getElementById('editHistoryName').value = name;
-      document.getElementById('editHistoryCategory').value = category;
-      document.getElementById('editHistoryStock').value = stock;
-      document.getElementById('editHistoryPrice').value = rawPrice;
-
+      document.getElementById('editHistoryName').value = activeHistoryRow.querySelector('.history-title').innerText;
+      document.getElementById('editHistoryCategory').value = activeHistoryRow.querySelector('.history-category').innerText;
+      document.getElementById('editHistoryStock').value = activeHistoryRow.querySelector('.history-stock').innerText;
+      document.getElementById('editHistoryPrice').value = activeHistoryRow.getAttribute('data-price');
       document.getElementById('editHistoryModal').classList.add('active');
     }
 
@@ -1663,33 +1254,24 @@
       const category = document.getElementById('editHistoryCategory').value;
       const stock = document.getElementById('editHistoryStock').value;
       const rawPrice = document.getElementById('editHistoryPrice').value;
-      const formattedPrice = parseFloat(rawPrice).toLocaleString('id-ID');
 
       activeHistoryRow.setAttribute('data-price', rawPrice);
       activeHistoryRow.querySelector('.history-title').innerText = name;
       activeHistoryRow.querySelector('.history-category').innerText = category;
       activeHistoryRow.querySelector('.history-stock').innerText = stock;
-      activeHistoryRow.querySelector('.history-price').innerText = 'Rp ' + formattedPrice;
+      activeHistoryRow.querySelector('.history-price').innerText = 'Rp ' + parseFloat(rawPrice).toLocaleString('id-ID');
 
       closeHistoryEditModal();
       Swal.fire({ title: 'Terperbarui!', text: 'Riwayat input berhasil dikoreksi.', icon: 'success' });
     });
 
-    // 6. Edit Data Barang (Modal View Barang)
     function openEditModal(btn) {
       activeRow = btn.closest('tr');
-      
-      const name = activeRow.querySelector('.prod-title').innerText;
-      const category = activeRow.querySelector('.badge-category').innerText;
-      const stock = activeRow.querySelector('.stock-num').innerText;
-      const rawPrice = activeRow.getAttribute('data-price');
-
-      document.getElementById('editName').value = name;
+      document.getElementById('editName').value = activeRow.querySelector('.prod-title').innerText;
       document.getElementById('editImgFile').value = '';
-      document.getElementById('editCategory').value = category;
-      document.getElementById('editStock').value = stock;
-      document.getElementById('editPrice').value = rawPrice;
-
+      document.getElementById('editCategory').value = activeRow.querySelector('.badge-category').innerText;
+      document.getElementById('editStock').value = activeRow.querySelector('.stock-num').innerText;
+      document.getElementById('editPrice').value = activeRow.getAttribute('data-price');
       document.getElementById('editModal').classList.add('active');
     }
 
@@ -1711,20 +1293,17 @@
       if (fileInput.files && fileInput.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          const imgSrc = e.target.result;
-          updateProductRow(activeRow, name, imgSrc, category, stock, rawPrice, formattedPrice);
+          updateProductRow(activeRow, name, e.target.result, category, stock, rawPrice, formattedPrice);
         }
         reader.readAsDataURL(fileInput.files[0]);
       } else {
-        const existingImg = activeRow.getAttribute('data-img');
-        updateProductRow(activeRow, name, existingImg, category, stock, rawPrice, formattedPrice);
+        updateProductRow(activeRow, name, activeRow.getAttribute('data-img'), category, stock, rawPrice, formattedPrice);
       }
     });
 
     function updateProductRow(row, name, img, category, stock, rawPrice, formattedPrice) {
       row.setAttribute('data-price', rawPrice);
       row.setAttribute('data-img', img);
-
       row.querySelector('.prod-title').innerText = name;
       row.querySelector('.product-img').src = img;
       row.querySelector('.badge-category').innerText = category;
@@ -1735,14 +1314,13 @@
       calculateTotalStock();
       filterProducts();
 
-      Swal.fire({ title: 'Diperbarui!', text: 'Data barang berhasil diubah dan disinkronkan.', icon: 'success' });
+      Swal.fire({ title: 'Diperbarui!', text: 'Data barang berhasil diubah.', icon: 'success' });
     }
 
-    // 7. Hapus Produk
     function deleteProduct(btn) {
       Swal.fire({
         title: 'Yakin ingin menghapus?',
-        text: "Data produk ini akan hilang dari sistem & customer!",
+        text: "Data produk ini akan hilang dari sistem!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#ef4444',
@@ -1757,164 +1335,14 @@
       });
     }
 
-    // LOGIKA LAPORAN BARANG DARI CUSTOMER
-    function filterReports() {
-      const search = document.getElementById('reportSearchInput').value.toLowerCase();
-      const statusFilter = document.getElementById('reportStatusFilter').value;
-      const rows = document.querySelectorAll('#reportTableBody tr');
-
-      rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
-        const rowStatus = row.getAttribute('data-status');
-
-        const matchesSearch = text.includes(search);
-        const matchesStatus = (statusFilter === 'all') || (rowStatus === statusFilter);
-
-        if (matchesSearch && matchesStatus) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    }
-
-    function updateReportStats() {
-      const rows = document.querySelectorAll('#reportTableBody tr');
-      let pending = 0, process = 0, resolved = 0;
-
-      rows.forEach(row => {
-        const st = row.getAttribute('data-status');
-        if (st === 'Pending') pending++;
-        else if (st === 'Diproses') process++;
-        else if (st === 'Selesai') resolved++;
-      });
-
-      document.getElementById('countPendingReport').innerText = pending + ' Kendala';
-      document.getElementById('countProcessReport').innerText = process + ' Kendala';
-      document.getElementById('countResolvedReport').innerText = resolved + ' Kendala';
-    }
-
-    function respondReport(btn, customerName) {
-      const row = btn.closest('tr');
-      const currentStatus = row.getAttribute('data-status');
-
-      Swal.fire({
-        title: `Tanggapi Laporan ${customerName}`,
-        html: `
-          <div style="text-align: left; font-size:0.9rem;">
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Ubah Status Laporan:</label>
-            <select id="swalStatusSelect" class="form-control" style="margin-bottom:15px;">
-              <option value="Pending" ${currentStatus==='Pending'?'selected':''}>⏳ Menunggu Respon</option>
-              <option value="Diproses" ${currentStatus==='Diproses'?'selected':''}>🔄 Sedang Diproses</option>
-              <option value="Selesai" ${currentStatus==='Selesai'?'selected':''}>✅ Selesai</option>
-            </select>
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Pesan Balasan ke Customer:</label>
-            <textarea id="swalReplyText" class="form-control" rows="3" placeholder="Tuliskan balasan atau instruksi retur..."></textarea>
-          </div>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Kirim Balasan & Update',
-        cancelButtonText: 'Batal',
-        confirmButtonColor: '#2563eb',
-        preConfirm: () => {
-          const newStatus = document.getElementById('swalStatusSelect').value;
-          const reply = document.getElementById('swalReplyText').value;
-          return { newStatus, reply };
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const { newStatus } = result.value;
-          row.setAttribute('data-status', newStatus);
-
-          const statusTd = row.cells[6];
-          if (newStatus === 'Pending') {
-            statusTd.innerHTML = '<span class="badge badge-pending">⏳ Menunggu Respon</span>';
-          } else if (newStatus === 'Diproses') {
-            statusTd.innerHTML = '<span class="badge badge-process">🔄 Sedang Diproses</span>';
-          } else if (newStatus === 'Selesai') {
-            statusTd.innerHTML = '<span class="badge badge-resolved">✅ Selesai</span>';
-          }
-
-          updateReportStats();
-          filterReports();
-
-          Swal.fire('Terkirim!', `Balasan berhasil dikirimkan ke ${customerName}. Status diperbarui.`, 'success');
-        }
-      });
-    }
-
-    function deleteReport(btn) {
-      Swal.fire({
-        title: 'Hapus Laporan Ini?',
-        text: 'Data laporan kendala customer akan dihapus.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#ef4444',
-        confirmButtonText: 'Ya, Hapus',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          btn.closest('tr').remove();
-          updateReportStats();
-          Swal.fire('Terhapus!', 'Laporan telah dihapus.', 'success');
-        }
-      });
-    }
-
-    // LOGIKA KEUANGAN
-    function filterCashflow() {
-      const type = document.getElementById('cashflowTypeFilter').value;
-      const rows = document.querySelectorAll('#cashflowTableBody tr');
-
-      rows.forEach(row => {
-        const rowType = row.getAttribute('data-type');
-        if (type === 'all' || rowType === type) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
-      });
-    }
-
-    function setQuickDate(preset) {
-      const startInput = document.getElementById('startDate');
-      const endInput = document.getElementById('endDate');
-      const today = new Date('2026-08-07');
-
-      if (preset === 'today') {
-        const todayStr = today.toISOString().split('T')[0];
-        startInput.value = todayStr;
-        endInput.value = todayStr;
-      } else if (preset === 'week') {
-        const past = new Date(today);
-        past.setDate(today.getDate() - 6);
-        startInput.value = past.toISOString().split('T')[0];
-        endInput.value = today.toISOString().split('T')[0];
-      } else if (preset === 'month') {
-        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-        startInput.value = firstDay.toISOString().split('T')[0];
-        endInput.value = today.toISOString().split('T')[0];
-      }
-
-      applyDateFilter();
-    }
-
     function calculateFinancialStats() {
       const startDateVal = document.getElementById('startDate').value;
       const endDateVal = document.getElementById('endDate').value;
-
       const startDate = startDateVal ? new Date(startDateVal + "T00:00:00") : null;
       const endDate = endDateVal ? new Date(endDateVal + "T23:59:59") : null;
 
       const rows = document.querySelectorAll('#cashflowTableBody tr');
-
       let totalIncomeFiltered = 0;
-      let totalExpenseFiltered = 0;
-
-      let dailyRevenueMap = {};
-      let monthlyRevenueMap = {};
-      let yearlyRevenueMap = {};
-      let storeRevenueMap = {};
       let totalAllStoreMap = {};
 
       rows.forEach(row => {
@@ -1924,76 +1352,18 @@
         const storeName = row.getAttribute('data-store') || 'Lainnya';
 
         if (!rowDateStr) return;
-
         if (rowType === 'pemasukan' && storeName !== '-') {
           totalAllStoreMap[storeName] = (totalAllStoreMap[storeName] || 0) + amount;
         }
 
         const rowDate = new Date(rowDateStr + "T00:00:00");
-        const isWithinRange = (!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate);
-        
-        if (isWithinRange) {
-          if (rowType === 'pemasukan') {
-            totalIncomeFiltered += amount;
-            if (storeName !== '-') {
-              storeRevenueMap[storeName] = (storeRevenueMap[storeName] || 0) + amount;
-            }
-          } else if (rowType === 'pengeluaran') {
-            totalExpenseFiltered += amount;
-          }
-
-          if (rowType === 'pemasukan') {
-            dailyRevenueMap[rowDateStr] = (dailyRevenueMap[rowDateStr] || 0) + amount;
-            const monthKey = rowDateStr.substring(0, 7);
-            monthlyRevenueMap[monthKey] = (monthlyRevenueMap[monthKey] || 0) + amount;
-            const yearKey = rowDateStr.substring(0, 4);
-            yearlyRevenueMap[yearKey] = (yearlyRevenueMap[yearKey] || 0) + amount;
-          }
+        if ((!startDate || rowDate >= startDate) && (!endDate || rowDate <= endDate)) {
+          if (rowType === 'pemasukan') totalIncomeFiltered += amount;
         }
       });
 
-      let latestDailyRev = 0;
-      if (endDateVal && dailyRevenueMap[endDateVal]) {
-        latestDailyRev = dailyRevenueMap[endDateVal];
-      } else {
-        const sortedDays = Object.keys(dailyRevenueMap).sort().reverse();
-        latestDailyRev = sortedDays.length > 0 ? dailyRevenueMap[sortedDays[0]] : 0;
-      }
-
-      let monthlyRev = 0;
-      const monthKeyTarget = endDateVal ? endDateVal.substring(0, 7) : '';
-      if (monthKeyTarget && monthlyRevenueMap[monthKeyTarget]) {
-        monthlyRev = monthlyRevenueMap[monthKeyTarget];
-      } else {
-        const sortedMonths = Object.keys(monthlyRevenueMap).sort().reverse();
-        monthlyRev = sortedMonths.length > 0 ? monthlyRevenueMap[sortedMonths[0]] : 0;
-      }
-
-      let yearlyRev = 0;
-      const yearKeyTarget = endDateVal ? endDateVal.substring(0, 4) : '';
-      if (yearKeyTarget && yearlyRevenueMap[yearKeyTarget]) {
-        yearlyRev = yearlyRevenueMap[yearKeyTarget];
-      } else {
-        const sortedYears = Object.keys(yearlyRevenueMap).sort().reverse();
-        yearlyRev = sortedYears.length > 0 ? yearlyRevenueMap[sortedYears[0]] : 0;
-      }
-
-      document.getElementById('valDailyRevenue').innerText = 'Rp ' + latestDailyRev.toLocaleString('id-ID');
-      document.getElementById('valMonthlyRevenue').innerText = 'Rp ' + monthlyRev.toLocaleString('id-ID');
-      document.getElementById('valYearlyRevenue').innerText = 'Rp ' + yearlyRev.toLocaleString('id-ID');
-
-      document.getElementById('valTotalIncome').innerText = 'Rp ' + totalIncomeFiltered.toLocaleString('id-ID');
-      document.getElementById('valTotalExpense').innerText = 'Rp ' + totalExpenseFiltered.toLocaleString('id-ID');
-
-      const netProfit = totalIncomeFiltered - totalExpenseFiltered;
-      document.getElementById('valNetProfit').innerText = 'Rp ' + netProfit.toLocaleString('id-ID');
-      document.getElementById('valNetProfit').style.color = netProfit >= 0 ? '#16a34a' : '#ef4444';
-
-      renderTopStores(storeRevenueMap, totalIncomeFiltered, 'topStoreRankingBody');
-      
-      let totalAllIncome = 0;
-      for (let s in totalAllStoreMap) { totalAllIncome += totalAllStoreMap[s]; }
-      renderTopStores(totalAllStoreMap, totalAllIncome, 'homeTopStoreRankingBody');
+      renderTopStores(totalAllStoreMap, totalIncomeFiltered, 'topStoreRankingBody');
+      renderTopStores(totalAllStoreMap, totalIncomeFiltered, 'homeTopStoreRankingBody');
     }
 
     function renderTopStores(storeMap, totalIncome, targetBodyId) {
@@ -2001,44 +1371,27 @@
       if (!rankingBody) return;
       rankingBody.innerHTML = '';
 
-      let sortedStores = [];
-      for (let store in storeMap) {
-        sortedStores.push({ name: store, amount: storeMap[store] });
-      }
-
-      sortedStores.sort((a, b) => b.amount - a.amount);
+      let sortedStores = Object.keys(storeMap).map(store => ({ name: store, amount: storeMap[store] })).sort((a, b) => b.amount - a.amount);
       const top10Stores = sortedStores.slice(0, 10);
 
       if (top10Stores.length === 0) {
-        rankingBody.innerHTML = `
-          <tr>
-            <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">
-              Tidak ada data pendanaan investor.
-            </td>
-          </tr>
-        `;
+        rankingBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Tidak ada data pendanaan investor.</td></tr>`;
         return;
       }
 
       top10Stores.forEach((item, index) => {
         const rank = index + 1;
         const percentage = totalIncome > 0 ? ((item.amount / totalIncome) * 100).toFixed(1) : 0;
-        
-        let rankBadgeClass = 'rank-other';
-        let trophyIcon = '';
-
-        if (rank === 1) { rankBadgeClass = 'rank-1'; trophyIcon = '🥇 '; }
-        else if (rank === 2) { rankBadgeClass = 'rank-2'; trophyIcon = '🥈 '; }
-        else if (rank === 3) { rankBadgeClass = 'rank-3'; trophyIcon = '🥉 '; }
+        let rankBadgeClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td style="text-align: center;"><span class="rank-badge ${rankBadgeClass}">${rank}</span></td>
-          <td><span class="store-badge" style="font-size:0.85rem;"><i class="fa-solid fa-store"></i> ${item.name}</span></td>
-          <td style="font-weight: 800; color: var(--primary);">${trophyIcon}Rp ${item.amount.toLocaleString('id-ID')}</td>
+          <td><span class="store-badge"><i class="fa-solid fa-store"></i> ${item.name}</span></td>
+          <td style="font-weight: 800; color: var(--primary);">Rp ${item.amount.toLocaleString('id-ID')}</td>
           <td><b>${percentage}%</b></td>
           <td>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">${percentage}% dari Total Pemasukan</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px;">${percentage}%</div>
             <div class="progress-bar-bg">
               <div class="progress-bar-fill" style="width: ${percentage}%;"></div>
             </div>
@@ -2049,16 +1402,8 @@
     }
 
     function applyDateFilter() {
-      const start = document.getElementById('startDate').value;
-      const end = document.getElementById('endDate').value;
       calculateFinancialStats();
-      Swal.fire({
-        title: 'Filter Diterapkan!',
-        text: `Data pendapatan & Top 10 ranking investor otomatis disesuaikan untuk periode ${start} s/d ${end}`,
-        icon: 'success',
-        timer: 1800,
-        showConfirmButton: false
-      });
+      Swal.fire({ title: 'Filter Diterapkan!', icon: 'success', timer: 1500, showConfirmButton: false });
     }
 
     function addCashflowModal() {
@@ -2066,91 +1411,63 @@
         title: 'Catat Arus Kas Baru',
         html: `
           <div style="text-align: left; font-size:0.9rem;">
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Tanggal Transaksi:</label>
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Tanggal:</label>
             <input type="date" id="cfDate" class="form-control" value="2026-08-07" style="margin-bottom:12px;">
-
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Jenis Transaksi:</label>
-            <select id="cfType" class="form-control" style="margin-bottom:12px;" onchange="toggleStoreInput(this.value)">
-              <option value="pemasukan">🟢 Pemasukan (Income)</option>
-              <option value="pengeluaran">🔴 Pengeluaran (Expense)</option>
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Jenis:</label>
+            <select id="cfType" class="form-control" style="margin-bottom:12px;">
+              <option value="pemasukan">🟢 Pemasukan</option>
+              <option value="pengeluaran">🔴 Pengeluaran</option>
             </select>
-
-            <div id="storeInputContainer" style="margin-bottom:12px;">
-              <label style="font-weight:700; margin-bottom: 5px; display:block;">Nama Investor / Partner:</label>
-              <input type="text" id="cfStore" class="form-control" placeholder="Contoh: PT. Ventura Digital Nusantara">
-            </div>
-
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Kategori Transaksi:</label>
-            <input type="text" id="cfCategory" class="form-control" placeholder="Contoh: Pendanaan / Restock / Operasional" style="margin-bottom:12px;">
-
-            <label style="font-weight:700; margin-bottom: 5px; display:block;">Keterangan / Detail:</label>
-            <input type="text" id="cfDesc" class="form-control" placeholder="Detail singkat transaksi..." style="margin-bottom:12px;">
-
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Nama Investor / Partner:</label>
+            <input type="text" id="cfStore" class="form-control" placeholder="PT. Ventura" style="margin-bottom:12px;">
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Kategori:</label>
+            <input type="text" id="cfCategory" class="form-control" placeholder="Pendanaan" style="margin-bottom:12px;">
+            <label style="font-weight:700; margin-bottom: 5px; display:block;">Keterangan:</label>
+            <input type="text" id="cfDesc" class="form-control" placeholder="Detail..." style="margin-bottom:12px;">
             <label style="font-weight:700; margin-bottom: 5px; display:block;">Nominal (Rp):</label>
-            <input type="number" id="cfAmount" class="form-control" placeholder="Contoh: 1500000">
+            <input type="number" id="cfAmount" class="form-control" placeholder="1000000">
           </div>
         `,
         showCancelButton: true,
-        confirmButtonText: 'Simpan Transaksi',
-        cancelButtonText: 'Batal',
-        confirmButtonColor: '#2563eb',
+        confirmButtonText: 'Simpan',
         preConfirm: () => {
-          const date = document.getElementById('cfDate').value;
-          const type = document.getElementById('cfType').value;
-          const store = document.getElementById('cfStore').value || '-';
-          const category = document.getElementById('cfCategory').value;
-          const desc = document.getElementById('cfDesc').value;
-          const amount = document.getElementById('cfAmount').value;
-
-          if (!date || !category || !desc || !amount) {
-            Swal.showValidationMessage('Semua kolom wajib diisi!');
-            return false;
-          }
-          return { date, type, store, category, desc, amount };
+          return {
+            date: document.getElementById('cfDate').value,
+            type: document.getElementById('cfType').value,
+            store: document.getElementById('cfStore').value || '-',
+            category: document.getElementById('cfCategory').value,
+            desc: document.getElementById('cfDesc').value,
+            amount: document.getElementById('cfAmount').value
+          };
         }
       }).then((res) => {
         if (res.isConfirmed) {
           const { date, type, store, category, desc, amount } = res.value;
-          const formattedAmount = parseFloat(amount).toLocaleString('id-ID');
           const tbody = document.getElementById('cashflowTableBody');
           const newRow = document.createElement('tr');
-
-          const dateObj = new Date(date + "T00:00:00");
-          const dateDisplay = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+          const isIncome = type === 'pemasukan';
 
           newRow.setAttribute('data-type', type);
           newRow.setAttribute('data-date', date);
           newRow.setAttribute('data-amount', amount);
-          newRow.setAttribute('data-store', type === 'pemasukan' ? store : '-');
-          const isIncome = type === 'pemasukan';
+          newRow.setAttribute('data-store', isIncome ? store : '-');
 
           newRow.innerHTML = `
-            <td><b>${dateDisplay}</b></td>
-            <td><span class="badge ${isIncome ? 'badge-income' : 'badge-expense'}"><i class="fa-solid ${isIncome ? 'fa-arrow-down-left' : 'fa-arrow-up-right'}"></i> ${isIncome ? 'Pemasukan' : 'Pengeluaran'}</span></td>
+            <td><b>${date}</b></td>
+            <td><span class="badge ${isIncome ? 'badge-income' : 'badge-expense'}">${isIncome ? 'Pemasukan' : 'Pengeluaran'}</span></td>
             <td>${category}</td>
             <td>${desc}</td>
-            <td style="color: ${isIncome ? 'var(--success)' : 'var(--danger)'}; font-weight:800;">${isIncome ? '+' : '-'} Rp ${formattedAmount}</td>
+            <td style="color: ${isIncome ? 'var(--success)' : 'var(--danger)'}; font-weight:800;">${isIncome ? '+' : '-'} Rp ${parseFloat(amount).toLocaleString('id-ID')}</td>
           `;
 
           tbody.insertBefore(newRow, tbody.firstChild);
           calculateFinancialStats();
-          Swal.fire('Berhasil!', 'Transaksi kas berhasil dicatat & ranking investor diperbarui.', 'success');
+          Swal.fire('Berhasil!', 'Transaksi berhasil dicatat.', 'success');
         }
       });
     }
 
-    function toggleStoreInput(val) {
-      const container = document.getElementById('storeInputContainer');
-      if (val === 'pengeluaran') {
-        container.style.display = 'none';
-      } else {
-        container.style.display = 'block';
-      }
-    }
-
-    // Chart Inisialisasi
-    const ctxGrowth = document.getElementById('growthChart').getContext('2d');
-    new Chart(ctxGrowth, {
+    new Chart(document.getElementById('growthChart').getContext('2d'), {
       type: 'bar',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
@@ -2159,8 +1476,7 @@
       options: { responsive: true, maintainAspectRatio: false }
     });
 
-    const ctxSales = document.getElementById('salesChart').getContext('2d');
-    new Chart(ctxSales, {
+    new Chart(document.getElementById('salesChart').getContext('2d'), {
       type: 'line',
       data: {
         labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
@@ -2169,9 +1485,7 @@
       options: { responsive: true, maintainAspectRatio: false }
     });
 
-    // Inisialisasi awal & simpan sinkronisasi awal
     calculateTotalStock();
-    updateReportStats();
     calculateFinancialStats();
   </script>
 </body>
