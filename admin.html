@@ -97,7 +97,6 @@
       font-weight: 700;
     }
 
-    /* Tombol Logout Khusus */
     .btn-logout {
       background: #fee2e2;
       color: var(--danger);
@@ -152,13 +151,11 @@
       color: var(--primary);
     }
 
-    /* Layout Container */
     .container {
       padding: 2rem 5%;
       flex: 1;
     }
 
-    /* Tab Content Switcher */
     .tab-content {
       display: none;
     }
@@ -173,7 +170,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards & Form Styling */
     .section-card {
       background: var(--card-bg);
       padding: 1.8rem;
@@ -239,7 +235,6 @@
       font-weight: 800;
     }
 
-    /* Form Controls & Search Bar */
     .form-group {
       margin-bottom: 1.2rem;
     }
@@ -290,27 +285,6 @@
       border-radius: var(--radius-md);
       background: #f8fafc;
       font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      outline: none;
-      cursor: pointer;
-    }
-
-    /* Custom Date Filter Styling */
-    .date-picker-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #f8fafc;
-      padding: 6px 12px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: var(--radius-md);
-    }
-
-    .date-picker-group input[type="date"] {
-      border: none;
-      background: transparent;
-      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-dark);
       outline: none;
@@ -376,7 +350,6 @@
       color: #fff;
     }
 
-    /* Product Thumbnail Image */
     .product-img {
       width: 48px;
       height: 48px;
@@ -391,25 +364,6 @@
       gap: 12px;
     }
 
-    /* Store Badge Styling */
-    .store-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #f1f5f9;
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .store-badge i {
-      color: var(--primary);
-    }
-
-    /* Buttons & Tables */
     .btn-primary {
       width: 100%;
       padding: 0.85rem;
@@ -462,23 +416,6 @@
       color: #fff;
     }
 
-    .btn-reply {
-      background: #e0e7ff;
-      color: #4338ca;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.8rem;
-      transition: var(--transition);
-    }
-
-    .btn-reply:hover {
-      background: #4338ca;
-      color: #fff;
-    }
-
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -517,50 +454,6 @@
     .badge-online { background: #dcfce7; color: #15803d; }
     .badge-category { background: #eff6ff; color: #2563eb; }
 
-    /* Badge Finance Types */
-    .badge-income { background: #dcfce7; color: #15803d; }
-    .badge-expense { background: #fee2e2; color: #b91c1c; }
-
-    /* Badge Status Laporan */
-    .badge-pending { background: #fef3c7; color: #b45309; }
-    .badge-process { background: #e0f2fe; color: #0369a1; }
-    .badge-resolved { background: #dcfce7; color: #15803d; }
-
-    /* Priority Badges */
-    .badge-high { background: #fee2e2; color: #b91c1c; }
-    .badge-medium { background: #ffedd5; color: #c2410c; }
-    .badge-low { background: #f1f5f9; color: #475569; }
-
-    /* Customer Info Box */
-    .customer-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .customer-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #e2e8f0;
-      color: var(--text-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-    }
-    .report-message {
-      max-width: 260px;
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      line-height: 1.4;
-      background: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 10px;
-      border-left: 3px solid var(--primary);
-    }
-
-    /* Modal Edit Popup */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -592,48 +485,6 @@
     .modal-overlay.active .modal-card {
       transform: translateY(0);
     }
-
-    /* Finance Box Definition */
-    .info-box-finance {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      padding: 1rem 1.2rem;
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-    }
-
-    /* Top Ranking Store Badges & Bars */
-    .rank-badge {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-    }
-    .rank-1 { background: #fef08a; color: #854d0e; }
-    .rank-2 { background: #e2e8f0; color: #475569; }
-    .rank-3 { background: #ffedd5; color: #9a3412; }
-    .rank-other { background: #f1f5f9; color: #64748b; }
-
-    .progress-bar-bg {
-      background: #e2e8f0;
-      height: 8px;
-      border-radius: 4px;
-      overflow: hidden;
-      width: 100%;
-      margin-top: 4px;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--primary-gradient);
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body>
@@ -651,7 +502,6 @@
           <div style="font-size: 0.7rem; color: #16a34a; font-weight: 700;">● Online</div>
         </div>
       </div>
-      <!-- Tombol Logout Menggunakan Tag <a> dengan href ke index.html -->
       <a href="index.html" class="btn-logout">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </a>
@@ -678,36 +528,9 @@
     
     <!-- MENU 1: HOME -->
     <div id="home" class="tab-content active">
-      <!-- Quick Metric Overview Cards -->
-      <div class="stats-grid" style="margin-bottom: 1.5rem;">
-        <div class="card-stat" style="border-left: 4px solid var(--primary);">
-          <h3>Total Kunjungan Hari Ini</h3>
-          <div class="value" style="color: var(--primary);">1,428 Pengunjung</div>
-        </div>
-        <div class="card-stat" style="border-left: 4px solid var(--success);">
-          <h3>Transaksi Sukses</h3>
-          <div class="value" style="color: var(--success);">42 Pesanan</div>
-        </div>
-        <div class="card-stat" style="border-left: 4px solid var(--purple);">
-          <h3>Konversi Penjualan</h3>
-          <div class="value" style="color: var(--purple);">3.4%</div>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <div class="section-header">
-          <h3><i class="fa-solid fa-chart-line"></i> Grafik Pengembangan Perusahaan</h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Tahun 2026</span>
-        </div>
-        <div style="position: relative; height: 320px; width: 100%;">
-          <canvas id="growthChart"></canvas>
-        </div>
-      </div>
-
       <div class="section-card">
         <div class="section-header">
           <h3><i class="fa-solid fa-users"></i> Customer Online (Real-Time)</h3>
-          <span style="font-size: 0.85rem; color: var(--success); font-weight: 700;" id="totalOnlineCount">● 8 Pengunjung Aktif</span>
         </div>
         <div class="table-container">
           <table>
@@ -719,92 +542,20 @@
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody id="homeOnlineCustomerTable">
+            <tbody>
               <tr>
                 <td>Ahmad Ridwan</td>
                 <td>Keranjang Belanja</td>
                 <td>2 Menit lalu</td>
                 <td><span class="badge badge-online">● Online</span></td>
               </tr>
-              <tr>
-                <td>Siti Nurhaliza</td>
-                <td>Halaman Produk (iPhone 15 Pro)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Budi Santoso</td>
-                <td>Checkout Pembayaran</td>
-                <td>5 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Dewi Lestari</td>
-                <td>Kategori Elektronik</td>
-                <td>1 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Fajar Nugraha</td>
-                <td>Detail Produk (Laptop Gaming)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Rina Melati</td>
-                <td>Ulasan Pelanggan</td>
-                <td>4 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Eko Prasetyo</td>
-                <td>Lacak Pengiriman</td>
-                <td>3 Menit lalu</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-              <tr>
-                <td>Maya Puspita</td>
-                <td>Halaman Utama (Home)</td>
-                <td>Baru saja</td>
-                <td><span class="badge badge-online">● Online</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TOP 10 RANKING INVESTOR (HOME) -->
-      <div class="section-card">
-        <div class="section-header">
-          <h3>
-            <i class="fa-solid fa-trophy" style="color: var(--warning);"></i> 
-            Top 10 Ranking Investor Penyumbang Pendanaan Hilstore
-          </h3>
-          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
-            Akumulasi Keseluruhan
-          </span>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 70px; text-align: center;">Peringkat</th>
-                <th>Nama Investor / Partner</th>
-                <th>Total Kontribusi Pendanaan</th>
-                <th>Persentase</th>
-                <th style="width: 25%;">Visualisasi Kontribusi</th>
-              </tr>
-            </thead>
-            <tbody id="homeTopStoreRankingBody">
-              <!-- Auto-generated via JS -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- MENU 2: INPUT BARANG & RIWAYAT INPUT -->
+    <!-- MENU 2: INPUT BARANG -->
     <div id="inputBarang" class="tab-content">
       <div class="section-card" style="max-width: 700px; margin: 0 auto 2rem auto;">
         <div class="section-header">
@@ -821,7 +572,6 @@
             <input type="file" id="prodImgFile" accept="image/*" class="form-control" required style="cursor: pointer;">
           </div>
 
-          <!-- Custom Dropdown -->
           <div class="form-group">
             <label>Kategori</label>
             <input type="hidden" id="prodCategory" value="Elektronik">
@@ -860,11 +610,10 @@
         </form>
       </div>
 
-      <!-- TABEL RIWAYAT BARANG YANG BARU DI-INPUT (DENGAN FITUR EDIT) -->
-      <div class="section-card" style="max-width: 900px; margin: 0 auto 2rem auto;">
+      <!-- RIWAYAT INPUT -->
+      <div class="section-card" style="max-width: 900px; margin: 0 auto;">
         <div class="section-header">
           <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Barang yang Baru Di-input</h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Sesi Saat Ini</span>
         </div>
         <div class="table-container">
           <table>
@@ -888,41 +637,6 @@
           </table>
         </div>
       </div>
-
-      <!-- TABEL TOP 10 BARANG YANG SERING DI-INPUT -->
-      <div class="section-card" style="max-width: 900px; margin: 0 auto;">
-        <div class="section-header">
-          <h3><i class="fa-solid fa-ranking-star" style="color: var(--warning);"></i> Top 10 Barang yang Sering Di-input</h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Akumulasi Sesi & Sistem</span>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 70px; text-align: center;">Peringkat</th>
-                <th>Produk</th>
-                <th>Kategori</th>
-                <th>Frekuensi Input</th>
-              </tr>
-            </thead>
-            <tbody id="topInputProductsBody">
-              <!-- Item Statis Top Input -->
-              <tr>
-                <td><span class="rank-badge rank-1">1</span></td>
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=150" alt="Foto" class="product-img">
-                    <span style="font-weight: 700;">iPhone 15 Pro Max 256GB</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Elektronik</span></td>
-                <td><b>14x</b> Input</td>
-              </tr>
-              <!-- (Item lainnya tetap dipertahankan) -->
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
 
     <!-- MENU 3: VIEW BARANG -->
@@ -930,7 +644,7 @@
       <div class="stats-grid">
         <div class="card-stat">
           <h3>Total Jenis Barang</h3>
-          <div class="value" id="totalTypesCount" style="color: var(--primary);">10 Jenis</div>
+          <div class="value" id="totalTypesCount" style="color: var(--primary);">0 Jenis</div>
         </div>
         <div class="card-stat">
           <h3>Total Stok Keseluruhan</h3>
@@ -941,15 +655,13 @@
       <div class="section-card">
         <div class="section-header">
           <h3><i class="fa-solid fa-boxes-stacked"></i> View Barang</h3>
-          
           <div class="filter-controls">
             <select id="categoryFilter" class="category-filter-select" onchange="filterProducts()">
-              <option value="all"> Semua Kategori</option>
+              <option value="all">Semua Kategori</option>
               <option value="Elektronik">💻 Elektronik</option>
               <option value="Aksesori">🎧 Aksesori</option>
               <option value="Limited Edition">👑 Limited Edition</option>
             </select>
-
             <div class="search-box">
               <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Cari nama barang..." class="form-control">
@@ -969,78 +681,7 @@
               </tr>
             </thead>
             <tbody id="productTableBody">
-              <!-- Baris ini akan diganti oleh data dari LocalStorage jika ada -->
-              <tr data-price="24999000" data-img="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150">
-                <td>
-                  <div class="product-info-cell">
-                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=150" alt="Foto" class="product-img">
-                    <span class="prod-title" style="font-weight: 700;">Watch Ultra Gold Edition</span>
-                  </div>
-                </td>
-                <td><span class="badge badge-category">Limited Edition</span></td>
-                <td><b class="stock-num">12</b> Item</td>
-                <td>Rp 24.999.000</td>
-                <td>
-                  <div class="action-btn-group">
-                    <button class="btn-edit" onclick="openEditModal(this)"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                    <button class="btn-delete" onclick="deleteProduct(this)"><i class="fa-solid fa-trash"></i> Hapus</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- LAPORAN & FEEDBACK -->
-      <div class="section-card">
-        <div class="section-header">
-          <h3><i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i> Laporan & Kendala Barang dari Customer</h3>
-          <div class="filter-controls">
-            <select id="reportStatusFilter" class="category-filter-select" onchange="filterReports()">
-              <option value="all">Semua Status Laporan</option>
-              <option value="Pending">⏳ Menunggu Respon</option>
-              <option value="Diproses">🔄 Sedang Diproses</option>
-              <option value="Selesai">✅ Selesai</option>
-            </select>
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" id="reportSearchInput" onkeyup="filterReports()" placeholder="Cari laporan..." class="form-control">
-            </div>
-          </div>
-        </div>
-
-        <div class="stats-grid" style="margin-bottom: 1.2rem;">
-          <div class="card-stat" style="border-left: 4px solid var(--warning);">
-            <h3>Laporan Baru</h3>
-            <div class="value" id="countPendingReport" style="color: var(--warning);">2 Kendala</div>
-          </div>
-          <div class="card-stat" style="border-left: 4px solid var(--primary);">
-            <h3>Sedang Diproses</h3>
-            <div class="value" id="countProcessReport" style="color: var(--primary);">1 Kendala</div>
-          </div>
-          <div class="card-stat" style="border-left: 4px solid var(--success);">
-            <h3>Tuntas Ditangani</h3>
-            <div class="value" id="countResolvedReport" style="color: var(--success);">2 Kendala</div>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Customer</th>
-                <th>Toko Penjual</th>
-                <th>Barang Dilaporkan</th>
-                <th>Jenis Kendala</th>
-                <th>Pesan / Detail Laporan</th>
-                <th>Prioritas</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="reportTableBody">
-              <!-- (Data laporan tetap dipertahankan) -->
+              <!-- Data akan di-load secara dinamis dari LocalStorage -->
             </tbody>
           </table>
         </div>
@@ -1049,12 +690,15 @@
 
     <!-- MENU 4: LAPORAN KEUANGAN -->
     <div id="laporanKeuangan" class="tab-content">
-      <!-- (Bagian Laporan Keuangan tetap seperti semula) -->
+      <div class="section-card">
+        <h3>Laporan Keuangan</h3>
+        <p style="color: var(--text-muted);">Bagaimana performa keuangan Hilstore saat ini.</p>
+      </div>
     </div>
 
   </div>
 
-  <!-- MODAL EDIT DATA BARANG -->
+  <!-- MODAL EDIT -->
   <div class="modal-overlay" id="editModal">
     <div class="modal-card">
       <div class="section-header" style="margin-bottom: 1rem;">
@@ -1093,10 +737,10 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIKA -->
+  <!-- SCRIPT LOGIKA PERBAIKAN -->
   <script>
     let activeRow = null;
-    let activeHistoryRow = null; // Untuk melacak baris riwayat yang sedang diedit
+    let activeHistoryRow = null;
     let inputHistoryCount = 0;
 
     function switchTab(tabId) {
@@ -1156,7 +800,7 @@
       document.getElementById('totalStockCount').innerText = totalStock + ' Item';
     }
 
-    // SIMPAN KE LOCALSTORAGE AGAR BISA DIAKSES OLEH index.html
+    // Sinkronisasi data ke LocalStorage
     function syncProductsToLocalStorage() {
       const rows = document.querySelectorAll('#productTableBody tr');
       const productsArray = [];
@@ -1174,19 +818,15 @@
       localStorage.setItem('hilstore_admin_products', JSON.stringify(productsArray));
     }
 
-    // Fungsi Baru: Memuat data dari LocalStorage saat halaman pertama kali dibuka
+    // Memuat data dari LocalStorage saat halaman dimuat
     function loadProductsFromLocalStorage() {
       const storedProducts = localStorage.getItem('hilstore_admin_products');
       const tbody = document.getElementById('productTableBody');
 
-      // Jika ada data tersimpan di LocalStorage
-      if (storedProducts && JSON.parse(storedProducts).length > 0) {
+      if (storedProducts) {
         const productsArray = JSON.parse(storedProducts);
-        
-        // Kosongkan tabel default bawaan HTML
         tbody.innerHTML = '';
         
-        // Looping data dari LocalStorage dan buat baris tabel
         productsArray.forEach(prod => {
           const newRow = document.createElement('tr');
           newRow.setAttribute('data-price', prod.price);
@@ -1213,13 +853,11 @@
           `;
           tbody.appendChild(newRow);
         });
-      } else {
-        // Jika LocalStorage kosong, simpan data default bawaan HTML ke penyimpanan
-        syncProductsToLocalStorage();
       }
+      calculateTotalStock();
     }
 
-    // Submit Input Barang Baru
+    // Proses Submit Input Barang Baru
     document.getElementById('addProductForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -1268,18 +906,16 @@
 
       tbody.insertBefore(newRow, tbody.firstChild);
 
-      // Tambahkan ke Riwayat Sesi Ini dengan Tombol Edit Khusus Riwayat
       addInputHistoryRow(name, img, category, stock, rawPrice, formattedPrice, newRow);
 
       document.getElementById('addProductForm').reset();
       calculateTotalStock();
       filterProducts();
-      syncProductsToLocalStorage(); // Sinkronisasi otomatis ke halaman customer
+      syncProductsToLocalStorage();
 
-      Swal.fire({ title: 'Berhasil!', text: `Barang "${name}" berhasil ditambahkan dan disinkronkan ke toko!`, icon: 'success' });
+      Swal.fire({ title: 'Berhasil!', text: `Barang "${name}" berhasil ditambahkan!`, icon: 'success' });
     }
 
-    // Tambah Riwayat Input Barang Baru + Fitur Edit di Riwayat
     function addInputHistoryRow(name, img, category, stock, rawPrice, formattedPrice, mainProductRow) {
       const historyTbody = document.getElementById('inputHistoryTableBody');
       
@@ -1292,7 +928,6 @@
       const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' WIB';
 
       const tr = document.createElement('tr');
-      // Hubungkan baris riwayat dengan baris produk utama menggunakan atribut
       tr.innerHTML = `
         <td><span style="font-size:0.8rem; font-weight:700; color:var(--primary);"><i class="fa-solid fa-clock"></i> ${timeString}</span></td>
         <td>
@@ -1309,28 +944,8 @@
         </td>
       `;
 
-      // Simpan referensi baris produk utama di elemen riwayat
       tr._mainRow = mainProductRow;
       historyTbody.insertBefore(tr, historyTbody.firstChild);
-    }
-
-    // Fungsi Khusus Edit dari Tabel Riwayat Input jika ada Typo
-    function openHistoryEditModal(btn) {
-      activeHistoryRow = btn.closest('tr');
-      activeRow = activeHistoryRow._mainRow; // Ambil baris utama yang terhubung
-
-      const name = activeHistoryRow.querySelector('.history-title').innerText;
-      const category = activeHistoryRow.querySelector('.history-cat').innerText;
-      const stock = activeHistoryRow.querySelector('.history-stock').innerText;
-      const rawPrice = activeRow.getAttribute('data-price');
-
-      document.getElementById('editName').value = name;
-      document.getElementById('editImgFile').value = '';
-      document.getElementById('editCategory').value = category;
-      document.getElementById('editStock').value = stock;
-      document.getElementById('editPrice').value = rawPrice;
-
-      document.getElementById('editModal').classList.add('active');
     }
 
     function openEditModal(btn) {
@@ -1379,7 +994,6 @@
     });
 
     function updateProductData(name, img, category, stock, rawPrice, formattedPrice) {
-      // Update tabel utama (View Barang)
       activeRow.setAttribute('data-price', rawPrice);
       activeRow.setAttribute('data-img', img);
       activeRow.querySelector('.prod-title').innerText = name;
@@ -1388,19 +1002,10 @@
       activeRow.querySelector('.stock-num').innerText = stock;
       activeRow.cells[3].innerText = 'Rp ' + formattedPrice;
 
-      // Jika diedit melalui tabel riwayat, update juga tampilan di tabel riwayat
-      if (activeHistoryRow) {
-        activeHistoryRow.querySelector('.history-title').innerText = name;
-        activeHistoryRow.querySelector('.history-img').src = img;
-        activeHistoryRow.querySelector('.history-cat').innerText = category;
-        activeHistoryRow.querySelector('.history-stock').innerText = stock;
-        activeHistoryRow.querySelector('.history-price').innerText = 'Rp ' + formattedPrice;
-      }
-
       closeEditModal();
       calculateTotalStock();
       filterProducts();
-      syncProductsToLocalStorage(); // Perbarui sinkronisasi
+      syncProductsToLocalStorage();
 
       Swal.fire({ title: 'Diperbarui!', text: 'Perubahan berhasil disimpan.', icon: 'success' });
     }
@@ -1424,10 +1029,8 @@
       });
     }
 
-    // INISIALISASI AWAL (YANG DIPERBAIKI)
-    loadProductsFromLocalStorage(); // Memuat data asli dari Storage jika ada
-    calculateTotalStock();
-    // syncProductsToLocalStorage() dihapus dari baris ini agar tidak melakukan overwrite ke data lama
+    // Load data otomatis saat pertama kali dibuka
+    loadProductsFromLocalStorage();
   </script>
 </body>
 </html>
