@@ -1937,9 +1937,41 @@ footer {
     }
   ];
 
+  // ================= SINKRONISASI PRODUK DARI ADMIN =================
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedProducts = localStorage.getItem('hilstore_products');
+    
+    if (savedProducts) {
+      try {
+        const adminProducts = JSON.parse(savedProducts);
+        
+        if (Array.isArray(adminProducts) && adminProducts.length > 0) {
+          const formattedAdminProducts = adminProducts.map((item, index) => ({
+            id: 999 + index,
+            name: item.title,
+            price: parseInt(item.price) || 0,
+            originalPrice: (parseInt(item.price) || 0) * 1.2,
+            category: item.category ? item.category.toLowerCase() : 'elektronik',
+            badge: 'new',
+            img: item.img || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80',
+            rating: '5.0 (Baru)',
+            desc: item.desc || 'Produk terbaru berkualitas tinggi yang diinput langsung dari dashboard admin.'
+          }));
+
+          // Masukkan ke urutan paling depan array
+          productsData.unshift(...formattedAdminProducts);
+        }
+      } catch (e) {
+        console.error("Gagal memuat produk dari admin:", e);
+      }
+    }
+
+    renderHomeSlider();
+  });
+
   // STATE APLIKASI
   let cart = [];
-  let ordersList = []; // Array untuk menyimpan riwayat pesan/pesanan masuk
+  let ordersList = []; 
   let currentSelectedProduct = null;
   let selectedCategory = 'all';
   let checkoutItems = [];
@@ -2279,14 +2311,10 @@ footer {
   function handleCheckoutSubmit(e) {
     e.preventDefault();
     
-    // Ambil nama penerima dari form
     const buyerNameInput = document.getElementById('checkoutBuyerName').value;
     const buyerName = buyerNameInput ? buyerNameInput : "Pelanggan Setia";
-    
-    // Generate nomor resi acak & status awal pengantaran
     const trackingNo = "HILS-" + Math.floor(100000 + Math.random() * 900000);
     
-    // Masukkan tiap barang ke daftar pesanan (order message)
     checkoutItems.forEach(item => {
       ordersList.unshift({
         id: Date.now() + Math.random(),
@@ -2302,18 +2330,14 @@ footer {
     });
 
     updateOrderBadge();
-
     closeCheckoutModalDirect();
     
-    // Tampilkan Modal Sukses
     const successModal = document.getElementById('successModal');
     successModal.classList.add('active');
 
-    // Kosongkan keranjang
     cart = [];
     updateCartBadge();
 
-    // Hilang Otomatis Setelah 2 Detik (2000 ms)
     setTimeout(() => {
       successModal.classList.remove('active');
     }, 2000);
@@ -2497,9 +2521,6 @@ footer {
     });
     slider.scrollTo({ left: 0, behavior: 'smooth' });
   }
-
-  // INISIALISASI
-  renderHomeSlider();
 </script>
 
 </body>
