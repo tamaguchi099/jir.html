@@ -980,6 +980,93 @@ header {
   border: 1px solid #e2e8f0;
 }
 
+/* ================= STYLES MENU PESAN POP-UP (BARU) ================= */
+.order-modal-card {
+  background: white;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  position: relative;
+}
+
+.order-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.order-card-body {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.order-item-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #fff;
+}
+
+.order-info-group {
+  flex: 1;
+}
+
+.order-info-group h4 {
+  font-size: 15px;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.order-info-group p {
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-proses { background: #fef3c7; color: #d97706; }
+.status-dikirim { background: #eff6ff; color: #2563eb; }
+.status-selesai { background: #ecfdf5; color: #10b981; }
+
 /* ================= TOAST NOTIFICATION STYLES ================= */
 .toast-container {
   position: fixed;
@@ -1334,6 +1421,12 @@ footer {
     <a id="nav-home" class="nav-active" onclick="switchPage('home')">Home</a>
     <a id="nav-category" onclick="switchPage('category')">Kategori</a>
     
+    <!-- MENU PESAN (POP-UP) - Ditempatkan di Samping Menu Kategori -->
+    <a id="nav-orders" onclick="openOrdersModal()">
+      <i class="fa-solid fa-envelope-open-text" style="color: var(--primary);"></i> Pesan 
+      <span class="cart-badge" id="orderBadgeCount" style="display:none;">0</span>
+    </a>
+    
     <a class="cart-btn" onclick="openCartModal()" title="Keranjang Belanja">
       <i class="fa-solid fa-cart-shopping"></i>
       <span class="cart-badge" id="cartBadgeCount">0</span>
@@ -1521,8 +1614,8 @@ footer {
 
     <form class="checkout-form" onsubmit="handleCheckoutSubmit(event)">
       <div class="form-group">
-        <label>Nama Lengkap Pembeli</label>
-        <input type="text" required placeholder="Masukkan nama lengkap">
+        <label>Nama Lengkap Pembeli / Penerima</label>
+        <input type="text" id="checkoutBuyerName" required placeholder="Masukkan nama lengkap penerima">
       </div>
       <div class="form-group">
         <label>Nomor WhatsApp / HP</label>
@@ -1545,6 +1638,20 @@ footer {
         <i class="fa-solid fa-check-circle"></i> Konfirmasi Pesanan Sekarang
       </button>
     </form>
+  </div>
+</div>
+
+<!-- ================= MODAL MENU PESAN / STATUS PENGANTARAN (BARU) ================= -->
+<div class="modal-overlay" id="ordersModal" onclick="closeOrdersModal(event)">
+  <div class="order-modal-card" onclick="event.stopPropagation()">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-envelope-open-text" style="color: var(--primary);"></i> Daftar Pesanan & Pengantaran</h3>
+      <button class="modal-close-btn" style="position: static;" onclick="closeOrdersModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="order-body" id="ordersItemsContainer">
+      <!-- Diisi secara dinamis oleh JS -->
+    </div>
   </div>
 </div>
 
@@ -1648,7 +1755,7 @@ footer {
   </div>
 </footer>
 
-<!-- JAVASCRIPT UNTUK INTERAKSI, SYSTEM KERANJANG & FITUR BELI -->
+<!-- JAVASCRIPT UNTUK INTERAKSI, SYSTEM KERANJANG & FITUR PESAN -->
 <script>
   // DATA MASTER PRODUK
   const productsData = [
@@ -1830,8 +1937,9 @@ footer {
     }
   ];
 
-  // STATE KERANJANG BELANJA
+  // STATE APLIKASI
   let cart = [];
+  let ordersList = []; // Array untuk menyimpan riwayat pesan/pesanan masuk
   let currentSelectedProduct = null;
   let selectedCategory = 'all';
   let checkoutItems = [];
@@ -1865,7 +1973,6 @@ footer {
     const input = document.getElementById('searchInput');
     searchQuery = input.value.trim().toLowerCase();
     
-    // Alihkan ke Halaman Kategori untuk Menampilkan Hasil
     switchPage('category');
     
     const titleEl = document.getElementById('categoryPageTitle');
@@ -2168,9 +2275,34 @@ footer {
     document.getElementById('checkoutModal').classList.remove('active');
   }
 
-  /* HANDLER CHECKOUT SUBMIT & POP-UP HILANG 2 DETIK */
+  /* HANDLER CHECKOUT SUBMIT & PENAMBAHAN KE MENU PESAN */
   function handleCheckoutSubmit(e) {
     e.preventDefault();
+    
+    // Ambil nama penerima dari form
+    const buyerNameInput = document.getElementById('checkoutBuyerName').value;
+    const buyerName = buyerNameInput ? buyerNameInput : "Pelanggan Setia";
+    
+    // Generate nomor resi acak & status awal pengantaran
+    const trackingNo = "HILS-" + Math.floor(100000 + Math.random() * 900000);
+    
+    // Masukkan tiap barang ke daftar pesanan (order message)
+    checkoutItems.forEach(item => {
+      ordersList.unshift({
+        id: Date.now() + Math.random(),
+        productName: item.name,
+        productImg: item.img,
+        qty: item.qty,
+        receiverName: buyerName,
+        trackingNumber: trackingNo,
+        status: "Sedang Dikemas / Diproses",
+        statusClass: "status-proses",
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+      });
+    });
+
+    updateOrderBadge();
+
     closeCheckoutModalDirect();
     
     // Tampilkan Modal Sukses
@@ -2187,12 +2319,74 @@ footer {
     }, 2000);
   }
 
+  /* ================= FUNGSI MENU PESAN (POP-UP) ================= */
+  function openOrdersModal() {
+    renderOrdersUI();
+    document.getElementById('ordersModal').classList.add('active');
+  }
+
+  function closeOrdersModal(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+      closeOrdersModalDirect();
+    }
+  }
+
+  function closeOrdersModalDirect() {
+    document.getElementById('ordersModal').classList.remove('active');
+  }
+
+  function updateOrderBadge() {
+    const badge = document.getElementById('orderBadgeCount');
+    if (ordersList.length > 0) {
+      badge.textContent = ordersList.length;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  function renderOrdersUI() {
+    const container = document.getElementById('ordersItemsContainer');
+
+    if (ordersList.length === 0) {
+      container.innerHTML = `
+        <div class="cart-empty">
+          <i class="fa-solid fa-box-archive"></i>
+          <p>Belum ada riwayat pesan atau pengantaran barang.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = ordersList.map(order => `
+      <div class="order-card-item">
+        <div class="order-card-header">
+          <span>Resi: <strong>${order.trackingNumber}</strong></span>
+          <span>${order.date}</span>
+        </div>
+        <div class="order-card-body">
+          <img src="${order.productImg}" alt="${order.productName}" class="order-item-img">
+          <div class="order-info-group">
+            <h4>${order.productName} (x${order.qty})</h4>
+            <p><i class="fa-solid fa-user" style="color: var(--primary);"></i> Penerima: <strong>${order.receiverName}</strong></p>
+            <div style="margin-top: 8px;">
+              <span class="status-badge ${order.statusClass}">
+                <i class="fa-solid fa-truck-fast"></i> ${order.status}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
   // EVENT ESCAPE TO CLOSE MODAL
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeProductModalDirect();
       closeCartModalDirect();
       closeCheckoutModalDirect();
+      closeOrdersModalDirect();
     }
   });
 
